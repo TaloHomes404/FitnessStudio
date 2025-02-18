@@ -1,28 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace FitnessStudio.MVVM.View
 {
-    /// <summary>
-    /// Logika interakcji dla klasy RegisterScreen.xaml
-    /// </summary>
     public partial class RegisterScreen : UserControl
     {
         public RegisterScreen()
         {
             InitializeComponent();
+        }
+
+        private void SignUpButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Używamy FindResource do pobrania storyboardu
+            Storyboard sb = (Storyboard)this.FindResource("SlideTransition");
+            sb.Begin();
         }
     }
 }

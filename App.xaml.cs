@@ -19,7 +19,7 @@ namespace FitnessStudio
             // Symulacja ładowania (np. inicjalizacja danych)
             //TODO (async funkcje w tle patrzące czy użytkownik jest już zalogowany (kiedyś)
 
-            await Task.Delay(3000);
+            await Task.Delay(100);
 
             // Otwieramy główne okno aplikacji
             var mainWindow = new MainWindow();

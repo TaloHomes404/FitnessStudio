@@ -2,14 +2,22 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-        Title="Fitness Studio" 
+        xmlns:ViewModel="clr-namespace:FitnessStudio.MVVM.ViewModel"
+        xmlns:View="clr-namespace:FitnessStudio.MVVM.View"
         WindowStyle="None" 
         ResizeMode="NoResize"
         Width="1280" 
         Height="720"
         WindowStartupLocation="CenterScreen"
-        GlowBrush="{DynamicResource AccentColorBrush}"
-        BorderThickness="1">
+        AllowsTransparency="True"
+        Foreground="Transparent">
 
+
+    <Controls:MetroWindow.DataContext>
+        <ViewModel:MainViewModel/>
+    </Controls:MetroWindow.DataContext>
+
+    <!-- Kontener, który będzie wyświetlał aktualny widok -->
+    <ContentControl Content="{Binding CurrentView}" />
 
 </Controls:MetroWindow>

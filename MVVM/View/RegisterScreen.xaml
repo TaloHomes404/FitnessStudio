@@ -1,12 +1,106 @@
 ﻿<UserControl x:Class="FitnessStudio.MVVM.View.RegisterScreen"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:FitnessStudio.MVVM.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             Width="1280" Height="720">
+    <!-- Zasoby (Storyboard do przesuwania i rozmywania) -->
+    <UserControl.Resources>
+        <Storyboard x:Key="SlideTransition">
+            <!-- Przesuwamy kontener z X=0 do X=-640 -->
+            <DoubleAnimation Storyboard.TargetName="MainTranslateTransform"
+                             Storyboard.TargetProperty="X"
+                             To="-640"
+                             Duration="0:0:0.5" />
+            <!-- Rozmycie panelu rejestracji (Sign Up) -->
+            <DoubleAnimation Storyboard.TargetName="SignUpBlur"
+                             Storyboard.TargetProperty="Radius"
+                             To="5"
+                             Duration="0:0:0.5" />
+        </Storyboard>
+    </UserControl.Resources>
+
+    <!-- 
+        Szeroki kontener o szerokości 2560 px (2x1280).
+        Cały UserControl ma Width=1280, więc początkowo widzimy tylko lewą połowę.
+    -->
+    <Grid x:Name="RootGrid" Width="2560" Height="720">
+        <!-- Przesuwamy ten szeroki kontener w poziomie -->
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="MainTranslateTransform" X="0" Y="0"/>
+        </Grid.RenderTransform>
+
+        <!-- Dzielimy kontener 2560 px na 2 kolumny po 1280 px -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1280"/>
+            <ColumnDefinition Width="1280"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- LEWY PANEL (Sign Up) -->
+        <Grid x:Name="SignUpPanel" Grid.Column="0" Background="#F5F5F5">
+            <Grid.Effect>
+                <BlurEffect x:Name="SignUpBlur" Radius="0"/>
+            </Grid.Effect>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="400">
+                <TextBlock Text="Sign Up" 
+                           FontSize="36" 
+                           FontWeight="Bold" 
+                           Foreground="Black" 
+                           TextAlignment="Center"/>
+                <TextBlock Margin="0,20,0,0"
+                           Text="Start your journey by signing up with your details, or log in if you’re returning to your existing account."
+                           FontSize="16" 
+                           Foreground="Black" 
+                           TextAlignment="Center" 
+                           TextWrapping="Wrap"/>
+                <Button x:Name="SignUpButton"
+                        Content="Sign Up"
+                        Margin="0,30,0,0"
+                        Background="White"
+                        Foreground="Black"
+                        FontSize="16"
+                        Padding="10"
+                        BorderThickness="0"
+                        Click="SignUpButton_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- PRAWY PANEL (Sign In) -->
+        <Grid x:Name="SignInPanel" Grid.Column="1" Background="#1C1C1C">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="400">
+                <TextBlock Text="Sign in to App" 
+                           FontSize="36" 
+                           FontWeight="Bold" 
+                           Foreground="White" 
+                           TextAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Center" 
+                            Margin="0,20,0,0">
+                    <Image Source="Images/GoogleLogo.png" Width="40" Height="40" Margin="5"/>
+                    <Image Source="Images/FacebookLogo.png" Width="40" Height="40" Margin="5"/>
+                </StackPanel>
+                <TextBlock Margin="0,20,0,0"
+                           Text="or use your account credentials" 
+                           FontSize="16" 
+                           Foreground="White" 
+                           TextAlignment="Center"/>
+                <TextBox x:Name="EmailTextBox"
+                         Margin="0,20,0,0"
+                         Height="30"
+                         FontSize="16"
+                         Controls:TextBoxHelper.Watermark="E-mail"/>
+                <PasswordBox x:Name="PasswordBox"
+                             Margin="0,10,0,0"
+                             Height="30"
+                             FontSize="16"/>
+                <Button x:Name="SignInButton"
+                        Content="Sign In"
+                        Margin="0,20,0,0"
+                        Background="White"
+                        Foreground="Black"
+                        FontSize="16"
+                        Padding="10"
+                        BorderThickness="0"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
