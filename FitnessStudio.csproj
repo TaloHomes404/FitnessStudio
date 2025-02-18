@@ -8,4 +8,19 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
+    <PackageReference Include="MahApps.Metro.SimpleChildWindow" Version="2.2.1" />
+    <PackageReference Include="MaterialDesignColors" Version="5.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Fonts\" />
+    <Folder Include="ComponentStyle\" />
+    <Folder Include="MVVM\Model\" />
+    <Folder Include="Themes\" />
+  </ItemGroup>
+
 </Project>
