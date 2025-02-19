@@ -6,39 +6,45 @@ namespace FitnessStudio.MVVM.ViewModel
 {
     public partial class MainViewModel : ObservableObject
     {
-        private object? currentView;
-        public object CurrentView
-        {
-            get => currentView!;  //zmienic to potem jak bedzie pewnosc
-            set => SetProperty(ref currentView, value);
-        }
+        [ObservableProperty]
+        private object _currentView;
 
         public MainViewModel()
         {
-            // Ustawiamy domyślny widok – RegisterScreen
+            CurrentView = new SplashScreen();
+            _ = InitializeApplicationAsync();
+        }
+
+        [RelayCommand]
+        public async Task InitializeApplicationAsync()
+        {
+            await Task.Delay(2500);
             CurrentView = new RegisterScreen();
         }
 
 
         [RelayCommand]
+        public void NavigateToHome()
+        {
+            CurrentView = new HomeScreen();
+        }
+
+        [RelayCommand]
+        public void NavigateToRegister()
+        {
+            CurrentView = new RegisterScreen();
+        }
+
+        [RelayCommand]
         public void ChangeView(string viewName)
         {
-            switch (viewName)
+            CurrentView = viewName switch
             {
-                case "Home":
-                    CurrentView = new HomeScreen();
-                    break;
-                case "Register":
-                    CurrentView = new RegisterScreen();
-                    break;
-                case "Splash":
-                    CurrentView = new SplashScreen();
-                    break;
-                // Dodaj kolejne przypadki dla innych widoków
-                default:
-                    throw new System.ArgumentException("Nieznany widok");
-            }
-
+                "Home" => new HomeScreen(),
+                "Register" => new RegisterScreen(),
+                "Splash" => new SplashScreen(),
+                _ => throw new System.ArgumentException("Nieznany widok")
+            };
         }
     }
 }

@@ -5,9 +5,6 @@
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              Width="1280" Height="720" Background="#F5F5F5">
 
-    <UserControl.DataContext>
-        <viewModel:MainViewModel/>
-    </UserControl.DataContext>
     
     <!-- 🎬 Animacja przesunięcia i rozmycia -->
     <UserControl.Resources>
@@ -72,8 +69,7 @@
                              Height="30" FontSize="16"/>
                 <Button x:Name="SignInButton"
                         Content="Sign In"
-                        Command="{Binding ChangeViewCommand}"
-                        CommandParameter="Home"
+                        Command="{Binding NavigateToHomeCommand}"
                         Margin="0,20,0,0"
                         Background="White"
                         Foreground="Black"
@@ -113,6 +109,7 @@
                              Controls:TextBoxHelper.Watermark="Confirm Password"/>
                 <Button x:Name="CreateAccountButton"
                         Content="Create Account"
+                        Command="{Binding NavigateToHomeCommand}"
                         Margin="0,20,0,0"
                         Background="White"
                         Foreground="Black"
@@ -141,6 +138,8 @@
                            FontSize="16" Foreground="Black" TextAlignment="Center" TextWrapping="Wrap"/>
                 <Button x:Name="SignUpButton"
                         Content="Sign Up"
+                        Command="{Binding ChangeView}"
+                        CommandParameter="Home"
                         Margin="0,30,0,0"
                         Background="White"
                         Foreground="Black"

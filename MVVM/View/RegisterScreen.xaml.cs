@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
-using FitnessStudio.MVVM.ViewModel;
 
 namespace FitnessStudio.MVVM.View
 {
@@ -11,7 +10,7 @@ namespace FitnessStudio.MVVM.View
         public RegisterScreen()
         {
             InitializeComponent();
-            DataContext = new RegisterViewModel();
+
         }
 
         private void SignUpButton_Click(object sender, RoutedEventArgs e)

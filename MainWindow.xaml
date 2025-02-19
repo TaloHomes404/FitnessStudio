@@ -18,6 +18,8 @@
     </Controls:MetroWindow.DataContext>
 
     <!-- Kontener, który będzie wyświetlał aktualny widok -->
-    <ContentControl Content="{Binding CurrentView}" />
+    <Grid>
+        <ContentControl Content="{Binding CurrentView}"/>
+    </Grid>
 
 </Controls:MetroWindow>
