@@ -44,7 +44,6 @@ namespace FitnessStudio.MVVM.View
 
             sb.Begin();
 
-
             // Przywróć widoczność panelu logowania
             SignInFormPanel.Visibility = Visibility.Visible;
             SignUpFormPanel.Visibility = Visibility.Collapsed;

@@ -18,8 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Fonts\" />
-    <Folder Include="ComponentStyle\" />
-    <Folder Include="MVVM\Model\" />
     <Folder Include="Themes\" />
   </ItemGroup>
 
