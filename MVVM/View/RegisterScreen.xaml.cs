@@ -18,6 +18,7 @@ namespace FitnessStudio.MVVM.View
         {
             // Używamy FindResource do pobrania storyboardu
             Storyboard sb = (Storyboard)this.FindResource("SlideTransition");
+            SetAnimValues(sb);
             sb.Begin();
         }
 
@@ -39,22 +40,50 @@ namespace FitnessStudio.MVVM.View
         {
             // Używamy FindResource do pobrania storyboardu
             Storyboard sb = (Storyboard)this.FindResource("SlideTransition");
-            sb.AutoReverse = true;
+            RestartAnimToDefault(sb);
 
+            sb.Begin();
 
-
-            // Wyłącz rozmycie
-            SignUpBlur.Radius = 0;
 
             // Przywróć widoczność panelu logowania
             SignInFormPanel.Visibility = Visibility.Visible;
             SignUpFormPanel.Visibility = Visibility.Collapsed;
 
-            // Przywróć panele na środek
-            SignUpTranslateTransform.X = 0;
-            SignInTranslateTransform.X = 0;
 
-            sb.Begin();
+        }
+
+
+
+
+        //Helper methods
+        private static void RestartAnimToDefault(Storyboard sb)
+        {
+            var signUpAnimation = sb.Children[0] as DoubleAnimation; // Animacja przesunięcia białego panelu
+            var signInAnimation = sb.Children[1] as DoubleAnimation; // Animacja przesunięcia czarnego panelu
+            var blurAnimation = sb.Children[2] as DoubleAnimation;   // Animacja rozmycia
+
+            if (signUpAnimation != null && signInAnimation != null && blurAnimation != null)
+            {
+
+                signUpAnimation.To = 0; // Przywróć biały panel na środek
+                signInAnimation.To = 0;  // Przywróć czarny panel na środek
+                blurAnimation.To = 0;    // Wyłącz rozmycie
+            }
+        }
+
+        private static void SetAnimValues(Storyboard sb)
+        {
+            var signUpAnimation = sb.Children[0] as DoubleAnimation; // Animacja przesunięcia białego panelu
+            var signInAnimation = sb.Children[1] as DoubleAnimation; // Animacja przesunięcia czarnego panelu
+            var blurAnimation = sb.Children[2] as DoubleAnimation;   // Animacja rozmycia
+
+            if (signUpAnimation != null && signInAnimation != null && blurAnimation != null)
+            {
+                // Zmień wartości To na 0 dla wszystkich animacji
+                signUpAnimation.To = -320; // Wartość dla którego biały panel przesunie się do lewej
+                signInAnimation.To = 320;  // Wartość dla którego czarny panel przesunie się do prawej
+                blurAnimation.To = 3;    // Włącz rozmycie
+            }
         }
     }
 }
