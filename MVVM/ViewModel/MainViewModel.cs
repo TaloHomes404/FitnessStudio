@@ -5,7 +5,7 @@ namespace FitnessStudio.MVVM.ViewModel
 {
     public class MainViewModel : ObservableObject
     {
-        private object currentView;
+        private object? currentView;
         public object CurrentView
         {
             get => currentView;
