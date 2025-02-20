@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using FitnessStudio.MVVM.ViewModel;
 
 namespace FitnessStudio.MVVM.View
 {
@@ -10,6 +11,7 @@ namespace FitnessStudio.MVVM.View
         public HomeScreen()
         {
             InitializeComponent();
+            this.DataContext = new HomeViewModel();
         }
     }
 }

@@ -8,6 +8,15 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\google_icon.png" />
+    <None Remove="Resources\home_icon.png" />
+    <None Remove="Resources\logo.png" />
+    <None Remove="Resources\tools_icon.png" />
+    <None Remove="Resources\water_intake_icon.png" />
+    <None Remove="Resources\workout_log_icon.png" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
@@ -18,7 +27,17 @@
 
   <ItemGroup>
     <Folder Include="Fonts\" />
+    <Folder Include="MVVM\Model\" />
     <Folder Include="Themes\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\google_icon.png" />
+    <Resource Include="Resources\home_icon.png" />
+    <Resource Include="Resources\logo.png" />
+    <Resource Include="Resources\tools_icon.png" />
+    <Resource Include="Resources\water_intake_icon.png" />
+    <Resource Include="Resources\workout_log_icon.png" />
   </ItemGroup>
 
 </Project>
