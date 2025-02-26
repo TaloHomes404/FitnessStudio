@@ -1,5 +1,4 @@
-﻿using FitnessStudio.MVVM.ViewModel;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
 
 namespace FitnessStudio
 {
@@ -11,7 +10,6 @@ namespace FitnessStudio
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
     }
 }
