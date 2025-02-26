@@ -19,12 +19,19 @@
             <DataTemplate DataType="{x:Type contentViewModel:WorkoutLogContentViewModel}">
                 <contentView:WorkoutLogContent />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type contentViewModel:ToolsContentViewModel}">
+                <contentView:ToolsContent />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type contentViewModel:WaterIntakeContentViewModel}">
+                <contentView:WaterIntakeContent />
+            </DataTemplate>
 
             <!-- DataTemplate, który wykorzystuje styl SidePanelButtonStyle -->
             <DataTemplate x:Key="SidePanelItemTemplate">
                 <Button Style="{StaticResource SidePanelButtonStyle}"
                         Padding="8"
-                        HorizontalContentAlignment="Left">
+                        HorizontalContentAlignment="Left"
+                        Command="{Binding Command}">
                     <StackPanel Orientation="Horizontal">
                         <!-- Ikona - poprawione ładowanie obrazu -->
                         <Image Source="{Binding IconPath}" Width="24" Height="24" Margin="0,0,10,0"/>
@@ -88,7 +95,7 @@
             <!-- Główna sekcja (pod paskiem) -->
             <Border Grid.Row="1" Background="#F5F5F5">
                 <!-- Tutaj wstaw treści "głównej" części okna -->
-                <ContentControl Grid.Row="1" Content="{Binding HomeMainContent}" />
+                <ContentControl Grid.Row="1" Content="{Binding CurrentMainContent}" />
             </Border>
         </Grid>
 

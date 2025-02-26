@@ -13,13 +13,16 @@ namespace FitnessStudio.MVVM.ViewModel
         private object _currentMainContent;
         public object CurrentMainContent
         {
-            get { return _currentMainContent; }
-            set { _currentMainContent = value; OnPropertyChanged(nameof(CurrentMainContent)); }
+            get => _currentMainContent;
+            set => SetProperty(ref _currentMainContent, value);
         }
 
         //Navigation commands init
         public ICommand NavigateToHomeCommand { get; private set; }
         public ICommand NavigateToWorkoutLogCommand { get; private set; }
+
+        public ICommand NavigateToToolsCommand { get; private set; }
+        public ICommand NavigateToWaterIntakeCommand { get; private set; }
 
         public ObservableCollection<SidePanelItem> SidePanelItems { get; set; }
 
@@ -32,6 +35,8 @@ namespace FitnessStudio.MVVM.ViewModel
             //init for commands to change home page content
             NavigateToHomeCommand = new RelayCommand(NavigateToHome);
             NavigateToWorkoutLogCommand = new RelayCommand(NavigateToWorkoutLog);
+            NavigateToToolsCommand = new RelayCommand(NavigateToTools);
+            NavigateToWaterIntakeCommand = new RelayCommand(NavigateToWaterIntake);
 
 
 
@@ -39,19 +44,23 @@ namespace FitnessStudio.MVVM.ViewModel
             {
                 new SidePanelItem {
                     IconPath = new Uri("/FitnessStudio;component/Resources/home_icon.png", UriKind.Relative),
-                    Text = "Home"
+                    Text = "Home",
+                    Command = NavigateToHomeCommand
                 },
                 new SidePanelItem {
                     IconPath = new Uri("/FitnessStudio;component/Resources/tools_icon.png", UriKind.Relative),
-                    Text = "Tools"
+                    Text = "Tools",
+                    Command = NavigateToToolsCommand
                 },
                 new SidePanelItem {
                     IconPath = new Uri("/FitnessStudio;component/Resources/workout_log_icon.png", UriKind.Relative),
-                    Text = "Workout \nLog"
+                    Text = "Workout \nLog",
+                    Command = NavigateToWorkoutLogCommand
                 },
                 new SidePanelItem {
                     IconPath = new Uri("/FitnessStudio;component/Resources/water_intake_icon.png", UriKind.Relative),
-                    Text = "Water \nIntake"
+                    Text = "Water \nIntake",
+                    Command = NavigateToWaterIntakeCommand
                 }
             };
         }
@@ -74,12 +83,23 @@ namespace FitnessStudio.MVVM.ViewModel
             CurrentMainContent = new WorkoutLogContentViewModel();
         }
 
-    }
+        private void NavigateToWaterIntake()
+        {
+            CurrentMainContent = new WaterIntakeContentViewModel();
+        }
+
+        private void NavigateToTools()
+        {
+            CurrentMainContent = new ToolsContentViewModel();
+        }
 
 
-    public class SidePanelItem
-    {
-        public Uri? IconPath { get; set; }
-        public string? Text { get; set; }
+        public class SidePanelItem
+        {
+            public Uri? IconPath { get; set; }
+            public string? Text { get; set; }
+            public ICommand? Command { get; set; }
+        }
     }
 }
+

@@ -4,14 +4,14 @@ using FitnessStudio.MVVM.ViewModel.HomeContents;
 namespace FitnessStudio.MVVM.View.HomeContents
 {
     /// <summary>
-    /// Logika interakcji dla klasy WorkoutLogContent.xaml
+    /// Logika interakcji dla klasy WaterIntakeContent.xaml
     /// </summary>
-    public partial class WorkoutLogContent : UserControl
+    public partial class WaterIntakeContent : UserControl
     {
-        public WorkoutLogContent()
+        public WaterIntakeContent()
         {
             InitializeComponent();
-            DataContext = new WorkoutLogContentViewModel();
+            DataContext = new WaterIntakeContentViewModel();
         }
     }
 }
