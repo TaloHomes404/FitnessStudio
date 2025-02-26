@@ -1,12 +1,25 @@
-﻿<Window x:Class="FitnessStudio.MainWindow"
+﻿<Controls:MetroWindow x:Class="FitnessStudio.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FitnessStudio"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:ViewModel="clr-namespace:FitnessStudio.MVVM.ViewModel"
+        xmlns:View="clr-namespace:FitnessStudio.MVVM.View"
+        WindowStyle="None" 
+        ResizeMode="NoResize"
+        Width="1280" 
+        Height="720"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Foreground="Transparent">
 
+
+    <Controls:MetroWindow.DataContext>
+        <ViewModel:MainViewModel/>
+    </Controls:MetroWindow.DataContext>
+
+    <!-- Kontener, który będzie wyświetlał aktualny widok -->
+    <Grid>
+        <ContentControl Content="{Binding CurrentView}"/>
     </Grid>
-</Window>
+
+</Controls:MetroWindow>
