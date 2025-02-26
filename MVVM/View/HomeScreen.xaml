@@ -17,8 +17,8 @@
                         Padding="8"
                         HorizontalContentAlignment="Left">
                     <StackPanel Orientation="Horizontal">
-                        <!-- Ikona -->
-                        <Image Source="{Binding Icon}" Width="24" Height="24" Margin="0,0,10,0"/>
+                        <!-- Ikona - poprawione ładowanie obrazu -->
+                        <Image Source="{Binding IconPath}" Width="24" Height="24" Margin="0,0,10,0"/>
                         <!-- Tekst -->
                         <TextBlock Text="{Binding Text}" 
                                    FontSize="14" 
@@ -30,13 +30,6 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <!-- 
-        Grid, który wypełnia całe UserControl.
-        Trzy kolumny:
-        - Lewa (200px)
-        - Środkowa (*)
-        - Prawa (280px)
-    -->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -53,14 +46,14 @@
                 Grid.Column="0">
 
             <StackPanel HorizontalAlignment="Center">
-                <!-- Logo -->
-                <Image Source="Resources/logo.png" 
-                       Width="40" 
-                       Height="40" 
+                <!-- Logo - poprawione ładowanie -->
+                <Image Source="/FitnessStudio;component/Resources/logo.png" 
+                       Width="150" 
+                       Height="60" 
                        Margin="0,10,0,10"/>
 
                 <!-- Divider -->
-                <Separator Background="#D1D1D1" Height="1" Margin="5,10"/>
+                <Separator Background="#D1D1D1" Height="2" Margin="5,10"/>
 
                 <!-- Przyciski (bindowane z ViewModelu) -->
                 <ItemsControl ItemsSource="{Binding SidePanelItems}" 
@@ -78,7 +71,7 @@
             <!-- Pasek górny -->
             <Border Grid.Row="0" Background="#FF3F3F46">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
-                    <Image Source="." Width="32" Height="32" Margin="0,0,10,0"/>
+                    <Image Source="/FitnessStudio;component/Resources/search_icon.png" Width="20" Height="20" Margin="0,0,10,0"/>
                     <TextBlock Text="Search..." VerticalAlignment="Center" Foreground="White"/>
                 </StackPanel>
             </Border>
