@@ -33,7 +33,7 @@
                         HorizontalContentAlignment="Left"
                         Command="{Binding Command}">
                     <StackPanel Orientation="Horizontal">
-                        <!-- Ikona - poprawione ładowanie obrazu -->
+                        <!-- Ikona -->
                         <Image Source="{Binding IconPath}" Width="24" Height="24" Margin="0,0,10,0"/>
                         <!-- Tekst -->
                         <TextBlock Text="{Binding Text}" 
@@ -42,6 +42,45 @@
                                    VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
+            </DataTemplate>
+
+            <!-- Styl dla nagłówka kategorii -->
+            <Style x:Key="CategoryHeaderStyle" TargetType="Border">
+                <Setter Property="Background" Value="#EAEAEA"/>
+                <Setter Property="CornerRadius" Value="5,5,0,0"/>
+                <Setter Property="Padding" Value="8,5"/>
+            </Style>
+
+            <!-- Styl dla kontenera przycisków -->
+            <Style x:Key="CategoryContentStyle" TargetType="Border">
+                <Setter Property="Background" Value="#F5F5F5"/>
+                <Setter Property="CornerRadius" Value="0,0,5,5"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="#D1D1D1"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Margin" Value="0,0,0,15"/>
+            </Style>
+
+            <!-- DataTemplate dla kategorii -->
+            <DataTemplate x:Key="CategoryTemplate">
+                <StackPanel>
+                    <!-- Nagłówek kategorii -->
+                    <Border Style="{StaticResource CategoryHeaderStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding CategoryIcon}" Width="20" Height="20" Margin="0,0,8,0"/>
+                            <TextBlock Text="{Binding CategoryName}" 
+                                      FontWeight="Bold" 
+                                      FontSize="14"
+                                      VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Kontener z przyciskami -->
+                    <Border Style="{StaticResource CategoryContentStyle}">
+                        <ItemsControl ItemsSource="{Binding Items}" 
+                                     ItemTemplate="{StaticResource SidePanelItemTemplate}"/>
+                    </Border>
+                </StackPanel>
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -59,10 +98,11 @@
                 BorderThickness="2"
                 BorderBrush="#D1D1D1"
                 Padding="10"
-                Grid.Column="0">
+                Grid.Column="0"
+                Width="200">
 
-            <StackPanel HorizontalAlignment="Center">
-                <!-- Logo - poprawione ładowanie -->
+            <StackPanel>
+                <!-- Logo -->
                 <Image Source="/FitnessStudio;component/Resources/logo.png" 
                        Width="150" 
                        Height="60" 
@@ -71,9 +111,9 @@
                 <!-- Divider -->
                 <Separator Background="#D1D1D1" Height="2" Margin="5,10"/>
 
-                <!-- Przyciski (bindowane z ViewModelu) -->
-                <ItemsControl ItemsSource="{Binding SidePanelItems}" 
-                             ItemTemplate="{StaticResource SidePanelItemTemplate}"/>
+                <!-- Kategorie z przyciskami -->
+                <ItemsControl ItemsSource="{Binding SidebarCategories}" 
+                             ItemTemplate="{StaticResource CategoryTemplate}"/>
             </StackPanel>
         </Border>
 

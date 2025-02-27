@@ -24,7 +24,12 @@ namespace FitnessStudio.MVVM.ViewModel
         public ICommand NavigateToToolsCommand { get; private set; }
         public ICommand NavigateToWaterIntakeCommand { get; private set; }
 
+
+        //Sidebar items collection
         public ObservableCollection<SidePanelItem> SidePanelItems { get; set; }
+
+        //Sidebar categories collection
+        public ObservableCollection<SidebarCategory> SidebarCategories { get; set; }
 
         public HomeViewModel()
         {
@@ -40,27 +45,56 @@ namespace FitnessStudio.MVVM.ViewModel
 
 
 
-            SidePanelItems = new ObservableCollection<SidePanelItem>
+            SidebarCategories = new ObservableCollection<SidebarCategory>
             {
-                new SidePanelItem {
-                    IconPath = new Uri("/FitnessStudio;component/Resources/home_icon.png", UriKind.Relative),
-                    Text = "Home",
-                    Command = NavigateToHomeCommand
+                // Kategoria "Dashboard"
+                new SidebarCategory
+                {
+                    CategoryName = "Dashboard",
+                    CategoryIcon = new Uri("/FitnessStudio;component/Resources/dashboard_icon.png", UriKind.Relative),
+                    Items = new ObservableCollection<SidePanelItem>
+                    {
+                        new SidePanelItem {
+                            IconPath = new Uri("/FitnessStudio;component/Resources/home_icon.png", UriKind.Relative),
+                            Text = "Home",
+                            Command = NavigateToHomeCommand
+                        }
+                    }
                 },
-                new SidePanelItem {
-                    IconPath = new Uri("/FitnessStudio;component/Resources/tools_icon.png", UriKind.Relative),
-                    Text = "Tools",
-                    Command = NavigateToToolsCommand
+                
+                // Kategoria "Physical Health"
+                new SidebarCategory
+                {
+                    CategoryName = "Physical Health",
+                    CategoryIcon = new Uri("/FitnessStudio;component/Resources/workout_log_icon.png", UriKind.Relative),
+                    Items = new ObservableCollection<SidePanelItem>
+                    {
+                        new SidePanelItem {
+                            IconPath = new Uri("/FitnessStudio;component/Resources/workout_log_icon.png", UriKind.Relative),
+                            Text = "Workout Log",
+                            Command = NavigateToWorkoutLogCommand
+                        },
+                        new SidePanelItem {
+                            IconPath = new Uri("/FitnessStudio;component/Resources/water_intake_icon.png", UriKind.Relative),
+                            Text = "Water Intake",
+                            Command = NavigateToWaterIntakeCommand
+                        }
+                    }
                 },
-                new SidePanelItem {
-                    IconPath = new Uri("/FitnessStudio;component/Resources/workout_log_icon.png", UriKind.Relative),
-                    Text = "Workout \nLog",
-                    Command = NavigateToWorkoutLogCommand
-                },
-                new SidePanelItem {
-                    IconPath = new Uri("/FitnessStudio;component/Resources/water_intake_icon.png", UriKind.Relative),
-                    Text = "Water \nIntake",
-                    Command = NavigateToWaterIntakeCommand
+                
+                // Kategoria "Utilities"
+                new SidebarCategory
+                {
+                    CategoryName = "Utilities",
+                    CategoryIcon = new Uri("/FitnessStudio;component/Resources/tools_icon.png", UriKind.Relative),
+                    Items = new ObservableCollection<SidePanelItem>
+                    {
+                        new SidePanelItem {
+                            IconPath = new Uri("/FitnessStudio;component/Resources/tools_icon.png", UriKind.Relative),
+                            Text = "Tools",
+                            Command = NavigateToToolsCommand
+                        }
+                    }
                 }
             };
         }
@@ -94,12 +128,22 @@ namespace FitnessStudio.MVVM.ViewModel
         }
 
 
+        //Class definition for items in sidebar on home screen
         public class SidePanelItem
         {
             public Uri? IconPath { get; set; }
             public string? Text { get; set; }
             public ICommand? Command { get; set; }
         }
+
+        //Sidebar categories (mental, physical health etc)
+        public class SidebarCategory
+        {
+            public string? CategoryName { get; set; }
+            public Uri? CategoryIcon { get; set; }
+            public ObservableCollection<SidePanelItem> Items { get; set; } = new ObservableCollection<SidePanelItem>();
+        }
+
     }
 }
 
