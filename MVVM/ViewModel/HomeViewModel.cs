@@ -83,7 +83,7 @@ namespace FitnessStudio.MVVM.ViewModel
                         },
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/step_counter_icon.png", UriKind.Relative),
-                            Text = "Step Counter",
+                            Text = "Steps Counter",
                             Command = NavigateToHomeCommand
                         },
                         new SidePanelItem {

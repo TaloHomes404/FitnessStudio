@@ -111,9 +111,11 @@
                 <!-- Divider -->
                 <Separator Background="#D1D1D1" Height="2" Margin="5,10,5,5"/>
 
-                <!-- Kategorie z przyciskami -->
+                <!-- Sekcja przycisków w lewym panelu z podziałem na kategorie-->
+                <ScrollViewer VerticalScrollBarVisibility="Hidden" Height="550">
                 <ItemsControl ItemsSource="{Binding SidebarCategories}" 
-                             ItemTemplate="{StaticResource CategoryTemplate}"/>
+                             ItemTemplate="{StaticResource CategoryTemplate}" Margin="0,15,0,0"/>
+                </ScrollViewer>
             </StackPanel>
         </Border>
 
