@@ -5,9 +5,388 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FitnessStudio.MVVM.View.HomeContents"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="650" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+
+        <!-- Global Text Styles -->
+        <Style x:Key="DialogHeaderText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+        </Style>
+        <Style x:Key="DialogBodyText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#555555"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <!-- Modern TextBox with persistent border -->
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="#F8F8F8"/>
+            <Setter Property="BorderBrush" Value="#AAAAAA"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Style.Triggers>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#4CAF50"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Global Button Style -->
+        <Style x:Key="ModernButton" TargetType="Button">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                    CornerRadius="5"
+                    Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- DataGrid Cell Style -->
+        <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#D0E8FF"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- DataGrid ColumnHeader Style -->
+        <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#E0E0E0"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+
+        <!-- DataGrid TextCell Element Style with margin -->
+        <Style x:Key="ModernDataGridTextCell" TargetType="TextBlock">
+            <Setter Property="Margin" Value="5,0,5,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="RightAlignedTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ModernDataGridTextCell}">
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+
+        <!-- DatePicker Style -->
+        <Style x:Key="ModernDatePicker" TargetType="DatePicker">
+            <Setter Property="Background" Value="#F8F8F8"/>
+            <Setter Property="BorderBrush" Value="#AAAAAA"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+
+        <!-- Modern ComboBox Style with contrasting arrow and dropdown -->
+        <Style x:Key="ModernComboBox" TargetType="ComboBox">
+            <Setter Property="Background" Value="#F8F8F8"/>
+            <Setter Property="BorderBrush" Value="#AAAAAA"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton Name="ToggleButton" 
+                            Background="#F8F8F8"
+                            BorderBrush="#AAAAAA"
+                            Foreground="#333333"
+                            Focusable="false"
+                            IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                            ClickMode="Press">
+                                <ToggleButton.Template>
+                                    <ControlTemplate>
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="3">
+                                            <Grid>
+                                                <ContentPresenter Margin="4,2,25,2" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                                <Path HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0" Data="M 0 0 L 4 4 L 8 0 Z" Fill="#333333"/>
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter x:Name="ContentSite" 
+                                IsHitTestVisible="False" 
+                                Content="{TemplateBinding SelectionBoxItem}" 
+                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
+                                Margin="5,3,25,3" 
+                                VerticalAlignment="Center" 
+                                HorizontalAlignment="Left"/>
+                            <Popup Name="Popup" 
+                     Placement="Bottom"
+                     IsOpen="{TemplateBinding IsDropDownOpen}" 
+                     AllowsTransparency="True"
+                     Focusable="False" 
+                     PopupAnimation="Slide">
+                                <Border Name="DropDownBorder" 
+                        Background="#F0F0F0" 
+                        BorderBrush="#AAAAAA" 
+                        BorderThickness="1" CornerRadius="3">
+                                    <ScrollViewer Margin="4">
+                                        <StackPanel IsItemsHost="True" />
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
     <Grid>
-        <TextBlock Text="Główna zawartość Workout LOG" Foreground="Black" 
-                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Górny panel z przyciskiem dodawania -->
+        <Grid Grid.Row="0" Margin="10,20,10,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Workout Logger" FontSize="28" FontWeight="Bold" 
+                 Foreground="#333333" VerticalAlignment="Center"/>
+
+            <Button Grid.Column="1" Command="{Binding OpenAddWorkoutCommand}" 
+              Background="#4CAF50" Foreground="White" Margin="10,5" 
+              BorderThickness="0" Cursor="Hand" Padding="10,5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Add Workout Session" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="+" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <!-- Lista treningów -->
+        <ScrollViewer Grid.Row="1" Margin="10" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding WorkoutSessions}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="#E0E0E0" BorderThickness="1" Margin="0,0,0,15" 
+                    Background="#F8F8F8" CornerRadius="5" Padding="10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Nagłówek sesji treningowej -->
+                                <Grid Grid.Row="0" Background="#E8E8E8" Margin="0,0,0,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16" Foreground="#333333"/>
+                                        <TextBlock Text=" • " FontWeight="Bold" FontSize="16" Foreground="#333333"/>
+                                        <TextBlock Text="{Binding Date, StringFormat={}{0:dd.MM.yyyy}}" FontSize="14" VerticalAlignment="Center" Foreground="#555555"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                        <Button Content="Edit" Padding="5,2" 
+                            Command="{Binding DataContext.EditWorkoutCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                            CommandParameter="{Binding}"
+                            Style="{StaticResource ModernButton}"/>
+                                        <Button Content="Delete" Padding="5,2" 
+                            Command="{Binding DataContext.DeleteWorkoutCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                            CommandParameter="{Binding}"
+                            Background="#D32F2F" 
+                            Style="{StaticResource ModernButton}"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <!-- Tabela ćwiczeń -->
+                                <Grid Grid.Row="1" Margin="0,0,0,10">
+                                    <DataGrid ItemsSource="{Binding Exercises}" AutoGenerateColumns="False" 
+                            IsReadOnly="True" HeadersVisibility="Column" 
+                            BorderThickness="1" BorderBrush="#E0E0E0"
+                            GridLinesVisibility="Horizontal" Background="#FFFFFF"
+                            AlternatingRowBackground="#F5F5F5"
+                            CellStyle="{StaticResource DataGridCellStyle}"
+                            ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                            Opacity="1">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Exercise" Binding="{Binding Name}" Width="*"
+                                           ElementStyle="{StaticResource ModernDataGridTextCell}"/>
+                                            <DataGridTextColumn Header="Sets" Binding="{Binding Sets}" Width="Auto"
+                                           ElementStyle="{StaticResource ModernDataGridTextCell}"/>
+                                            <DataGridTextColumn Header="Reps" Binding="{Binding Reps}" Width="Auto"
+                                           ElementStyle="{StaticResource ModernDataGridTextCell}"/>
+                                            <DataGridTextColumn Header="Weight (kg)" Binding="{Binding Weight}" Width="Auto"
+                                           ElementStyle="{StaticResource ModernDataGridTextCell}"/>
+                                            <DataGridTextColumn Header="RPE" Binding="{Binding RPE}" Width="Auto"
+                                           ElementStyle="{StaticResource ModernDataGridTextCell}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Grid>
+
+                                <!-- Notatki -->
+                                <Grid Grid.Row="2" Margin="0,5,0,0" Visibility="{Binding HasNotes, Converter={StaticResource BoolToVis}}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="Notes:" FontWeight="SemiBold" Margin="0,0,0,5" Foreground="#333333"/>
+                                    <TextBlock Grid.Row="1" Text="{Binding Notes}" TextWrapping="Wrap" Foreground="#555555"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Okno dialogowe dodawania treningu -->
+        <Border Grid.RowSpan="2" Background="#80000000" Visibility="{Binding IsAddWorkoutDialogOpen, Converter={StaticResource BoolToVis}}">
+            <Border MaxWidth="750" MaxHeight="700" Background="#FFFFFF" CornerRadius="8" Margin="20" 
+              BorderBrush="#CCCCCC" BorderThickness="1" Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Nagłówek okna dialogowego -->
+                    <TextBlock Grid.Row="0" Text="Add Workout Session" Style="{StaticResource DialogHeaderText}"/>
+
+                    <!-- Podstawowe informacje -->
+                    <Grid Grid.Row="1" Margin="0,0,0,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                            <TextBlock Text="Workout Name" FontWeight="SemiBold" Margin="0,0,0,5" Foreground="#333333"/>
+                            <TextBox Text="{Binding NewWorkout.Name, UpdateSourceTrigger=PropertyChanged}" 
+                       Margin="5" Style="{StaticResource ModernTextBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                            <TextBlock Text="Date" FontWeight="SemiBold" Margin="0,0,0,5" Foreground="#333333"/>
+                            <DatePicker SelectedDate="{Binding NewWorkout.Date}" Margin="5" BorderBrush="#AAAAAA" Style="{StaticResource ModernDatePicker}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Lista ćwiczeń -->
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Exercises" FontWeight="SemiBold" Foreground="#333333"/>
+                            <Button Grid.Column="1" Content="Add Exercise" Command="{Binding AddExerciseCommand}"
+                      Background="#4CAF50" Foreground="White" Padding="5,3" BorderThickness="0"
+                      Style="{StaticResource ModernButton}"/>
+                        </Grid>
+
+                        <DataGrid Grid.Row="1" ItemsSource="{Binding NewWorkout.Exercises}" AutoGenerateColumns="False" 
+                      CanUserAddRows="False" BorderThickness="1" BorderBrush="#CCCCCC"
+                      Background="#FFFFFF" AlternatingRowBackground="#F5F5F5"
+                      RowBackground="White"
+                      CellStyle="{StaticResource DataGridCellStyle}"
+                      ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                      Opacity="1">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Exercise" Width="200">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="5" Foreground="#333333"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataTemplate>
+                                            <ComboBox Width="180" ItemsSource="{Binding DataContext.AvailableExercises, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                SelectedItem="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                                IsEditable="True" Margin="5" Style="{StaticResource ModernComboBox}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Sets" Binding="{Binding Sets, UpdateSourceTrigger=PropertyChanged}" Width="80"
+                                    ElementStyle="{StaticResource ModernDataGridTextCell}"/>
+                                <DataGridTextColumn Header="Reps" Binding="{Binding Reps, UpdateSourceTrigger=PropertyChanged}" Width="80"
+                                    ElementStyle="{StaticResource ModernDataGridTextCell}"/>
+                                <DataGridTextColumn Header="Weight (kg)" Binding="{Binding Weight, UpdateSourceTrigger=PropertyChanged}" Width="80"
+                                    ElementStyle="{StaticResource ModernDataGridTextCell}"/>
+                                <DataGridTextColumn Header="RPE" Binding="{Binding RPE, UpdateSourceTrigger=PropertyChanged}" Width="80"
+                                    ElementStyle="{StaticResource ModernDataGridTextCell}"/>
+                                <DataGridTemplateColumn Width="Auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="X" Foreground="White" Background="#D32F2F" Margin="5,0"
+                              Command="{Binding DataContext.RemoveExerciseCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              CommandParameter="{Binding}"
+                              Style="{StaticResource ModernButton}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+
+                    <!-- Notatki -->
+                    <StackPanel Grid.Row="3" Margin="0,15,0,15">
+                        <TextBlock Text="Notes (optional)" FontWeight="SemiBold" Margin="0,0,0,5" Foreground="#333333"/>
+                        <TextBox Text="{Binding NewWorkout.Notes, UpdateSourceTrigger=PropertyChanged}" 
+                     TextWrapping="Wrap" Height="60" AcceptsReturn="True" Margin="5"
+                     Background="#F8F8F8" BorderBrush="#AAAAAA" Padding="5" Style="{StaticResource ModernTextBox}"/>
+                    </StackPanel>
+
+                    <!-- Przyciski -->
+                    <Grid Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="1" Content="Cancel" Padding="15,5"
+                    Command="{Binding CancelAddWorkoutCommand}"
+                    Background="#D32F2F" Foreground="White" Style="{StaticResource ModernButton}"/>
+
+                        <Button Grid.Column="2" Content="Save" Padding="15,5"
+                    Background="#2196F3" Foreground="White" BorderThickness="0"
+                    Command="{Binding SaveWorkoutCommand}"
+                    Style="{StaticResource ModernButton}"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Border>
     </Grid>
 </UserControl>

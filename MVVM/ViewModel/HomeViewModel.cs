@@ -74,7 +74,7 @@ namespace FitnessStudio.MVVM.ViewModel
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/workout_log_icon.png", UriKind.Relative),
                             Text = "Workout Log",
-                            Command = NavigateToHomeCommand
+                            Command = NavigateToWorkoutLogCommand
                         },
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/progressive_overload_icon.png", UriKind.Relative),

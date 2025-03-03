@@ -113,33 +113,17 @@
 
                 <!-- Sekcja przycisków w lewym panelu z podziałem na kategorie-->
                 <ScrollViewer VerticalScrollBarVisibility="Hidden" Height="550">
-                <ItemsControl ItemsSource="{Binding SidebarCategories}" 
-                             ItemTemplate="{StaticResource CategoryTemplate}" Margin="0,15,0,0"/>
+                    <ItemsControl ItemsSource="{Binding SidebarCategories}" 
+                                  ItemTemplate="{StaticResource CategoryTemplate}" Margin="0,15,0,0"/>
                 </ScrollViewer>
             </StackPanel>
         </Border>
 
-        <!-- GÓRNY PANEL (w kolumnie 1) -->
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <!-- Pasek górny -->
-            <Border Grid.Row="0" Background="#FF3F3F46">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
-                    <Image Source="/FitnessStudio;component/Resources/search_icon.png" Width="20" Height="20" Margin="0,0,10,0"/>
-                    <TextBlock Text="Search..." VerticalAlignment="Center" Foreground="White"/>
-                </StackPanel>
-            </Border>
-
-            <!-- Główna sekcja (pod paskiem) -->
-            <Border Grid.Row="1" Background="#F5F5F5">
-                <!-- Tutaj wstaw treści "głównej" części okna -->
-                <ContentControl Grid.Row="1" Content="{Binding CurrentMainContent}" />
-            </Border>
-        </Grid>
+        <!-- GŁÓWNA SEKCJA (w kolumnie 1) -->
+        <Border Grid.Column="1" Background="#F5F5F5">
+            <!-- Tutaj wstaw treści "głównej" części okna -->
+            <ContentControl Content="{Binding CurrentMainContent}" />
+        </Border>
 
         <!-- PRAWY PANEL (w kolumnie 2) -->
         <Border Grid.Column="2" Background="#FF2D2D30">
