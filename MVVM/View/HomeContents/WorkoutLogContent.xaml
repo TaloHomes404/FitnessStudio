@@ -6,157 +6,15 @@
              xmlns:local="clr-namespace:FitnessStudio.MVVM.View.HomeContents"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="800">
+
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
-
-        <!-- Global Text Styles -->
-        <Style x:Key="DialogHeaderText" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#333333"/>
-            <Setter Property="FontSize" Value="22"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Margin" Value="0,0,0,15"/>
-        </Style>
-        <Style x:Key="DialogBodyText" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#555555"/>
-            <Setter Property="FontSize" Value="14"/>
-        </Style>
-
-        <!-- Modern TextBox with persistent border -->
-        <Style x:Key="ModernTextBox" TargetType="TextBox">
-            <Setter Property="Background" Value="#F8F8F8"/>
-            <Setter Property="BorderBrush" Value="#AAAAAA"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="Foreground" Value="#333333"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Style.Triggers>
-                <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="#4CAF50"/>
-                    <Setter Property="BorderThickness" Value="1"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- Global Button Style -->
-        <Style x:Key="ModernButton" TargetType="Button">
-            <Setter Property="Background" Value="#4CAF50"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="10,5"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                    CornerRadius="5"
-                    Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- DataGrid Cell Style -->
-        <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
-            <Setter Property="Foreground" Value="#333333"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#CCCCCC"/>
-            <Setter Property="BorderThickness" Value="0,0,0,1"/>
-            <Setter Property="Padding" Value="10,5"/>
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#D0E8FF"/>
-                    <Setter Property="Foreground" Value="Black"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- DataGrid ColumnHeader Style -->
-        <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#E0E0E0"/>
-            <Setter Property="Foreground" Value="#333333"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
-
-        <!-- DataGrid TextCell Element Style with margin -->
-        <Style x:Key="ModernDataGridTextCell" TargetType="TextBlock">
-            <Setter Property="Margin" Value="5,0,5,0"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-
-        <Style x:Key="RightAlignedTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ModernDataGridTextCell}">
-            <Setter Property="TextAlignment" Value="Right"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-        </Style>
-
-        <!-- DatePicker Style -->
-        <Style x:Key="ModernDatePicker" TargetType="DatePicker">
-            <Setter Property="Background" Value="#F8F8F8"/>
-            <Setter Property="BorderBrush" Value="#AAAAAA"/>
-            <Setter Property="Foreground" Value="#333333"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
-
-        <!-- Modern ComboBox Style with contrasting arrow and dropdown -->
-        <Style x:Key="ModernComboBox" TargetType="ComboBox">
-            <Setter Property="Background" Value="#F8F8F8"/>
-            <Setter Property="BorderBrush" Value="#AAAAAA"/>
-            <Setter Property="Foreground" Value="#333333"/>
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBox">
-                        <Grid>
-                            <ToggleButton Name="ToggleButton" 
-                            Background="#F8F8F8"
-                            BorderBrush="#AAAAAA"
-                            Foreground="#333333"
-                            Focusable="false"
-                            IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                            ClickMode="Press">
-                                <ToggleButton.Template>
-                                    <ControlTemplate>
-                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="3">
-                                            <Grid>
-                                                <ContentPresenter Margin="4,2,25,2" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                                <Path HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0" Data="M 0 0 L 4 4 L 8 0 Z" Fill="#333333"/>
-                                            </Grid>
-                                        </Border>
-                                    </ControlTemplate>
-                                </ToggleButton.Template>
-                            </ToggleButton>
-                            <ContentPresenter x:Name="ContentSite" 
-                                IsHitTestVisible="False" 
-                                Content="{TemplateBinding SelectionBoxItem}" 
-                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
-                                Margin="5,3,25,3" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Left"/>
-                            <Popup Name="Popup" 
-                     Placement="Bottom"
-                     IsOpen="{TemplateBinding IsDropDownOpen}" 
-                     AllowsTransparency="True"
-                     Focusable="False" 
-                     PopupAnimation="Slide">
-                                <Border Name="DropDownBorder" 
-                        Background="#F0F0F0" 
-                        BorderBrush="#AAAAAA" 
-                        BorderThickness="1" CornerRadius="3">
-                                    <ScrollViewer Margin="4">
-                                        <StackPanel IsItemsHost="True" />
-                                    </ScrollViewer>
-                                </Border>
-                            </Popup>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/FitnessStudio;component/ComponentStyle/WorkoutLogContentStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -327,26 +185,26 @@
                                 <DataGridTemplateColumn Header="Exercise" Width="200">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="5" Foreground="#333333"/>
+                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Foreground="#333333" Margin="8,0,0,0"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                     <DataGridTemplateColumn.CellEditingTemplate>
                                         <DataTemplate>
                                             <ComboBox Width="180" ItemsSource="{Binding DataContext.AvailableExercises, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 SelectedItem="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                                IsEditable="True" Margin="5" Style="{StaticResource ModernComboBox}"/>
+                                IsEditable="True" Style="{StaticResource ModernComboBox}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellEditingTemplate>
                                 </DataGridTemplateColumn>
-                                <DataGridTextColumn Header="Sets" Binding="{Binding Sets, UpdateSourceTrigger=PropertyChanged}" Width="80"
+                                <DataGridTextColumn Header="Sets" Binding="{Binding Sets, UpdateSourceTrigger=PropertyChanged}" Width="*"
                                     ElementStyle="{StaticResource ModernDataGridTextCell}"/>
-                                <DataGridTextColumn Header="Reps" Binding="{Binding Reps, UpdateSourceTrigger=PropertyChanged}" Width="80"
+                                <DataGridTextColumn Header="Reps" Binding="{Binding Reps, UpdateSourceTrigger=PropertyChanged}" Width="*"
                                     ElementStyle="{StaticResource ModernDataGridTextCell}"/>
-                                <DataGridTextColumn Header="Weight (kg)" Binding="{Binding Weight, UpdateSourceTrigger=PropertyChanged}" Width="80"
+                                <DataGridTextColumn Header="Weight (kg)" Binding="{Binding Weight, UpdateSourceTrigger=PropertyChanged}" Width="*"
                                     ElementStyle="{StaticResource ModernDataGridTextCell}"/>
-                                <DataGridTextColumn Header="RPE" Binding="{Binding RPE, UpdateSourceTrigger=PropertyChanged}" Width="80"
+                                <DataGridTextColumn Header="RPE" Binding="{Binding RPE, UpdateSourceTrigger=PropertyChanged}" Width="*"
                                     ElementStyle="{StaticResource ModernDataGridTextCell}"/>
-                                <DataGridTemplateColumn Width="Auto">
+                                <DataGridTemplateColumn Width="50">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button Content="X" Foreground="White" Background="#D32F2F" Margin="5,0"
