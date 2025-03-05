@@ -22,6 +22,8 @@ namespace FitnessStudio.MVVM.ViewModel
         public ICommand NavigateToToolsCommand { get; private set; }
         public ICommand NavigateToWaterIntakeCommand { get; private set; }
 
+
+
         // Kolekcja dla kategorii w sidebarze
         public ObservableCollection<SidebarCategory> SidebarCategories { get; set; }
 
@@ -149,7 +151,7 @@ namespace FitnessStudio.MVVM.ViewModel
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/water_icon.png", UriKind.Relative),
                             Text = "Water Intake",
-                            Command = NavigateToToolsCommand
+                            Command = NavigateToWaterIntakeCommand
                         },
                     }
                 },
