@@ -9,11 +9,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\big_water_bottle_icon.png" />
+    <None Remove="Resources\blue_light_icon.png" />
+    <None Remove="Resources\bmi_calculator_icon.png" />
+    <None Remove="Resources\breathing_exercises_icon.png" />
+    <None Remove="Resources\calories_calculator_icon.png" />
+    <None Remove="Resources\correct_posture_icon.png" />
+    <None Remove="Resources\cup_icon.png" />
+    <None Remove="Resources\dashboard_icon.png" />
     <None Remove="Resources\google_icon.png" />
     <None Remove="Resources\home_icon.png" />
     <None Remove="Resources\logo.png" />
+    <None Remove="Resources\meditate_icon.png" />
+    <None Remove="Resources\mental_health_icon.png" />
+    <None Remove="Resources\minus_icon.png" />
+    <None Remove="Resources\motivation_icon.png" />
+    <None Remove="Resources\mug_icon.png" />
+    <None Remove="Resources\nutrition_icon.png" />
+    <None Remove="Resources\physical_health_icon.png" />
+    <None Remove="Resources\plus_icon.png" />
+    <None Remove="Resources\profile_icon.png" />
+    <None Remove="Resources\progressive_overload_icon.png" />
+    <None Remove="Resources\recovery_icon.png" />
+    <None Remove="Resources\settings_icon.png" />
+    <None Remove="Resources\sleep_schedule_icon.png" />
+    <None Remove="Resources\step_counter_icon.png" />
+    <None Remove="Resources\stressed_icon.png" />
+    <None Remove="Resources\suplements_icon.png" />
     <None Remove="Resources\tools_icon.png" />
-    <None Remove="Resources\water_intake_icon.png" />
+    <None Remove="Resources\water_bottle_icon.png" />
+    <None Remove="Resources\water_icon.png" />
     <None Remove="Resources\workout_log_icon.png" />
   </ItemGroup>
 
@@ -27,16 +52,41 @@
 
   <ItemGroup>
     <Folder Include="Fonts\" />
-    <Folder Include="MVVM\Model\" />
     <Folder Include="Themes\" />
+    <Folder Include="Tools\" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\big_water_bottle_icon.png" />
+    <Resource Include="Resources\blue_light_icon.png" />
+    <Resource Include="Resources\bmi_calculator_icon.png" />
+    <Resource Include="Resources\breathing_exercises_icon.png" />
+    <Resource Include="Resources\calories_calculator_icon.png" />
+    <Resource Include="Resources\correct_posture_icon.png" />
+    <Resource Include="Resources\cup_icon.png" />
+    <Resource Include="Resources\dashboard_icon.png" />
     <Resource Include="Resources\google_icon.png" />
     <Resource Include="Resources\home_icon.png" />
     <Resource Include="Resources\logo.png" />
+    <Resource Include="Resources\meditate_icon.png" />
+    <Resource Include="Resources\mental_health_icon.png" />
+    <Resource Include="Resources\minus_icon.png" />
+    <Resource Include="Resources\motivation_icon.png" />
+    <Resource Include="Resources\mug_icon.png" />
+    <Resource Include="Resources\nutrition_icon.png" />
+    <Resource Include="Resources\physical_health_icon.png" />
+    <Resource Include="Resources\plus_icon.png" />
+    <Resource Include="Resources\profile_icon.png" />
+    <Resource Include="Resources\progressive_overload_icon.png" />
+    <Resource Include="Resources\recovery_icon.png" />
+    <Resource Include="Resources\settings_icon.png" />
+    <Resource Include="Resources\sleep_schedule_icon.png" />
+    <Resource Include="Resources\step_counter_icon.png" />
+    <Resource Include="Resources\stressed_icon.png" />
+    <Resource Include="Resources\suplements_icon.png" />
     <Resource Include="Resources\tools_icon.png" />
-    <Resource Include="Resources\water_intake_icon.png" />
+    <Resource Include="Resources\water_bottle_icon.png" />
+    <Resource Include="Resources\water_icon.png" />
     <Resource Include="Resources\workout_log_icon.png" />
   </ItemGroup>
 

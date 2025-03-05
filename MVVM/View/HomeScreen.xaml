@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:contentViewModel="clr-namespace:FitnessStudio.MVVM.ViewModel.HomeContents"
              xmlns:contentView="clr-namespace:FitnessStudio.MVVM.View.HomeContents"
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              Width="1280" Height="720">
 
     <UserControl.Resources>
@@ -19,14 +18,21 @@
             <DataTemplate DataType="{x:Type contentViewModel:WorkoutLogContentViewModel}">
                 <contentView:WorkoutLogContent />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type contentViewModel:ToolsContentViewModel}">
+                <contentView:ToolsContent />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type contentViewModel:WaterIntakeContentViewModel}">
+                <contentView:WaterIntakeContent />
+            </DataTemplate>
 
             <!-- DataTemplate, który wykorzystuje styl SidePanelButtonStyle -->
             <DataTemplate x:Key="SidePanelItemTemplate">
                 <Button Style="{StaticResource SidePanelButtonStyle}"
                         Padding="8"
-                        HorizontalContentAlignment="Left">
+                        HorizontalContentAlignment="Left"
+                        Command="{Binding Command}">
                     <StackPanel Orientation="Horizontal">
-                        <!-- Ikona - poprawione ładowanie obrazu -->
+                        <!-- Ikona -->
                         <Image Source="{Binding IconPath}" Width="24" Height="24" Margin="0,0,10,0"/>
                         <!-- Tekst -->
                         <TextBlock Text="{Binding Text}" 
@@ -35,6 +41,45 @@
                                    VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
+            </DataTemplate>
+
+            <!-- DataTemplate dla kategorii z labelką w lewym górnym rogu -->
+            <DataTemplate x:Key="CategoryTemplate">
+                <Grid Margin="0,0,0,15">
+                    <!-- Border dla całej kategorii -->
+                    <Border BorderBrush="#D1D1D1" 
+                            BorderThickness="2" 
+                            CornerRadius="5" 
+                            Padding="8,18,8,8"
+                            Background="#F5F5F5">
+
+                        <!-- Przyciski kategorii -->
+                        <ItemsControl ItemsSource="{Binding Items}" 
+                                      ItemTemplate="{StaticResource SidePanelItemTemplate}"/>
+                    </Border>
+
+                    <!-- Label kategorii w lewym górnym rogu -->
+                    <Border Background="#F5F5F5" 
+                            BorderBrush="#D1D1D1" 
+                            BorderThickness="0" 
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Top" 
+                            Margin="12,-10,12,0"
+                            Padding="5,2">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding CategoryIcon}" 
+                                   Width="20" 
+                                   Height="20" 
+                                   Margin="0,0,5,0"
+                                   VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding CategoryName}" 
+                                       FontSize="12" 
+                                       Foreground="Black"
+                                       FontWeight="Medium" 
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -52,45 +97,32 @@
                 BorderThickness="2"
                 BorderBrush="#D1D1D1"
                 Padding="10"
-                Grid.Column="0">
+                Grid.Column="0"
+                Width="220">
 
-            <StackPanel HorizontalAlignment="Center">
-                <!-- Logo - poprawione ładowanie -->
+            <StackPanel Margin="0,8,0,0">
+                <!-- Logo -->
                 <Image Source="/FitnessStudio;component/Resources/logo.png" 
                        Width="150" 
                        Height="60" 
                        Margin="0,10,0,10"/>
 
                 <!-- Divider -->
-                <Separator Background="#D1D1D1" Height="2" Margin="5,10"/>
+                <Separator Background="#D1D1D1" Height="2" Margin="5,10,5,5"/>
 
-                <!-- Przyciski (bindowane z ViewModelu) -->
-                <ItemsControl ItemsSource="{Binding SidePanelItems}" 
-                             ItemTemplate="{StaticResource SidePanelItemTemplate}"/>
+                <!-- Sekcja przycisków w lewym panelu z podziałem na kategorie-->
+                <ScrollViewer VerticalScrollBarVisibility="Hidden" Height="550">
+                    <ItemsControl ItemsSource="{Binding SidebarCategories}" 
+                                  ItemTemplate="{StaticResource CategoryTemplate}" Margin="0,15,0,0"/>
+                </ScrollViewer>
             </StackPanel>
         </Border>
 
-        <!-- GÓRNY PANEL (w kolumnie 1) -->
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <!-- Pasek górny -->
-            <Border Grid.Row="0" Background="#FF3F3F46">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
-                    <Image Source="/FitnessStudio;component/Resources/search_icon.png" Width="20" Height="20" Margin="0,0,10,0"/>
-                    <TextBlock Text="Search..." VerticalAlignment="Center" Foreground="White"/>
-                </StackPanel>
-            </Border>
-
-            <!-- Główna sekcja (pod paskiem) -->
-            <Border Grid.Row="1" Background="#F5F5F5">
-                <!-- Tutaj wstaw treści "głównej" części okna -->
-                <ContentControl Grid.Row="1" Content="{Binding HomeMainContent}" />
-            </Border>
-        </Grid>
+        <!-- GŁÓWNA SEKCJA (w kolumnie 1) -->
+        <Border Grid.Column="1" Background="#F5F5F5">
+            <!-- Tutaj wstaw treści "głównej" części okna -->
+            <ContentControl Content="{Binding CurrentMainContent}" />
+        </Border>
 
         <!-- PRAWY PANEL (w kolumnie 2) -->
         <Border Grid.Column="2" Background="#FF2D2D30">
