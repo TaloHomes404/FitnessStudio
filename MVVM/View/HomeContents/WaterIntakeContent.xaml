@@ -23,93 +23,103 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-            <!-- Lewa strona - Water Intake -->
-            <StackPanel VerticalAlignment="Center" Orientation="Vertical" Margin="0,0,20,0">
-                <StackPanel Orientation="Horizontal">
-                    <!-- Minus Button -->
-                    <Button Width="85" Height="85" Background="Transparent" 
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="16,15,0,20">
+                <Image Source="/Resources/water_drops_icon.png" Width="64" Height="64" Margin="0,0,15,0"/>
+                <TextBlock Text="Keep Up with Your Hydration Goals" 
+                      FontSize="32" 
+                      FontWeight="Bold" 
+                      Foreground="#2196F3"
+                      VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="12,0,0,0">
+                <!-- Lewa strona - Water Intake -->
+                <StackPanel VerticalAlignment="Center" Orientation="Vertical" Margin="0,0,20,0">
+                    <StackPanel Orientation="Horizontal">
+                        <!-- Minus Button -->
+                        <Button Width="85" Height="85" Background="Transparent" 
                             BorderBrush="Transparent" 
                             Command="{Binding DecreaseIntakeCommand}" Margin="0,0,12,0">
-                        <Image Width="72" Height="72" Source="/Resources/minus_icon.png"/>
-                    </Button>
-                    <!-- Water Intake Circle -->
-                    <Border Width="225" Height="225" CornerRadius="105" 
+                            <Image Width="72" Height="72" Source="/Resources/minus_icon.png"/>
+                        </Button>
+                        <!-- Water Intake Circle -->
+                        <Border Width="225" Height="225" CornerRadius="105" 
                             BorderBrush="#2196F3" BorderThickness="4">
-                        <TextBlock Text="{Binding CurrentIntakeDisplay}" 
+                            <TextBlock Text="{Binding CurrentIntakeDisplay}" 
                                    Foreground="Black" FontSize="20"
                                    FontWeight="Bold" 
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center" 
                                    TextAlignment="Center"/>
-                    </Border>
-                    <!-- Plus Button -->
-                    <Button Width="85" Height="85" Background="Transparent" 
+                        </Border>
+                        <!-- Plus Button -->
+                        <Button Width="85" Height="85" Background="Transparent" 
                             BorderBrush="Transparent" 
                             Command="{Binding IncreaseIntakeCommand}" Margin="12,0,0,0">
-                        <Image Width="72" Height="72" Source="/Resources/plus_icon.png"/>
-                    </Button>
-                </StackPanel>
-                <!-- Water Amount Dropdown -->
-                <ComboBox Width="350" Margin="0,16,0,0" 
+                            <Image Width="72" Height="72" Source="/Resources/plus_icon.png"/>
+                        </Button>
+                    </StackPanel>
+                    <!-- Water Amount Dropdown -->
+                    <ComboBox Width="350" Margin="0,16,0,0" 
                           Style="{StaticResource CustomComboBoxStyle}"
                           ItemContainerStyle="{StaticResource ComboBoxItemStyle}"
                           SelectedIndex="1"
                           ItemsSource="{Binding WaterAmounts}"
                           SelectedItem="{Binding SelectedWaterAmount}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="5">
-                                <Image Source="{Binding IconPath}" Width="48" Height="48" Margin="0,0,15,0"/>
-                                <TextBlock Text="{Binding DisplayText}" 
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="5">
+                                    <Image Source="{Binding IconPath}" Width="48" Height="48" Margin="0,0,15,0"/>
+                                    <TextBlock Text="{Binding DisplayText}" 
                                            FontSize="16" 
                                            Foreground="Black" 
                                            VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </StackPanel>
-            <!-- Prawa strona - Historia nawodnień -->
-            <Border Width="200" Height="300" BorderBrush="Black" BorderThickness="2" Background="#F5F5F5">
-                <StackPanel>
-                    <TextBlock Text="Latest hydrations" 
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <!-- Prawa strona - Historia nawodnień -->
+                <Border Width="200" Height="300" BorderBrush="Black" BorderThickness="2" Background="#F5F5F5">
+                    <StackPanel>
+                        <TextBlock Text="Latest hydrations" 
                                FontSize="18" 
                                FontWeight="Bold" 
                                HorizontalAlignment="Center" 
                                Margin="0,10,0,10"/>
-                    <ScrollViewer MaxHeight="350" VerticalScrollBarVisibility="Auto">
-                        <ItemsControl ItemsSource="{Binding HydrationHistory}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Margin="5,0">
-                                        <Grid Margin="5">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Image Source="{Binding IconPath}" Width="30" Height="30" Grid.Column="0" Margin="0,0,10,0"/>
-                                            <StackPanel Grid.Column="1">
-                                                <TextBlock Text="Nawadnianie" 
+                        <ScrollViewer MaxHeight="350" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding HydrationHistory}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Margin="5,0">
+                                            <Grid Margin="5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Image Source="{Binding IconPath}" Width="30" Height="30" Grid.Column="0" Margin="0,0,10,0"/>
+                                                <StackPanel Grid.Column="1">
+                                                    <TextBlock Text="Nawadnianie" 
                                                            FontWeight="Bold" 
                                                            Foreground="Black"/>
-                                                <TextBlock Text="{Binding Timestamp, StringFormat=HH:mm dd.MM.yyyy}" 
+                                                    <TextBlock Text="{Binding Timestamp, StringFormat=HH:mm dd.MM.yyyy}" 
                                                            Foreground="DarkGray" 
                                                            FontSize="10"/>
-                                            </StackPanel>
-                                            <TextBlock Text="{Binding Amount, StringFormat={}{0} ml}" 
+                                                </StackPanel>
+                                                <TextBlock Text="{Binding Amount, StringFormat={}{0} ml}" 
                                                        Grid.Column="2" 
                                                        FontWeight="Bold" 
                                                        Foreground="Black"/>
-                                        </Grid>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
-                </StackPanel>
-            </Border>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

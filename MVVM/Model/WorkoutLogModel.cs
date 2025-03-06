@@ -13,10 +13,10 @@ namespace FitnessStudio.MVVM.Model
             set { _id = value; OnPropertyChanged(); }
         }
 
-        private string _name;
+        private string? _name;
         public string Name
         {
-            get { return _name; }
+            get { return _name!; }
             set { _name = value; OnPropertyChanged(); }
         }
 
@@ -27,17 +27,17 @@ namespace FitnessStudio.MVVM.Model
             set { _date = value; OnPropertyChanged(); }
         }
 
-        private ObservableCollection<Exercise> _exercises;
+        private ObservableCollection<Exercise>? _exercises;
         public ObservableCollection<Exercise> Exercises
         {
-            get { return _exercises; }
+            get { return _exercises!; }
             set { _exercises = value; OnPropertyChanged(); }
         }
 
-        private string _notes;
+        private string? _notes;
         public string Notes
         {
-            get { return _notes; }
+            get { return _notes!; }
             set
             {
                 _notes = value;
@@ -77,10 +77,10 @@ namespace FitnessStudio.MVVM.Model
 
     public class Exercise : ObservableObject
     {
-        private string _name;
+        private string? _name;
         public string Name
         {
-            get { return _name; }
+            get { return _name!; }
             set { _name = value; OnPropertyChanged(); }
         }
 
@@ -91,10 +91,10 @@ namespace FitnessStudio.MVVM.Model
             set { _sets = value; OnPropertyChanged(); }
         }
 
-        private string _reps;
+        private string? _reps;
         public string Reps
         {
-            get { return _reps; }
+            get { return _reps!; }
             set { _reps = value; OnPropertyChanged(); }
         }
 

@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using FitnessStudio.MVVM.ViewModel.HomeContents;
 
 namespace FitnessStudio.MVVM.View.HomeContents
 {
@@ -23,6 +12,20 @@ namespace FitnessStudio.MVVM.View.HomeContents
         public SuplementsContent()
         {
             InitializeComponent();
+            DataContext = new SuplementsContentViewModel();
+
+            //Initialize popup window with default hidden state
+            AddSupplementPopup.IsOpen = false;
+
+        }
+
+        private void AddSupplementButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Show the popup when the button is clicked
+            AddSupplementPopup.IsOpen = true;
+
+            // Focus on the search bar
+            SearchSupplementTextBox.Focus();
         }
     }
 }

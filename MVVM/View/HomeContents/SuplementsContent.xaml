@@ -6,7 +6,246 @@
              xmlns:local="clr-namespace:FitnessStudio.MVVM.View.HomeContents"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DropShadowEffect x:Key="DropShadowBorder" 
+                      ShadowDepth="4" 
+                      Direction="315" 
+                      Color="#CCCCCC" 
+                      Opacity="0.5" 
+                      BlurRadius="10"/>
+    </UserControl.Resources>
+    
     <Grid>
-            
+        <StackPanel Orientation="Vertical">
+            <!-- Header Section -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="16,15,0,20">
+                <Image Source="/Resources/suplements_icon.png" Width="64" Height="64" Margin="0,0,15,0"/>
+                <TextBlock Text="Time for Suplementation!" 
+                      FontSize="32" 
+                      FontWeight="Bold" 
+                      Foreground="#2196F3"
+                      VerticalAlignment="Center"/>
+            </StackPanel>
+            <!-- Days TabControl -->
+            <Border Background="#F5F5F5" Width="Auto" BorderBrush="#DDDDDD" BorderThickness="0,1,0,1" Padding="10,5">
+                <StackPanel>
+                    <TextBlock Text="March 2025" FontWeight="Bold" Margin="10,0,0,5" FontSize="14"/>
+                    <TabControl x:Name="DaysTabControl" Background="Transparent" BorderThickness="0" Margin="0,5,0,0">
+                        <TabControl.Resources>
+                            <Style TargetType="TabItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TabItem">
+                                            <Border x:Name="Border" BorderThickness="0" 
+                                                    CornerRadius="5" Margin="2,0" 
+                                                    Padding="15,10" 
+                                                    Width="75" Height="60">
+                                                <StackPanel>
+                                                    <TextBlock x:Name="DayLabel" 
+                                                              Text="{TemplateBinding Header}" 
+                                                              FontSize="16" 
+                                                              FontWeight="Medium"
+                                                              HorizontalAlignment="Center" 
+                                                              VerticalAlignment="Center"
+                                                              Foreground="#666666"/>
+                                                    <Ellipse x:Name="Indicator" 
+                                                            Width="8" Height="8" 
+                                                            Fill="#2196F3" 
+                                                            Margin="0,5,0,0"/>
+                                                </StackPanel>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="#E3F2FD"/>
+                                                    <Setter TargetName="Border" Property="BorderBrush" Value="#2196F3"/>
+                                                    <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                                                    <Setter TargetName="DayLabel" Property="Foreground" Value="#1976D2"/>
+                                                    <Setter TargetName="DayLabel" Property="FontWeight" Value="Bold"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TabControl.Resources>
+                        <TabItem Header="Mon" IsSelected="{Binding IsMonday}"></TabItem>
+                        <TabItem Header="Tue" IsSelected="{Binding IsTuesday}"></TabItem>
+                        <TabItem Header="Wed" IsSelected="{Binding IsWednesday}"></TabItem>
+                        <TabItem Header="Thu" IsSelected="{Binding IsThursday}"></TabItem>
+                        <TabItem Header="Fri" IsSelected="{Binding IsFriday}"></TabItem>
+                        <TabItem Header="Sat" IsSelected="{Binding IsSaturday}"></TabItem>
+                        <TabItem Header="Sun" IsSelected="{Binding IsSunday}"></TabItem>
+                    </TabControl>
+                </StackPanel>
+            </Border>
+            <!-- Supplements and Medicine Section with Add Button -->
+            <Grid Margin="20,20,20,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Your Supplements And Medicine" 
+                       FontSize="22" 
+                       FontWeight="SemiBold"
+                       Grid.Column="0"/>
+                <Button Grid.Column="1" 
+                        Height="40" 
+                        Padding="15,0" 
+                        Background="#2196F3" 
+                        Foreground="White"
+                        BorderThickness="0"
+                        VerticalAlignment="Center"
+                        Click="AddSupplementButton_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"/>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/plus_button_icon.png" Width="18" Height="18" Margin="0,0,8,0"/>
+                        <TextBlock Text="Add Supplement" VerticalAlignment="Center" FontWeight="Medium"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <!-- Supplements Grid  -->
+            <WrapPanel Margin="20,0,20,20">
+                <!-- Vitamin D Item -->
+                <Border Width="150" Height="150" Background="#FBFBFB" Margin="0,0,15,15" CornerRadius="8">
+                    <StackPanel VerticalAlignment="Center">
+                        <Image Source="/Resources/suplements_icon.png" Width="65" Height="65" Margin="0,0,0,8">
+                            <Image.Effect>
+                                <DropShadowEffect Color="#CCCCCC" Direction="315" ShadowDepth="2" BlurRadius="5" Opacity="0.5"/>
+                            </Image.Effect>
+                        </Image>
+                        <TextBlock Text="Vitamin D" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="16" 
+                                   HorizontalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center"/>
+                        <TextBlock Text="Once a day" 
+                                   FontSize="12" 
+                                   Foreground="#444444" 
+                                   HorizontalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </WrapPanel>
+            <Popup x:Name="AddSupplementPopup" 
+       StaysOpen="False" 
+       Placement="Center"
+       Width="400" 
+       Height="450" 
+       AllowsTransparency="True"
+       IsOpen="False">
+                <Border Background="White" 
+            CornerRadius="12" 
+            BorderBrush="Black" 
+            BorderThickness="3"
+            Padding="20"
+            Effect="{StaticResource DropShadowBorder}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!-- Header -->
+                        <TextBlock Text="Search Supplement" 
+                       Grid.Row="0"
+                       FontSize="20" 
+                       FontWeight="SemiBold" 
+                       Margin="0,0,0,15"
+                       Foreground="#333333"/>
+                        <!-- Search Bar -->
+                        <Border Grid.Row="1" 
+                    Background="#F5F5F5" 
+                    CornerRadius="8" 
+                    BorderBrush="Black" 
+                    BorderThickness="3"
+                    Margin="0,0,0,15">
+                            <Grid Margin="10,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="/Resources/suplements_icon.png" 
+                           Width="28" 
+                           Height="28" 
+                           Grid.Column="0"
+                           Margin="0,0,10,0"/>
+                                <TextBox Grid.Column="1" 
+                             Background="Transparent" 
+                             BorderThickness="0"
+                             VerticalAlignment="Center"
+                             FontSize="14"
+                             Padding="0,5,0,5"
+                             x:Name="SearchSupplementTextBox"/>
+                            </Grid>
+                        </Border>
+                        <!-- Scrollable List Area -->
+                        <Border Grid.Row="2" 
+                    Background="#FAFAFA" 
+                    CornerRadius="8" 
+                    BorderBrush="#E0E0E0" 
+                    BorderThickness="3">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <StackPanel x:Name="SupplementSearchResults" Margin="10">
+                                    <!-- Results will be populated here -->
+                                    <!-- Example item (You can remove these in final implementation) -->
+                                    <Border Background="White" 
+                                CornerRadius="8" 
+                                BorderBrush="#EEEEEE" 
+                                BorderThickness="1" 
+                                VerticalAlignment="Center"
+                                Padding="15,10" 
+                                Margin="0,0,0,8">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Source="/Resources/suplements_icon.png" 
+                                       Width="40" 
+                                       Height="40" 
+                                       Grid.Column="0"
+                                       Margin="0,0,15,0"/>
+                                            <StackPanel Grid.Column="1">
+                                                <TextBlock Text="Vitamin D3" 
+                                               FontWeight="SemiBold" 
+                                               FontSize="14"/>
+                                                <TextBlock Text="Supports immune system" 
+                                               FontSize="12" 
+                                               Foreground="#777777"/>
+                                            </StackPanel>
+                                            <Button Grid.Column="2" 
+                                        Width="30" 
+                                        Height="30" 
+                                        Background="#2196F3" 
+                                        Foreground="White"
+                                        BorderThickness="0"
+                                        Padding="0">
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="15"/>
+                                                    </Style>
+                                                </Button.Resources>
+                                                <TextBlock Text="+" 
+                                               FontSize="18" 
+                                               FontWeight="Bold" 
+                                               HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center"/>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Popup>
+        </StackPanel>
     </Grid>
 </UserControl>

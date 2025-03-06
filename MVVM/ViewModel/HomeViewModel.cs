@@ -21,6 +21,8 @@ namespace FitnessStudio.MVVM.ViewModel
         public ICommand NavigateToWorkoutLogCommand { get; private set; }
         public ICommand NavigateToToolsCommand { get; private set; }
         public ICommand NavigateToWaterIntakeCommand { get; private set; }
+        public ICommand NavigateToSuplementsCommand { get; private set; }
+        public ICommand NavigateToStepsCounterCommand { get; private set; }
 
 
 
@@ -37,6 +39,8 @@ namespace FitnessStudio.MVVM.ViewModel
             NavigateToWorkoutLogCommand = new RelayCommand(NavigateToWorkoutLog);
             NavigateToToolsCommand = new RelayCommand(NavigateToTools);
             NavigateToWaterIntakeCommand = new RelayCommand(NavigateToWaterIntake);
+            NavigateToSuplementsCommand = new RelayCommand(NavigateToSuplements);
+            NavigateToStepsCounterCommand = new RelayCommand(NavigateToStepsCounter);
 
             // Categories sections declaration and buttons asign
             SidebarCategories = new ObservableCollection<SidebarCategory>
@@ -86,7 +90,7 @@ namespace FitnessStudio.MVVM.ViewModel
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/step_counter_icon.png", UriKind.Relative),
                             Text = "Steps Counter",
-                            Command = NavigateToHomeCommand
+                            Command = NavigateToStepsCounterCommand
                         },
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/correct_posture_icon.png", UriKind.Relative),
@@ -146,7 +150,7 @@ namespace FitnessStudio.MVVM.ViewModel
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/suplements_icon.png", UriKind.Relative),
                             Text = "Suplements",
-                            Command = NavigateToToolsCommand
+                            Command = NavigateToSuplementsCommand
                         },
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/water_icon.png", UriKind.Relative),
@@ -189,9 +193,19 @@ namespace FitnessStudio.MVVM.ViewModel
             CurrentMainContent = new HomeMainContentViewModel();
         }
 
+        private void NavigateToSuplements()
+        {
+            CurrentMainContent = new SuplementsContentViewModel();
+        }
+
         private void NavigateToWorkoutLog()
         {
             CurrentMainContent = new WorkoutLogContentViewModel();
+        }
+
+        private void NavigateToStepsCounter()
+        {
+            CurrentMainContent = new StepsCounterContentViewModel();
         }
 
         private void NavigateToWaterIntake()

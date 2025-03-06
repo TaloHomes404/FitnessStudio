@@ -18,6 +18,7 @@
     <None Remove="Resources\cup_icon.png" />
     <None Remove="Resources\dashboard_icon.png" />
     <None Remove="Resources\google_icon.png" />
+    <None Remove="Resources\hiking_icon.png" />
     <None Remove="Resources\home_icon.png" />
     <None Remove="Resources\logo.png" />
     <None Remove="Resources\meditate_icon.png" />
@@ -27,6 +28,7 @@
     <None Remove="Resources\mug_icon.png" />
     <None Remove="Resources\nutrition_icon.png" />
     <None Remove="Resources\physical_health_icon.png" />
+    <None Remove="Resources\plus_button_icon.png" />
     <None Remove="Resources\plus_icon.png" />
     <None Remove="Resources\profile_icon.png" />
     <None Remove="Resources\progressive_overload_icon.png" />
@@ -38,6 +40,7 @@
     <None Remove="Resources\suplements_icon.png" />
     <None Remove="Resources\tools_icon.png" />
     <None Remove="Resources\water_bottle_icon.png" />
+    <None Remove="Resources\water_drops_icon.png" />
     <None Remove="Resources\water_icon.png" />
     <None Remove="Resources\workout_log_icon.png" />
   </ItemGroup>
@@ -66,6 +69,7 @@
     <Resource Include="Resources\cup_icon.png" />
     <Resource Include="Resources\dashboard_icon.png" />
     <Resource Include="Resources\google_icon.png" />
+    <Resource Include="Resources\hiking_icon.png" />
     <Resource Include="Resources\home_icon.png" />
     <Resource Include="Resources\logo.png" />
     <Resource Include="Resources\meditate_icon.png" />
@@ -75,6 +79,7 @@
     <Resource Include="Resources\mug_icon.png" />
     <Resource Include="Resources\nutrition_icon.png" />
     <Resource Include="Resources\physical_health_icon.png" />
+    <Resource Include="Resources\plus_button_icon.png" />
     <Resource Include="Resources\plus_icon.png" />
     <Resource Include="Resources\profile_icon.png" />
     <Resource Include="Resources\progressive_overload_icon.png" />
@@ -86,6 +91,7 @@
     <Resource Include="Resources\suplements_icon.png" />
     <Resource Include="Resources\tools_icon.png" />
     <Resource Include="Resources\water_bottle_icon.png" />
+    <Resource Include="Resources\water_drops_icon.png" />
     <Resource Include="Resources\water_icon.png" />
     <Resource Include="Resources\workout_log_icon.png" />
   </ItemGroup>
