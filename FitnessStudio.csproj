@@ -13,6 +13,7 @@
     <None Remove="Resources\blue_light_icon.png" />
     <None Remove="Resources\bmi_calculator_icon.png" />
     <None Remove="Resources\breathing_exercises_icon.png" />
+    <None Remove="Resources\breathing_icon.png" />
     <None Remove="Resources\calories_calculator_icon.png" />
     <None Remove="Resources\correct_posture_icon.png" />
     <None Remove="Resources\cup_icon.png" />
@@ -64,6 +65,7 @@
     <Resource Include="Resources\blue_light_icon.png" />
     <Resource Include="Resources\bmi_calculator_icon.png" />
     <Resource Include="Resources\breathing_exercises_icon.png" />
+    <Resource Include="Resources\breathing_icon.png" />
     <Resource Include="Resources\calories_calculator_icon.png" />
     <Resource Include="Resources\correct_posture_icon.png" />
     <Resource Include="Resources\cup_icon.png" />

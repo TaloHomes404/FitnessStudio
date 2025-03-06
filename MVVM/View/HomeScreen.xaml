@@ -30,6 +30,9 @@
             <DataTemplate DataType="{x:Type contentViewModel:StepsCounterContentViewModel}">
                 <contentView:StepsCounterContent />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type contentViewModel:BreathingExercisesContentViewModel}">
+                <contentView:BreathingExercisesContent />
+            </DataTemplate>
             <!-- DataTemplate, który wykorzystuje styl SidePanelButtonStyle -->
             <DataTemplate x:Key="SidePanelItemTemplate">
                 <Button Style="{StaticResource SidePanelButtonStyle}"
