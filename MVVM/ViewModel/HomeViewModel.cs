@@ -24,6 +24,7 @@ namespace FitnessStudio.MVVM.ViewModel
         public ICommand NavigateToSuplementsCommand { get; private set; }
         public ICommand NavigateToStepsCounterCommand { get; private set; }
         public ICommand NavigateToBreathingExercisesCommand { get; private set; }
+        public ICommand NavigateToMotivationCommand { get; private set; }
 
 
 
@@ -43,6 +44,7 @@ namespace FitnessStudio.MVVM.ViewModel
             NavigateToSuplementsCommand = new RelayCommand(NavigateToSuplements);
             NavigateToStepsCounterCommand = new RelayCommand(NavigateToStepsCounter);
             NavigateToBreathingExercisesCommand = new RelayCommand(NavigateToBreathingExercises);
+            NavigateToMotivationCommand = new RelayCommand(NavigateToMotivation);
 
             // Categories sections declaration and buttons asign
             SidebarCategories = new ObservableCollection<SidebarCategory>
@@ -127,7 +129,7 @@ namespace FitnessStudio.MVVM.ViewModel
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/motivation_icon.png", UriKind.Relative),
                             Text = "Motivation",
-                            Command = NavigateToWaterIntakeCommand
+                            Command = NavigateToMotivationCommand
                         },
                     }
                 },
@@ -208,6 +210,11 @@ namespace FitnessStudio.MVVM.ViewModel
         private void NavigateToStepsCounter()
         {
             CurrentMainContent = new StepsCounterContentViewModel();
+        }
+
+        private void NavigateToMotivation()
+        {
+            CurrentMainContent = new MotivationContentViewModel();
         }
 
         private void NavigateToBreathingExercises()

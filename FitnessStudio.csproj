@@ -35,6 +35,7 @@
     <None Remove="Resources\progressive_overload_icon.png" />
     <None Remove="Resources\recovery_icon.png" />
     <None Remove="Resources\settings_icon.png" />
+    <None Remove="Resources\sleeping_icon.png" />
     <None Remove="Resources\sleep_schedule_icon.png" />
     <None Remove="Resources\step_counter_icon.png" />
     <None Remove="Resources\stressed_icon.png" />
@@ -87,6 +88,7 @@
     <Resource Include="Resources\progressive_overload_icon.png" />
     <Resource Include="Resources\recovery_icon.png" />
     <Resource Include="Resources\settings_icon.png" />
+    <Resource Include="Resources\sleeping_icon.png" />
     <Resource Include="Resources\sleep_schedule_icon.png" />
     <Resource Include="Resources\step_counter_icon.png" />
     <Resource Include="Resources\stressed_icon.png" />
