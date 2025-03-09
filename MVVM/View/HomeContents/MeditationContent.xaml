@@ -6,7 +6,422 @@
              xmlns:local="clr-namespace:FitnessStudio.MVVM.View.HomeContents"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DropShadowEffect x:Key="CardShadow" 
+                          ShadowDepth="4" 
+                          Direction="315" 
+                          Color="#CCCCCC" 
+                          Opacity="0.5" 
+                          BlurRadius="10"/>
+        <BlurEffect x:Key="BackgroundBlur" Radius="3"/>
+        <!-- Dodatkowe style dla popupa -->
+        <Style x:Key="CircularProgressBarStyle" TargetType="ProgressBar">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ProgressBar">
+                        <Grid>
+                            <Ellipse x:Name="PART_Track" Fill="Transparent" Stroke="#20FFFFFF" StrokeThickness="10"/>
+                            <Path x:Name="PART_Indicator" Stroke="#4AD1B8" StrokeThickness="10" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                                <Path.Data>
+                                    <PathGeometry>
+                                        <PathFigure StartPoint="100,10">
+                                            <ArcSegment Size="90,90" IsLargeArc="False" SweepDirection="Clockwise" Point="190,100"/>
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </Path.Data>
+                            </Path>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!-- Header Section z gradietnowym tłem -->
+        <Border Grid.Row="0" CornerRadius="0,0,30,30">
+         
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="16,15,0,20">
+                <Ellipse Width="64" Height="64" Margin="0,0,15,0">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="/Resources/meditate_icon.png" Stretch="UniformToFill"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Words to inspire,&#10;   wisdom to live by." 
+                           FontSize="32" 
+                           FontWeight="Bold" 
+                           Foreground="White"
+                           VerticalAlignment="Center"/>
+                   
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <!-- Cards Container with animation system -->
+        <Grid Grid.Row="1" Margin="20,30,20,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!-- Card 1 - Quick Meditation -->
+            <Border x:Name="QuickMeditationCard" 
+                    Grid.Column="0" 
+                    Height="300"
+                    Margin="10,0,10,0" 
+                    Background="#FBECE9" 
+                    CornerRadius="25" 
+                    BorderBrush="Transparent" 
+                    BorderThickness="0" 
+                    Effect="{StaticResource CardShadow}"
+                    MouseLeftButtonDown="Card_MouseLeftButtonDown">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="140"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!-- Top wave background -->
+                    <Border Grid.Row="0" CornerRadius="25,25,0,0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#FF5252" Offset="0"/>
+                                <GradientStop Color="#FF7B7B" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <Path Fill="#20FFFFFF" Data="M0,60 C100,100 200,0 300,40 L300,140 L0,140 Z"/>
+                            <Ellipse Width="80" Height="80" Fill="#30FFFFFF" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0"/>
+                            <TextBlock Text="dla zabieganych" 
+                                      FontSize="14" 
+                                      Foreground="#EEFFFFFF" 
+                                      Margin="20,15,0,0" 
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Top"/>
+                        </Grid>
+                    </Border>
+                    <!-- Main circular element -->
+                    <Ellipse Grid.Row="0" Width="80" Height="80" Fill="White" VerticalAlignment="Bottom" Margin="0,0,0,-40" HorizontalAlignment="Center">
+                        <Ellipse.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="2" Direction="270" Color="#20000000"/>
+                        </Ellipse.Effect>
+                    </Ellipse>
+                    <Image Grid.Row="0" Source="/Resources/quick_icon.png" Width="48" Height="48" VerticalAlignment="Bottom" Margin="0,0,0,-23" HorizontalAlignment="Center"/>
+                    <!-- Content Title -->
+                    <TextBlock Grid.Row="1" 
+                              Text="Szybka Medytacja" 
+                              FontSize="20" 
+                              Foreground="#333333" 
+                              FontWeight="SemiBold" 
+                              HorizontalAlignment="Center" 
+                              Margin="0,50,0,0"/>
+                    <!-- Description -->
+                    <TextBlock Grid.Row="2" 
+                              Text="Sesja • 2 min" 
+                              FontSize="14" 
+                              Foreground="#777777" 
+                              HorizontalAlignment="Center" 
+                              Margin="0,5,0,15"/>
+                    <!-- Button -->
+                    <Button Grid.Row="3" 
+                           Content="Rozpocznij" 
+                           Background="#FF5252" 
+                           Foreground="White" 
+                           FontWeight="SemiBold" 
+                           Height="40" 
+                           Margin="20,5,20,15"
+                           Click="StartMeditation_Click"
+                           Tag="Szybka Medytacja|2|Krótka, intensywna sesja dla zapracowanych. Szybko zresetuj umysł.">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </Border>
+            <!-- Card 2 - Deep Focus -->
+            <Border x:Name="DeepFocusCard" 
+                    Grid.Column="1" 
+                    Height="300"
+                    Margin="10,0,10,0" 
+                    Background="#E5F9F3" 
+                    CornerRadius="25" 
+                    BorderBrush="Transparent" 
+                    BorderThickness="0" 
+                    Effect="{StaticResource CardShadow}"
+                    MouseLeftButtonDown="Card_MouseLeftButtonDown">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="140"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!-- Top wave background -->
+                    <Border Grid.Row="0" CornerRadius="25,25,0,0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#4AD1B8" Offset="0"/>
+                                <GradientStop Color="#3EB5AE" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <Path Fill="#20FFFFFF" Data="M0,40 C100,0 200,100 300,60 L300,140 L0,140 Z"/>
+                            <Ellipse Width="80" Height="80" Fill="#30FFFFFF" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0"/>
+                            <TextBlock Text="do pracy i nauki" 
+                                      FontSize="14" 
+                                      Foreground="#EEFFFFFF" 
+                                      Margin="20,15,0,0" 
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Top"/>
+                        </Grid>
+                    </Border>
+                    <!-- Main circular element -->
+                    <Ellipse Grid.Row="0" Width="80" Height="80" Fill="White" VerticalAlignment="Bottom" Margin="0,0,0,-40" HorizontalAlignment="Center">
+                        <Ellipse.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="2" Direction="270" Color="#20000000"/>
+                        </Ellipse.Effect>
+                    </Ellipse>
+                    <Image Grid.Row="0" Source="/Resources/meditate_icon.png" Width="48" Height="48" VerticalAlignment="Bottom" Margin="0,0,0,-23" HorizontalAlignment="Center"/>
+                    <!-- Content Title -->
+                    <TextBlock Grid.Row="1" 
+                              Text="Deep Focus" 
+                              FontSize="20" 
+                              Foreground="#333333" 
+                              FontWeight="SemiBold" 
+                              HorizontalAlignment="Center" 
+                              Margin="0,50,0,0"/>
+                    <!-- Description -->
+                    <TextBlock Grid.Row="2" 
+                              Text="Sesja • 5 min" 
+                              FontSize="14" 
+                              Foreground="#777777" 
+                              HorizontalAlignment="Center" 
+                              Margin="0,5,0,15"/>
+                    <!-- Button -->
+                    <Button Grid.Row="3" 
+                           Content="Rozpocznij" 
+                           Background="#4AD1B8" 
+                           Foreground="White" 
+                           FontWeight="SemiBold" 
+                           Height="40" 
+                           Margin="20,5,20,15"
+                           Click="StartMeditation_Click"
+                           Tag="Deep Focus|5|Skup się lepiej na zadaniu, wyostrz zmysły i popraw koncentrację.">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </Border>
+            <!-- Card 3 - Full Relaxation -->
+            <Border x:Name="FullRelaxationCard" 
+                    Grid.Column="2" 
+                    Height="300"
+                    Margin="10,0,10,0" 
+                    Background="#F0F7FF" 
+                    CornerRadius="25" 
+                    BorderBrush="Transparent" 
+                    BorderThickness="0" 
+                    Effect="{StaticResource CardShadow}"
+                    MouseLeftButtonDown="Card_MouseLeftButtonDown">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="140"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!-- Top wave background -->
+                    <Border Grid.Row="0" CornerRadius="25,25,0,0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#448AFF" Offset="0"/>
+                                <GradientStop Color="#536DFE" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <Path Fill="#20FFFFFF" Data="M0,20 C100,60 200,40 300,70 L300,140 L0,140 Z"/>
+                            <Ellipse Width="80" Height="80" Fill="#30FFFFFF" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0"/>
+                            <TextBlock Text="for deep relax" 
+                                      FontSize="14" 
+                                      Foreground="#EEFFFFFF" 
+                                      Margin="20,15,0,0" 
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Top"/>
+                        </Grid>
+                    </Border>
+                    <!-- Main circular element -->
+                    <Ellipse Grid.Row="0" Width="80" Height="80" Fill="White" VerticalAlignment="Bottom" Margin="0,0,0,-40" HorizontalAlignment="Center">
+                        <Ellipse.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="2" Direction="270" Color="#20000000"/>
+                        </Ellipse.Effect>
+                    </Ellipse>
+                    <Image Grid.Row="0" Source="/Resources/relax_icon.png" Width="48" Height="48" VerticalAlignment="Bottom" Margin="0,0,0,-23" HorizontalAlignment="Center"/>
+                    <!-- Content Title -->
+                    <TextBlock Grid.Row="1" 
+                              Text="Full Relaxation Session" 
+                              FontSize="20" 
+                              Foreground="#333333" 
+                              FontWeight="SemiBold" 
+                              HorizontalAlignment="Center" 
+                              Margin="0,50,0,0"/>
+                    <!-- Description -->
+                    <TextBlock Grid.Row="2" 
+                              Text="Sesja • 10 min" 
+                              FontSize="14" 
+                              Foreground="#777777" 
+                              HorizontalAlignment="Center" 
+                              Margin="0,5,0,15"/>
+                    <!-- Button -->
+                    <Button Grid.Row="3" 
+                           Content="Rozpocznij" 
+                           Background="#448AFF" 
+                           Foreground="White" 
+                           FontWeight="SemiBold" 
+                           Height="40" 
+                           Margin="20,5,20,15"
+                           Click="StartMeditation_Click"
+                           Tag="Full Relaxation Session|10|Głęboki relaks całego ciała i umysłu. Pełne odprężenie i regeneracja.">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </Border>
+        </Grid>
+        <!-- Popup for meditation timer -->
+        <Popup x:Name="MeditationPopup" IsOpen="False" Placement="Center" AllowsTransparency="True" StaysOpen="False">
+            <Border Width="400" Height="500" CornerRadius="30" Background="#2D3142" BorderBrush="#444444" BorderThickness="1">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="20" ShadowDepth="5" Direction="315" Color="#333333" Opacity="0.6"/>
+                </Border.Effect>
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- Popup Title -->
+                    <TextBlock x:Name="PopupTitle" 
+                               Grid.Row="0" 
+                               Text="Meditation Session" 
+                               FontSize="24" 
+                               FontWeight="Bold" 
+                               Foreground="White" 
+                               HorizontalAlignment="Center" 
+                               Margin="0,10,0,10"/>
+                    <!-- Timer Display -->
+                    <Grid Grid.Row="1" HorizontalAlignment="Center" Margin="0,20,0,10">
+                        <Ellipse Width="200" Height="200" Fill="#30FFFFFF"/>
+                        <ProgressBar x:Name="TimerProgress" 
+                                     Width="200" 
+                                     Height="200" 
+                                     Value="75" 
+                                     Maximum="100" 
+                                     Style="{StaticResource CircularProgressBarStyle}"/>
+                        <TextBlock x:Name="TimerDisplay" 
+                                   Text="05:00" 
+                                   FontSize="36" 
+                                   FontWeight="Bold" 
+                                   Foreground="White" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>
+                    </Grid>
+                    <!-- Meditation Instructions -->
+                    <StackPanel Grid.Row="2" Margin="0,20,0,20">
+                        <TextBlock Text="Wskazówki:" 
+                                   FontSize="18" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="#4AD1B8" 
+                                   Margin="0,0,0,10"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                            <Ellipse Width="8" Height="8" Fill="#4AD1B8" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Usiądź wygodnie w cichym miejscu" 
+                                       FontSize="16" 
+                                       Foreground="White" 
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                            <Ellipse Width="8" Height="8" Fill="#4AD1B8" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Zamknij oczy" 
+                                       FontSize="16" 
+                                       Foreground="White" 
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                            <Ellipse Width="8" Height="8" Fill="#4AD1B8" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Skup się na oddechu i niczym innym" 
+                                       FontSize="16" 
+                                       Foreground="White" 
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                            <Ellipse Width="8" Height="8" Fill="#4AD1B8" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="MeditationDescription" 
+                                       Text="Pełny opis medytacji pojawi się tutaj" 
+                                       FontSize="16" 
+                                       Foreground="White" 
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <!-- Control Buttons -->
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                        <Button x:Name="StartPauseButton" 
+                                Content="Start" 
+                                Width="120" 
+                                Height="45" 
+                                Background="#4AD1B8" 
+                                Foreground="White" 
+                                FontWeight="SemiBold" 
+                                Margin="0,0,10,0"
+                                Click="StartPauseButton_Click">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="22.5"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                        <Button x:Name="CancelButton" 
+                                Content="Zakończ" 
+                                Width="120" 
+                                Height="45" 
+                                Background="#FF5252" 
+                                Foreground="White" 
+                                FontWeight="SemiBold"
+                                Click="CancelButton_Click">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="22.5"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </StackPanel>
+                    <!-- Close Button -->
+                    <Button Grid.Row="4" 
+                            Content="Zamknij" 
+                            Background="Transparent" 
+                            Foreground="#AAAAAA" 
+                            BorderThickness="0" 
+                            HorizontalAlignment="Center" 
+                            Margin="0,15,0,0"
+                            Click="ClosePopup_Click"/>
+                </Grid>
+            </Border>
+        </Popup>
     </Grid>
 </UserControl>

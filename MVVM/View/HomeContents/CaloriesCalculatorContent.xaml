@@ -6,7 +6,427 @@
              xmlns:local="clr-namespace:FitnessStudio.MVVM.View.HomeContents"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DropShadowEffect x:Key="DropShadowBorder" 
+                      ShadowDepth="4" 
+                      Direction="315" 
+                      Color="#CCCCCC" 
+                      Opacity="0.5" 
+                      BlurRadius="10"/>
+        <!-- Style for RadioButtons to show selection circle -->
+        <Style x:Key="CustomRadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Ellipse x:Name="OuterEllipse" Width="16" Height="16" Fill="Transparent" Stroke="#6200EE" StrokeThickness="1.5"/>
+                                <Ellipse x:Name="InnerEllipse" Width="8" Height="8" Fill="#6200EE" Opacity="0"/>
+                            </Grid>
+                            <ContentPresenter Margin="8,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="InnerEllipse" Property="Opacity" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Style for ComboBoxItems to show white background -->
+        <Style x:Key="CustomComboBoxItemStyle" TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderThickness="0"
+                            Padding="8,5">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#F0F0F0"/>
+                                <Setter Property="Foreground" Value="#6200EE"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F5F5F5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="14*"/>
+            <RowDefinition Height="61*"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.RowSpan="2">
+            <StackPanel Orientation="Vertical">
+                <!-- Header Section -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="16,15,0,20">
+                    <Image Source="/Resources/nutrition_icon.png" Width="64" Height="64" Margin="0,0,15,0"/>
+                    <TextBlock Text="Macro Calculator" 
+                          FontSize="32" 
+                          FontWeight="Bold" 
+                          Foreground="#FF6200EE"
+                          VerticalAlignment="Center"/>
+                </StackPanel>
+                <!-- Calculator Section -->
+                <Grid Margin="20,10,20,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- Left Column - Inputs -->
+                    <Border Grid.Column="0" Background="#F5F5F5" CornerRadius="12" BorderBrush="#E0E0E0" BorderThickness="2" Margin="0,0,10,0">
+                        <StackPanel Margin="20">
+                            <TextBlock Text="Personal Information" FontSize="22" FontWeight="Bold" Foreground="#FF6200EE" Margin="0,0,0,15"/>
+                            <!-- Age Input -->
+                            <Grid Margin="0,0,0,15">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Age" Foreground="Black" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,5" Grid.Row="0"/>
+                                <Border Grid.Row="1" Background="White" CornerRadius="8" BorderBrush="#DDDDDD" BorderThickness="1">
+                                    <TextBox BorderThickness="0" Padding="10,8" FontSize="14"/>
+                                </Border>
+                            </Grid>
+                            <!-- Gender Selection -->
+                            <StackPanel Margin="0,0,0,15">
+                                <TextBlock Text="Gender" FontSize="16" Foreground="Black" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <RadioButton Content="Male" Foreground="Black" Style="{StaticResource CustomRadioButtonStyle}" GroupName="GenderGroup" IsChecked="True" Margin="0,0,20,0">
+                                        <RadioButton.Resources>
+                                            <Style TargetType="Ellipse">
+                                                <Setter Property="Fill" Value="#6200EE" />
+                                            </Style>
+                                        </RadioButton.Resources>
+                                    </RadioButton>
+                                    <RadioButton Content="Female" Foreground="Black" Style="{StaticResource CustomRadioButtonStyle}" GroupName="GenderGroup">
+                                        <RadioButton.Resources>
+                                            <Style TargetType="Ellipse">
+                                                <Setter Property="Fill" Value="#6200EE" />
+                                            </Style>
+                                        </RadioButton.Resources>
+                                    </RadioButton>
+                                </StackPanel>
+                            </StackPanel>
+                            <!-- Weight Input -->
+                            <Grid Margin="0,0,0,15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Weight" Foreground="Black" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,5" Grid.Row="0" Grid.Column="0"/>
+                                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="White" CornerRadius="8" BorderBrush="#DDDDDD" BorderThickness="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox Grid.Column="0" BorderThickness="0" Padding="10,8" FontSize="14"/>
+                                        <ComboBox Grid.Column="1" ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}" Width="60" SelectedIndex="0" BorderThickness="0" Background="Transparent">
+                                            <ComboBoxItem Content="kg" Foreground="#6200EE"/>
+                                            <ComboBoxItem Content="lb"/>
+                                        </ComboBox>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                            <!-- Height Input -->
+                            <Grid Margin="0,0,0,15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Height" Foreground="Black" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,5" Grid.Row="0" Grid.Column="0"/>
+                                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="White" CornerRadius="8" BorderBrush="#DDDDDD" BorderThickness="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox Grid.Column="0" BorderThickness="0" Padding="10,8" FontSize="14"/>
+                                        <ComboBox Grid.Column="1" ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}" Width="60" SelectedIndex="0" BorderThickness="0" Background="Transparent">
+                                            <ComboBoxItem Content="cm" Foreground="#6200EE"/>
+                                            <ComboBoxItem Content="in"/>
+                                        </ComboBox>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                            <!-- Activity Level -->
+                            <StackPanel Margin="0,0,0,20">
+                                <TextBlock Text="Activity Level" FontSize="16" Foreground="Black" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                                <Border Background="White" CornerRadius="8" BorderBrush="#DDDDDD" BorderThickness="1">
+                                    <ComboBox ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}" BorderThickness="0" Padding="8" FontSize="14" SelectedIndex="1">
+                                        <ComboBoxItem Content="Sedentary (office job)"/>
+                                        <ComboBoxItem Content="Light Exercise (1-2 days/week)"/>
+                                        <ComboBoxItem Content="Moderate Exercise (3-5 days/week)"/>
+                                        <ComboBoxItem Content="Heavy Exercise (6-7 days/week)"/>
+                                        <ComboBoxItem Content="Athlete (2x per day)"/>
+                                    </ComboBox>
+                                </Border>
+                            </StackPanel>
+                            <!-- Calculate Button -->
+                            <Button Height="45" Background="#FF6200EE" Foreground="White" BorderThickness="0" Margin="0,10,0,0">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="8"/>
+                                    </Style>
+                                </Button.Resources>
+                                <TextBlock Text="CALCULATE TDEE" FontWeight="Bold" FontSize="16"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <!-- Right Column - Results -->
+                    <Border Grid.Column="1" Background="#F5F5F5" CornerRadius="12" BorderBrush="#E0E0E0" BorderThickness="2" Margin="10,0,0,0" VerticalAlignment="Top">
+                        <StackPanel Margin="20">
+                            <TextBlock Text="Results" FontSize="22" FontWeight="Bold" Foreground="#FF6200EE" Margin="0,0,0,15"/>
+                            <!-- TDEE Results -->
+                            <Grid Margin="0,0,0,15">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Maintenance Calories (TDEE)" Foreground="Black" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,5" Grid.Row="0"/>
+                                <Border Grid.Row="1" Background="White" CornerRadius="8" BorderBrush="#DDDDDD" BorderThickness="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox Grid.Column="0" BorderThickness="0" Padding="10,12" FontSize="20" FontWeight="Bold" IsReadOnly="True" Background="Transparent" Text="0"/>
+                                        <TextBlock Grid.Column="1" Text="kcal" VerticalAlignment="Center" Margin="0,0,15,0" FontSize="16"/>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                            <!-- Weight Goals Table -->
+                            <TextBlock Text="Weight Goals" FontSize="18" FontWeight="SemiBold" Foreground="#FF6200EE" Margin="0,0,0,10"/>
+                            <Border BorderThickness="1" BorderBrush="#DDDDDD" CornerRadius="8" Margin="0,0,0,15">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <!-- Header -->
+                                    <Border Grid.Row="0" Grid.ColumnSpan="2" Background="#6200EE" CornerRadius="8,8,0,0">
+                                        <TextBlock Text="Goal" FontWeight="Bold" Foreground="White" Padding="10,8" FontSize="14"/>
+                                    </Border>
+                                    <!-- Weight Gain -->
+                                    <TextBlock Grid.Row="1" Foreground="Black" Grid.Column="0" Text="Weight Gain (20% surplus)" Padding="10,8" Background="#F0F0F0"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="0 kcal" Padding="10,8" Background="#F0F0F0" FontWeight="SemiBold"/>
+                                    <!-- Mild Weight Gain -->
+                                    <TextBlock Grid.Row="2" Foreground="Black" Grid.Column="0" Text="Mild Weight Gain (10% surplus)" Padding="10,8"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="0 kcal" Padding="10,8" FontWeight="SemiBold"/>
+                                    <!-- Weight Loss -->
+                                    <TextBlock Grid.Row="3" Foreground="Black" Grid.Column="0" Text="Weight Loss (10% deficit)" Padding="10,8" Background="#F0F0F0"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="1" Text="0 kcal" Padding="10,8" Background="#F0F0F0" FontWeight="SemiBold"/>
+                                    <!-- Significant Weight Loss -->
+                                    <TextBlock Grid.Row="4" Foreground="Black" Grid.Column="0" Text="Significant Weight Loss (20% deficit)" Padding="10,8"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="0 kcal" Padding="10,8" FontWeight="SemiBold"/>
+                                </Grid>
+                            </Border>
+                            <!-- Calculate Macros Button -->
+                            <Button Height="45" Background="#FF6200EE" Foreground="White" BorderThickness="0" Margin="0,10,0,0" x:Name="CalculateMacrosButton" Click="CalculateMacrosButton_Click">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="8"/>
+                                    </Style>
+                                </Button.Resources>
+                                <TextBlock Text="CALCULATE MACROS" FontWeight="Bold" FontSize="16"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+        <!-- Popup for Macros -->
+        <Popup x:Name="MacrosPopup" IsOpen="False" PlacementTarget="{Binding ElementName=CalculateMacrosButton}" 
+               StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade">
+            <Border CornerRadius="10" Background="White" BorderBrush="#E0E0E0" BorderThickness="2" Width="500">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- Header -->
+                    <Border Grid.Row="0" Background="#FF6200EE" CornerRadius="8,8,0,0">
+                        <Grid>
+                            <TextBlock Text="Calculate Your Macros" FontSize="18" FontWeight="Bold" Foreground="White" Margin="15,10" HorizontalAlignment="Left"/>
+                            <Button Content="✕" FontSize="14" Background="Transparent" BorderThickness="0" Foreground="White" 
+                                    HorizontalAlignment="Right" Margin="0,0,10,0" Click="ClosePopupButton_Click" Cursor="Hand"/>
+                        </Grid>
+                    </Border>
+                    <!-- Main Content -->
+                    <StackPanel Grid.Row="1" Margin="15">
+                        <!-- Calorie Goal Selection -->
+                        <ComboBox SelectedIndex="2" Padding="8,5" ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}" FontSize="13" Margin="0,0,0,15">
+                            <ComboBoxItem Content="Weight Gain (20% surplus) - 0 kcal"/>
+                            <ComboBoxItem Content="Mild Weight Gain (10% surplus) - 0 kcal"/>
+                            <ComboBoxItem Content="Maintenance - 0 kcal"/>
+                            <ComboBoxItem Content="Weight Loss (10% deficit) - 0 kcal"/>
+                            <ComboBoxItem Content="Significant Weight Loss (20% deficit) - 0 kcal"/>
+                        </ComboBox>
+                        <!-- Macro Table Headers -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Background="#6200EE" Margin="0,0,5,0" CornerRadius="5" Padding="5,3">
+                                <TextBlock Text="Protein" FontSize="14" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Column="1" Background="#FF9800" Margin="2,0,2,0" CornerRadius="5" Padding="5,3">
+                                <TextBlock Text="Carbs" FontSize="14" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Column="2" Background="#8E24AA" Margin="5,0,0,0" CornerRadius="5" Padding="5,3">
+                                <TextBlock Text="Fat" FontSize="14" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                        <!-- Macro Content -->
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!-- Row 1: g/lb -->
+                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="0,5,0,5">
+                                <TextBlock Text="g/lb" VerticalAlignment="Center" Width="50"/>
+                                <ComboBox Width="70" ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}" SelectedIndex="0">
+                                    <ComboBoxItem Content="0.9"/>
+                                    <ComboBoxItem Content="1.0"/>
+                                    <ComboBoxItem Content="1.1"/>
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="0,5,0,5">
+                                <TextBlock Text="g/lb" VerticalAlignment="Center" Width="50"/>
+                                <ComboBox Width="70" ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}" SelectedIndex="1">
+                                    <ComboBoxItem Content="0.8"/>
+                                    <ComboBoxItem Content="1.0"/>
+                                    <ComboBoxItem Content="1.2"/>
+                                </ComboBox>
+                            </StackPanel>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Remaining calories" FontStyle="Italic" 
+                                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <!-- Row 2: Daily Intake -->
+                            <Grid Grid.Row="1" Grid.Column="0" Margin="0,5,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Daily Intake" Grid.Column="0" FontWeight="SemiBold"/>
+                                <TextBlock Text="0 g" Grid.Column="1" FontWeight="SemiBold"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Grid.Column="1" Margin="0,5,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Daily Intake" Grid.Column="0" FontWeight="SemiBold"/>
+                                <TextBlock Text="0 g" Grid.Column="1" FontWeight="SemiBold"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Grid.Column="2" Margin="0,5,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Daily Intake" Grid.Column="0" FontWeight="SemiBold"/>
+                                <TextBlock Text="0 g" Grid.Column="1" FontWeight="SemiBold"/>
+                            </Grid>
+                            <!-- Row 3: Calories -->
+                            <Grid Grid.Row="2" Grid.Column="0" Margin="0,5,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Calories" Grid.Column="0" FontWeight="SemiBold"/>
+                                <TextBlock Text="0" Grid.Column="1" FontWeight="SemiBold"/>
+                            </Grid>
+                            <Grid Grid.Row="2" Grid.Column="1" Margin="0,5,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Calories" Grid.Column="0" FontWeight="SemiBold"/>
+                                <TextBlock Text="0" Grid.Column="1" FontWeight="SemiBold"/>
+                            </Grid>
+                            <Grid Grid.Row="2" Grid.Column="2" Margin="0,5,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Calories" Grid.Column="0" FontWeight="SemiBold"/>
+                                <TextBlock Text="0" Grid.Column="1" FontWeight="SemiBold"/>
+                            </Grid>
+                            <!-- Row 4: Calorie % -->
+                            <Grid Grid.Row="3" Grid.Column="0" Margin="0,5,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Calorie %" Grid.Column="0" FontWeight="SemiBold"/>
+                                <TextBlock Text="30.22%" Grid.Column="1" FontWeight="SemiBold" Foreground="#6200EE"/>
+                            </Grid>
+                            <Grid Grid.Row="3" Grid.Column="1" Margin="0,5,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Calorie %" Grid.Column="0" FontWeight="SemiBold"/>
+                                <TextBlock Text="33.58%" Grid.Column="1" FontWeight="SemiBold" Foreground="#FF9800"/>
+                            </Grid>
+                            <Grid Grid.Row="3" Grid.Column="2" Margin="0,5,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Calorie %" Grid.Column="0" FontWeight="SemiBold"/>
+                                <TextBlock Text="36.19%" Grid.Column="1" FontWeight="SemiBold" Foreground="#8E24AA"/>
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+                    <!-- Footer -->
+                    <Border Grid.Row="2" Background="#F5F5F5" CornerRadius="0,0,8,8" Padding="15,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Total Calorie %" FontSize="14" FontWeight="Bold" Grid.Column="0"/>
+                            <TextBlock Text="100.00%" FontSize="14" FontWeight="Bold" Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+        </Popup>
     </Grid>
 </UserControl>

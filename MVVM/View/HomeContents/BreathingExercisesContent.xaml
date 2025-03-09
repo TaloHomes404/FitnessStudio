@@ -23,7 +23,7 @@
         <!-- Header Section -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="16,15,0,20">
             <Image Source="/Resources/breathing_icon.png" Width="64" Height="64" Margin="0,0,15,0"/>
-            <TextBlock Text="Breathe In Peace, Breathe Out Tension" 
+            <TextBlock Text="Breathe In Peace,&#10;  Breathe Out Tension" 
                        FontSize="32" 
                        FontWeight="Bold" 
                        Foreground="#2196F3"

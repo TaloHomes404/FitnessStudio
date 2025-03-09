@@ -27,13 +27,18 @@
     <None Remove="Resources\minus_icon.png" />
     <None Remove="Resources\motivation_icon.png" />
     <None Remove="Resources\mug_icon.png" />
+    <None Remove="Resources\music_muted_icon.png" />
+    <None Remove="Resources\music_on_icon.png" />
     <None Remove="Resources\nutrition_icon.png" />
     <None Remove="Resources\physical_health_icon.png" />
     <None Remove="Resources\plus_button_icon.png" />
     <None Remove="Resources\plus_icon.png" />
     <None Remove="Resources\profile_icon.png" />
     <None Remove="Resources\progressive_overload_icon.png" />
+    <None Remove="Resources\quick_icon.png" />
+    <None Remove="Resources\quote_icon.png" />
     <None Remove="Resources\recovery_icon.png" />
+    <None Remove="Resources\relax_icon.png" />
     <None Remove="Resources\settings_icon.png" />
     <None Remove="Resources\sleeping_icon.png" />
     <None Remove="Resources\sleep_schedule_icon.png" />
@@ -45,6 +50,12 @@
     <None Remove="Resources\water_drops_icon.png" />
     <None Remove="Resources\water_icon.png" />
     <None Remove="Resources\workout_log_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\music_muted_icon.png" />
+    <Resource Include="Resources\music_on_icon.png" />
+    <Resource Include="Resources\quote_icon.png" />
   </ItemGroup>
 
 
@@ -86,7 +97,9 @@
     <Resource Include="Resources\plus_icon.png" />
     <Resource Include="Resources\profile_icon.png" />
     <Resource Include="Resources\progressive_overload_icon.png" />
+    <Resource Include="Resources\quick_icon.png" />
     <Resource Include="Resources\recovery_icon.png" />
+    <Resource Include="Resources\relax_icon.png" />
     <Resource Include="Resources\settings_icon.png" />
     <Resource Include="Resources\sleeping_icon.png" />
     <Resource Include="Resources\sleep_schedule_icon.png" />

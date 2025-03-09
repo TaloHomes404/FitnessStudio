@@ -36,6 +36,18 @@
             <DataTemplate DataType="{x:Type contentViewModel:MotivationContentViewModel}">
                 <contentView:MotivationContent />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type contentViewModel:MeditationContentViewModel}">
+                <contentView:MeditationContent />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type contentViewModel:CaloriesCalculatorContentViewModel}">
+                <contentView:CaloriesCalculatorContent />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type contentViewModel:BMICalculatorContentViewModel}">
+                <contentView:BMICalculatorContent />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type contentViewModel:CorrectPostureContentViewModel}">
+                <contentView:CorrectPostureContent />
+            </DataTemplate>
             <!-- DataTemplate, który wykorzystuje styl SidePanelButtonStyle -->
             <DataTemplate x:Key="SidePanelItemTemplate">
                 <Button Style="{StaticResource SidePanelButtonStyle}"
