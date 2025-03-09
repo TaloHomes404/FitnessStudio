@@ -1,28 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Media.Effects;
+using FitnessStudio.MVVM.ViewModel.HomeContents;
 
 namespace FitnessStudio.MVVM.View.HomeContents
 {
-    /// <summary>
-    /// Logika interakcji dla klasy BreathingExercisesContent.xaml
-    /// </summary>
     public partial class BreathingExercisesContent : UserControl
     {
         public BreathingExercisesContent()
         {
             InitializeComponent();
+            DataContext = new BreathingExercisesContentViewModel();
+
+            // Set the middle card as active by default
+            SetActiveCard(MiddleCard);
+        }
+
+
+        //Click functionality to select card
+        private void Card_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is Border clickedCard)
+            {
+                SetActiveCard(clickedCard);
+            }
+        }
+
+        private void SetActiveCard(Border activeCard)
+        {
+            // Reset all cards
+            LeftCard.Effect = TryFindResource("BackgroundBlur") as Effect;
+            MiddleCard.Effect = TryFindResource("BackgroundBlur") as Effect;
+            RightCard.Effect = TryFindResource("BackgroundBlur") as Effect;
+
+            Panel.SetZIndex(LeftCard, 1);
+            Panel.SetZIndex(MiddleCard, 1);
+            Panel.SetZIndex(RightCard, 1);
+
+            // Set active card
+            activeCard.Effect = TryFindResource("CardShadow") as Effect;
+            Panel.SetZIndex(activeCard, 2);
         }
     }
 }

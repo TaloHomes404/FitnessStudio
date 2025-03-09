@@ -21,6 +21,14 @@ namespace FitnessStudio.MVVM.ViewModel
         public ICommand NavigateToWorkoutLogCommand { get; private set; }
         public ICommand NavigateToToolsCommand { get; private set; }
         public ICommand NavigateToWaterIntakeCommand { get; private set; }
+        public ICommand NavigateToSuplementsCommand { get; private set; }
+        public ICommand NavigateToStepsCounterCommand { get; private set; }
+        public ICommand NavigateToBreathingExercisesCommand { get; private set; }
+        public ICommand NavigateToMotivationCommand { get; private set; }
+        public ICommand NavigateToMeditationCommand { get; private set; }
+        public ICommand NavigateToBMICalculatorCommand { get; private set; }
+        public ICommand NavigateToCalorieCalculatorCommand { get; private set; }
+        public ICommand NavigateToCorrectPostureCommand { get; private set; }
 
 
 
@@ -37,6 +45,14 @@ namespace FitnessStudio.MVVM.ViewModel
             NavigateToWorkoutLogCommand = new RelayCommand(NavigateToWorkoutLog);
             NavigateToToolsCommand = new RelayCommand(NavigateToTools);
             NavigateToWaterIntakeCommand = new RelayCommand(NavigateToWaterIntake);
+            NavigateToSuplementsCommand = new RelayCommand(NavigateToSuplements);
+            NavigateToStepsCounterCommand = new RelayCommand(NavigateToStepsCounter);
+            NavigateToBreathingExercisesCommand = new RelayCommand(NavigateToBreathingExercises);
+            NavigateToMotivationCommand = new RelayCommand(NavigateToMotivation);
+            NavigateToMeditationCommand = new RelayCommand(NavigateToMeditation);
+            NavigateToCalorieCalculatorCommand = new RelayCommand(NavigateToCalorieCalculator);
+            NavigateToBMICalculatorCommand = new RelayCommand(NavigateToBMICalculator);
+            NavigateToCorrectPostureCommand = new RelayCommand(NavigateToCorrectPosture);
 
             // Categories sections declaration and buttons asign
             SidebarCategories = new ObservableCollection<SidebarCategory>
@@ -86,12 +102,12 @@ namespace FitnessStudio.MVVM.ViewModel
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/step_counter_icon.png", UriKind.Relative),
                             Text = "Steps Counter",
-                            Command = NavigateToHomeCommand
+                            Command = NavigateToStepsCounterCommand
                         },
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/correct_posture_icon.png", UriKind.Relative),
                             Text = "Correct Posture",
-                            Command = NavigateToHomeCommand
+                            Command = NavigateToCorrectPostureCommand
                         }
                     }
                 },
@@ -106,12 +122,12 @@ namespace FitnessStudio.MVVM.ViewModel
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/breathing_exercises_icon.png", UriKind.Relative),
                             Text = "Breathing Exercises",
-                            Command = NavigateToWorkoutLogCommand
+                            Command = NavigateToBreathingExercisesCommand
                         },
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/meditation_icon.png", UriKind.Relative),
                             Text = "Meditation",
-                            Command = NavigateToWaterIntakeCommand
+                            Command = NavigateToMeditationCommand
                         },
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/stressed_icon.png", UriKind.Relative),
@@ -121,7 +137,7 @@ namespace FitnessStudio.MVVM.ViewModel
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/motivation_icon.png", UriKind.Relative),
                             Text = "Motivation",
-                            Command = NavigateToWaterIntakeCommand
+                            Command = NavigateToMotivationCommand
                         },
                     }
                 },
@@ -136,17 +152,17 @@ namespace FitnessStudio.MVVM.ViewModel
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/calories_calculator_icon.png", UriKind.Relative),
                             Text = "Calories Calculator",
-                            Command = NavigateToToolsCommand
+                            Command = NavigateToCalorieCalculatorCommand
                         },
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/bmi_calculator_icon.png", UriKind.Relative),
                             Text = "BMI Calculator",
-                            Command = NavigateToToolsCommand
+                            Command = NavigateToBMICalculatorCommand
                         },
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/suplements_icon.png", UriKind.Relative),
                             Text = "Suplements",
-                            Command = NavigateToToolsCommand
+                            Command = NavigateToSuplementsCommand
                         },
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/water_icon.png", UriKind.Relative),
@@ -189,9 +205,49 @@ namespace FitnessStudio.MVVM.ViewModel
             CurrentMainContent = new HomeMainContentViewModel();
         }
 
+        private void NavigateToSuplements()
+        {
+            CurrentMainContent = new SuplementsContentViewModel();
+        }
+
         private void NavigateToWorkoutLog()
         {
             CurrentMainContent = new WorkoutLogContentViewModel();
+        }
+
+        private void NavigateToStepsCounter()
+        {
+            CurrentMainContent = new StepsCounterContentViewModel();
+        }
+
+        private void NavigateToMeditation()
+        {
+            CurrentMainContent = new MeditationContentViewModel();
+        }
+
+        private void NavigateToCorrectPosture()
+        {
+            CurrentMainContent = new CorrectPostureContentViewModel();
+        }
+
+        private void NavigateToBMICalculator()
+        {
+            CurrentMainContent = new BMICalculatorContentViewModel();
+        }
+
+        private void NavigateToCalorieCalculator()
+        {
+            CurrentMainContent = new CaloriesCalculatorContentViewModel();
+        }
+
+        private void NavigateToMotivation()
+        {
+            CurrentMainContent = new MotivationContentViewModel();
+        }
+
+        private void NavigateToBreathingExercises()
+        {
+            CurrentMainContent = new BreathingExercisesContentViewModel();
         }
 
         private void NavigateToWaterIntake()

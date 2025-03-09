@@ -6,7 +6,240 @@
              xmlns:local="clr-namespace:FitnessStudio.MVVM.View.HomeContents"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DropShadowEffect x:Key="CardShadow" 
+                          ShadowDepth="4" 
+                          Direction="315" 
+                          Color="#CCCCCC" 
+                          Opacity="0.5" 
+                          BlurRadius="10"/>
+        <BlurEffect x:Key="BackgroundBlur" Radius="3"/>
+    </UserControl.Resources>
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!-- Header Section -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="16,15,0,20">
+            <Image Source="/Resources/breathing_icon.png" Width="64" Height="64" Margin="0,0,15,0"/>
+            <TextBlock Text="Breathe In Peace,&#10;  Breathe Out Tension" 
+                       FontSize="32" 
+                       FontWeight="Bold" 
+                       Foreground="#2196F3"
+                       VerticalAlignment="Center"/>
+        </StackPanel>
+        <!-- Cards Container - Moved to the left with adjusted dimensions -->
+        <Grid Grid.Row="1" HorizontalAlignment="Left" Margin="20,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230"/>
+                <ColumnDefinition Width="230"/>
+                <ColumnDefinition Width="230"/>
+            </Grid.ColumnDefinitions>
+            <!-- Left Card -->
+            <Border x:Name="LeftCard" 
+                    Grid.Column="0" 
+                    Height="300"
+                    Margin="0,0,10,0" 
+                    Background="#303040" 
+                    CornerRadius="20" 
+                    BorderBrush="Transparent" 
+                    BorderThickness="1" 
+                    Effect="{StaticResource BackgroundBlur}"
+                    Panel.ZIndex="1"
+                    MouseLeftButtonDown="Card_MouseLeftButtonDown">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- Small title at top -->
+                    <TextBlock Grid.Row="0" 
+                              Text="Stay calm and alerted" 
+                              FontSize="14" 
+                              Foreground="#AAAAAA" 
+                              Margin="15,15,0,10" 
+                              HorizontalAlignment="Left"/>
+                    <!-- Main circular image -->
+                    <Grid Grid.Row="1" Margin="0,5,0,5">
+                        <Ellipse Width="100" Height="100" Fill="#252535"/>
+                        <Ellipse Width="80" Height="80" Fill="#2E2E40"/>
+                        <TextBlock Text="Inhale" 
+                                  FontSize="16" 
+                                  Foreground="#4B7BEC" 
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                    </Grid>
+                    <!-- Content Title -->
+                    <TextBlock Grid.Row="2" 
+                              Text="Box Breathing" 
+                              FontSize="18" 
+                              Foreground="White" 
+                              FontWeight="SemiBold" 
+                              HorizontalAlignment="Left" 
+                              Margin="15,5,0,0"/>
+                    <!-- Description -->
+                    <TextBlock Grid.Row="3" 
+                              Text="Exercise • 4 min" 
+                              FontSize="14" 
+                              Foreground="#BBBBBB" 
+                              HorizontalAlignment="Left" 
+                              Margin="15,5,0,15"/>
+                    <!-- Button -->
+                    <Button Grid.Row="4" 
+                           Content="Start Now" 
+                           Background="#EEEEEE" 
+                           Foreground="#333333" 
+                           FontWeight="SemiBold" 
+                           Height="40" 
+                           Margin="15,5,15,15">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </Border>
+            <!-- Middle Card (Active by default) -->
+            <Border x:Name="MiddleCard" 
+                    Grid.Column="1" 
+                    Height="300"
+                    Margin="0,0,10,0" 
+                    Background="#E5F9F3" 
+                    CornerRadius="20" 
+                    BorderBrush="Transparent" 
+                    BorderThickness="1" 
+                    Effect="{StaticResource CardShadow}"
+                    Panel.ZIndex="2"
+                    MouseLeftButtonDown="Card_MouseLeftButtonDown">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- Small title at top -->
+                    <TextBlock Grid.Row="0" 
+                              Text="For stressful situations" 
+                              FontSize="14" 
+                              Foreground="#777777" 
+                              Margin="15,15,0,10" 
+                              HorizontalAlignment="Left"/>
+                    <!-- Main circular image -->
+                    <Grid Grid.Row="1" Margin="0,5,0,5">
+                        <Ellipse Width="120" Height="120" Fill="#C1F4E8"/>
+                        <Ellipse Width="80" Height="80" Fill="#4AD1B8"/>
+                        <TextBlock Text="Start" 
+                                  FontSize="16" 
+                                  Foreground="White" 
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                    </Grid>
+                    <!-- Content Title -->
+                    <TextBlock Grid.Row="2" 
+                              Text="Calming 4-7-8" 
+                              FontSize="18" 
+                              Foreground="#333333" 
+                              FontWeight="SemiBold" 
+                              HorizontalAlignment="Center" 
+                              Margin="0,5,0,0"/>
+                    <!-- Description -->
+                    <TextBlock Grid.Row="3" 
+                              Text="Exercise • 3 min" 
+                              FontSize="14" 
+                              Foreground="#555555" 
+                              HorizontalAlignment="Center" 
+                              Margin="0,5,0,15"/>
+                    <!-- Button -->
+                    <Button Grid.Row="4" 
+                           Content="Start Now" 
+                           Background="#2D3142" 
+                           Foreground="White" 
+                           FontWeight="SemiBold" 
+                           Height="40" 
+                           Margin="15,5,15,15">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </Border>
+            <!-- Right Card -->
+            <Border x:Name="RightCard" 
+                    Grid.Column="2" 
+                    Height="300"
+                    Margin="0,0,0,0" 
+                    Background="White" 
+                    CornerRadius="20" 
+                    BorderBrush="#EEEEEE" 
+                    BorderThickness="1" 
+                    Effect="{StaticResource BackgroundBlur}"
+                    Panel.ZIndex="1"
+                    MouseLeftButtonDown="Card_MouseLeftButtonDown">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- Small title at top will be empty for this card -->
+                    <TextBlock Grid.Row="0" 
+                              Text="Lung Expansion Exercise" 
+                              FontSize="14" 
+                              Foreground="#777777" 
+                              Margin="15,15,0,10" 
+                              HorizontalAlignment="Left"/>
+                    <!-- Main image (Indicator) -->
+                    <Grid Grid.Row="1" Margin="0,5,0,5">
+                        <Ellipse Width="120" Height="120" Fill="#C1F4E8"/>
+                        <Ellipse Width="80" Height="80" Fill="#4AD1B8"/>
+                        <TextBlock Text="Start" 
+                                  FontSize="16" 
+                                  Foreground="White" 
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                    </Grid>
+                    <!-- Content Title -->
+                    <TextBlock Grid.Row="2" 
+                              Text="Pursed-Lip Breathing" 
+                              FontSize="18" 
+                              Foreground="#333333" 
+                              FontWeight="SemiBold" 
+                              HorizontalAlignment="Left" 
+                              Margin="15,5,0,0"/>
+                    <!-- Description -->
+                    <TextBlock Grid.Row="3" 
+                              Text="Exercise • 5 min" 
+                              FontSize="14" 
+                              Foreground="#555555" 
+                              HorizontalAlignment="Left" 
+                              Margin="15,5,0,15"/>
+                    <!-- Button -->
+                    <Button Grid.Row="4" 
+                           Content="Start Now" 
+                           Background="#2D3142" 
+                           Foreground="White" 
+                           FontWeight="SemiBold" 
+                           Height="40" 
+                           Margin="15,5,15,15">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

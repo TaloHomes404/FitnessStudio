@@ -30,32 +30,32 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
         public ObservableCollection<WorkoutSession> WorkoutSessions { get; set; }
 
         // Lista dostępnych ćwiczeń do wyboru
-        public ObservableCollection<string> AvailableExercises { get; set; }
+        public ObservableCollection<string>? AvailableExercises { get; set; }
 
         #endregion
 
         #region Polecenia (Commands)
 
         // Polecenie otwierające okno dialogowe dodawania treningu
-        public ICommand OpenAddWorkoutCommand { get; set; }
+        public ICommand? OpenAddWorkoutCommand { get; set; }
 
         // Polecenie anulujące dodawanie treningu
-        public ICommand CancelAddWorkoutCommand { get; set; }
+        public ICommand? CancelAddWorkoutCommand { get; set; }
 
         // Polecenie zapisujące nowy trening
-        public ICommand SaveWorkoutCommand { get; set; }
+        public ICommand? SaveWorkoutCommand { get; set; }
 
         // Polecenie dodające nowe ćwiczenie do listy
-        public ICommand AddExerciseCommand { get; set; }
+        public ICommand? AddExerciseCommand { get; set; }
 
         // Polecenie usuwające ćwiczenie z listy
-        public ICommand RemoveExerciseCommand { get; set; }
+        public ICommand? RemoveExerciseCommand { get; set; }
 
         // Polecenie edytujące istniejący trening
-        public ICommand EditWorkoutCommand { get; set; }
+        public ICommand? EditWorkoutCommand { get; set; }
 
         // Polecenie usuwające istniejący trening
-        public ICommand DeleteWorkoutCommand { get; set; }
+        public ICommand? DeleteWorkoutCommand { get; set; }
 
         #endregion
 
