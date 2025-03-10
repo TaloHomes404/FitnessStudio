@@ -29,6 +29,8 @@ namespace FitnessStudio.MVVM.ViewModel
         public ICommand NavigateToBMICalculatorCommand { get; private set; }
         public ICommand NavigateToCalorieCalculatorCommand { get; private set; }
         public ICommand NavigateToCorrectPostureCommand { get; private set; }
+        public ICommand NavigateToStressCommand { get; private set; }
+        public ICommand NavigateToSleepScheduleCommand { get; private set; }
 
 
 
@@ -53,6 +55,8 @@ namespace FitnessStudio.MVVM.ViewModel
             NavigateToCalorieCalculatorCommand = new RelayCommand(NavigateToCalorieCalculator);
             NavigateToBMICalculatorCommand = new RelayCommand(NavigateToBMICalculator);
             NavigateToCorrectPostureCommand = new RelayCommand(NavigateToCorrectPosture);
+            NavigateToStressCommand = new RelayCommand(NavigateToStress);
+            NavigateToSleepScheduleCommand = new RelayCommand(NavigateToSleepSchedule);
 
             // Categories sections declaration and buttons asign
             SidebarCategories = new ObservableCollection<SidebarCategory>
@@ -95,11 +99,6 @@ namespace FitnessStudio.MVVM.ViewModel
                             Command = NavigateToWorkoutLogCommand
                         },
                         new SidePanelItem {
-                            IconPath = new Uri("/FitnessStudio;component/Resources/progressive_overload_icon.png", UriKind.Relative),
-                            Text = "Progressive Overload",
-                            Command = NavigateToHomeCommand
-                        },
-                        new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/step_counter_icon.png", UriKind.Relative),
                             Text = "Steps Counter",
                             Command = NavigateToStepsCounterCommand
@@ -132,7 +131,7 @@ namespace FitnessStudio.MVVM.ViewModel
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/stressed_icon.png", UriKind.Relative),
                             Text = "Stress",
-                            Command = NavigateToWaterIntakeCommand
+                            Command = NavigateToStressCommand
                         },
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/motivation_icon.png", UriKind.Relative),
@@ -181,7 +180,7 @@ namespace FitnessStudio.MVVM.ViewModel
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/sleep_schedule_icon.png", UriKind.Relative),
                             Text = "Sleep Schedule",
-                            Command = NavigateToToolsCommand
+                            Command = NavigateToSleepScheduleCommand
                         },
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/blue_light_icon.png", UriKind.Relative),
@@ -213,6 +212,16 @@ namespace FitnessStudio.MVVM.ViewModel
         private void NavigateToWorkoutLog()
         {
             CurrentMainContent = new WorkoutLogContentViewModel();
+        }
+
+        public void NavigateToSleepSchedule()
+        {
+            CurrentMainContent = new SleepSchedulerContentViewModel();
+        }
+
+        public void NavigateToStress()
+        {
+            CurrentMainContent = new StressContentViewModel();
         }
 
         private void NavigateToStepsCounter()

@@ -44,6 +44,7 @@
     <None Remove="Resources\sleep_schedule_icon.png" />
     <None Remove="Resources\step_counter_icon.png" />
     <None Remove="Resources\stressed_icon.png" />
+    <None Remove="Resources\stress_journal_icon.png" />
     <None Remove="Resources\suplements_icon.png" />
     <None Remove="Resources\tools_icon.png" />
     <None Remove="Resources\water_bottle_icon.png" />
@@ -105,6 +106,7 @@
     <Resource Include="Resources\sleep_schedule_icon.png" />
     <Resource Include="Resources\step_counter_icon.png" />
     <Resource Include="Resources\stressed_icon.png" />
+    <Resource Include="Resources\stress_journal_icon.png" />
     <Resource Include="Resources\suplements_icon.png" />
     <Resource Include="Resources\tools_icon.png" />
     <Resource Include="Resources\water_bottle_icon.png" />
