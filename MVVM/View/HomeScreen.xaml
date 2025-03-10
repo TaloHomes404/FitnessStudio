@@ -51,6 +51,9 @@
             <DataTemplate DataType="{x:Type contentViewModel:StressContentViewModel}">
                 <contentView:StressContent />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type contentViewModel:SleepSchedulerContentViewModel}">
+                <contentView:SleepScheduleContent />
+            </DataTemplate>
             <!-- DataTemplate, który wykorzystuje styl SidePanelButtonStyle -->
             <DataTemplate x:Key="SidePanelItemTemplate">
                 <Button Style="{StaticResource SidePanelButtonStyle}"

@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-
+using FitnessStudio.MVVM.ViewModel.HomeContents;
 namespace FitnessStudio.MVVM.View.HomeContents
 {
     /// <summary>
@@ -10,7 +10,7 @@ namespace FitnessStudio.MVVM.View.HomeContents
         public SleepScheduleContent()
         {
             InitializeComponent();
-            DataContext = new SleepScheduleContentViewModel();
+            DataContext = new SleepSchedulerContentViewModel();
         }
     }
 }
