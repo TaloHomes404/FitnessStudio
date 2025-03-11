@@ -14,6 +14,9 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
         [ObservableProperty]
         private WaterAmount _selectedWaterAmount;
 
+        public ObservableCollection<HomeViewModel.RightSidebarItem> RightSidebarItems { get; }
+        = new ObservableCollection<HomeViewModel.RightSidebarItem>();
+
         [ObservableProperty]
         private double _hydrationProgress;
 
@@ -33,6 +36,21 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
                 new WaterAmount(500, "/Resources/water_bottle_icon.png", "Bottle - 500ml"),
                 new WaterAmount(1500, "/Resources/big_water_bottle_icon.png", "Large bottle - 1500ml")
             };
+
+            // Inicjalizacja zawartości sidebara
+            RightSidebarItems.Add(new HomeViewModel.RightSidebarItem
+            {
+                Title = "water water",
+                Description = "Spróbuj metody 4-7-8: Wdychaj 4 sekundy, wstrzymaj 7, wydychaj 8",
+                ImagePath = new Uri("/FitnessStudio;component/Resources/supplements_border_img.jpg", UriKind.Relative)
+            });
+
+            RightSidebarItems.Add(new HomeViewModel.RightSidebarItem
+            {
+                Title = "water water",
+                Description = "Słuchaj dźwięków natury przez minimum 15 minut dziennie",
+                ImagePath = new Uri("/FitnessStudio;component/Resources/supplements_border_img.jpg", UriKind.Relative)
+            });
 
             SelectedWaterAmount = WaterAmounts[1];
             UpdateHydrationProgress();

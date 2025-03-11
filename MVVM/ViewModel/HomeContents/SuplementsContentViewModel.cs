@@ -12,6 +12,10 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
         private ObservableCollection<Supplement> _userSupplements;
         private string _searchText;
 
+        //Right Sidebar items declaration list for supplements screen
+        public ObservableCollection<HomeViewModel.RightSidebarItem> RightSidebarItems { get; }
+        = new ObservableCollection<HomeViewModel.RightSidebarItem>();
+
         // Właściwości dla tab kontrolki dni tygodnia
         public bool IsMonday { get; set; } = true;
         public bool IsTuesday { get; set; } = false;
@@ -58,6 +62,15 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
         public SuplementsContentViewModel()
         {
             InitializeSupplements();
+
+            // Setting up right sidebar for suplements contentView
+            RightSidebarItems.Add(new HomeViewModel.RightSidebarItem
+            {
+                Title = "Suplementacja kluczem do zdrowia?",
+                Description = "test test test test test test test",
+                ImagePath = new Uri("/FitnessStudio;component/Resources/SidebarImages/supplements_border_img.jpg", UriKind.Relative)
+            });
+
             _searchResults = new ObservableCollection<Supplement>(_allSupplements);
             _userSupplements = new ObservableCollection<Supplement>();
 

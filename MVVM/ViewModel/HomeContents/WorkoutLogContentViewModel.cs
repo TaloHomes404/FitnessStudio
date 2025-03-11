@@ -32,6 +32,10 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
         // Lista dostępnych ćwiczeń do wyboru
         public ObservableCollection<string>? AvailableExercises { get; set; }
 
+        //Kolekcja itemów dla prawego sidebara
+        public ObservableCollection<HomeViewModel.RightSidebarItem> RightSidebarItems { get; }
+        = new ObservableCollection<HomeViewModel.RightSidebarItem>();
+
         #endregion
 
         #region Polecenia (Commands)
@@ -65,12 +69,27 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
             // Inicjalizacja kolekcji
             WorkoutSessions = new ObservableCollection<WorkoutSession>();
             InitializeExerciseList();
+            // Inicjalizacja zawartości sidebara
+            RightSidebarItems.Add(new HomeViewModel.RightSidebarItem
+            {
+                Title = "workout log",
+                Description = "Spróbuj metody 4-7-8: Wdychaj 4 sekundy, wstrzymaj 7, wydychaj 8",
+                ImagePath = new Uri("/FitnessStudio;component/Resources/supplements_border_img.jpg", UriKind.Relative)
+            });
+
+            RightSidebarItems.Add(new HomeViewModel.RightSidebarItem
+            {
+                Title = "workout log",
+                Description = "Słuchaj dźwięków natury przez minimum 15 minut dziennie",
+                ImagePath = new Uri("/FitnessStudio;component/Resources/supplements_border_img.jpg", UriKind.Relative)
+            });
 
             // Dodanie przykładowych danych
             AddSampleWorkout();
 
             // Inicjalizacja poleceń
             SetupCommands();
+
         }
 
         #region Metody pomocnicze

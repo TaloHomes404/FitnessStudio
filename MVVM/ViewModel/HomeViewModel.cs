@@ -37,6 +37,14 @@ namespace FitnessStudio.MVVM.ViewModel
         // Kolekcja dla kategorii w sidebarze
         public ObservableCollection<SidebarCategory> SidebarCategories { get; set; }
 
+        // Nowa kolekcja dla prawego sidebara
+        private ObservableCollection<RightSidebarItem> _currentRightSidebarContent;
+        public ObservableCollection<RightSidebarItem> CurrentRightSidebarContent
+        {
+            get => _currentRightSidebarContent;
+            set => SetProperty(ref _currentRightSidebarContent, value);
+        }
+
         public HomeViewModel()
         {
             //Default init home page content - HomeMainContent
@@ -182,11 +190,6 @@ namespace FitnessStudio.MVVM.ViewModel
                             Text = "Sleep Schedule",
                             Command = NavigateToSleepScheduleCommand
                         },
-                        new SidePanelItem {
-                            IconPath = new Uri("/FitnessStudio;component/Resources/blue_light_icon.png", UriKind.Relative),
-                            Text = "Blue Light Reduction",
-                            Command = NavigateToToolsCommand
-                        },
                     }
                 }
             };
@@ -201,12 +204,15 @@ namespace FitnessStudio.MVVM.ViewModel
         //Navigation to main sections (change main section)
         private void NavigateToHome()
         {
-            CurrentMainContent = new HomeMainContentViewModel();
+            var vm = new HomeMainContentViewModel();
+            CurrentMainContent = vm;
         }
 
         private void NavigateToSuplements()
         {
-            CurrentMainContent = new SuplementsContentViewModel();
+            var vm = new SuplementsContentViewModel();
+            CurrentMainContent = vm;
+            CurrentRightSidebarContent = vm.RightSidebarItems;
         }
 
         private void NavigateToWorkoutLog()
@@ -261,7 +267,9 @@ namespace FitnessStudio.MVVM.ViewModel
 
         private void NavigateToWaterIntake()
         {
-            CurrentMainContent = new WaterIntakeContentViewModel();
+            var vm = new WaterIntakeContentViewModel();
+            CurrentMainContent = vm;
+            CurrentRightSidebarContent = vm.RightSidebarItems;
         }
 
         private void NavigateToTools()
@@ -283,6 +291,14 @@ namespace FitnessStudio.MVVM.ViewModel
             public string? CategoryName { get; set; }
             public Uri? CategoryIcon { get; set; }
             public ObservableCollection<SidePanelItem> Items { get; set; } = new ObservableCollection<SidePanelItem>();
+        }
+
+        //Klasa dla elementu panelu bocznego (po prawej)
+        public class RightSidebarItem
+        {
+            public string Title { get; set; }
+            public string Description { get; set; }
+            public Uri ImagePath { get; set; }
         }
     }
 }
