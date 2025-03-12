@@ -9,6 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Audio\blossom_liborio_conti.mp3" />
+    <None Remove="Audio\earth_liborio_conti.mp3" />
+    <None Remove="Audio\tuning_liborio_conti.mp3" />
     <None Remove="Resources\big_water_bottle_icon.png" />
     <None Remove="Resources\blue_light_icon.png" />
     <None Remove="Resources\bmi_calculator_icon.png" />
@@ -51,6 +54,18 @@
     <None Remove="Resources\water_drops_icon.png" />
     <None Remove="Resources\water_icon.png" />
     <None Remove="Resources\workout_log_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Audio\blossom_liborio_conti.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Audio\earth_liborio_conti.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Audio\tuning_liborio_conti.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

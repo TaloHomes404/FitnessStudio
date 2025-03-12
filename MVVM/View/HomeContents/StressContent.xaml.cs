@@ -12,15 +12,13 @@ namespace FitnessStudio.MVVM.View.HomeContents
     /// </summary>
     public partial class StressContent : UserControl
     {
-        // Flag dla stanu muzyki
-        private bool isMusicPlaying = false;
-        private bool isMuted = false;
-
         // Animacja dla oddechu
         private Storyboard breathingAnimation;
 
         // Media player do odtwarzania muzyki
-        private MediaPlayer musicPlayer;
+        private MediaPlayer mediaPlayer = new MediaPlayer();
+        private bool isMuted = false;
+        private bool isPlaying = false;
 
         public StressContent()
         {
@@ -31,35 +29,14 @@ namespace FitnessStudio.MVVM.View.HomeContents
             // Inicjalizacja daty w dzienniku stresu
             StressDate.SelectedDate = DateTime.Today;
 
-            // Inicjalizacja media playera
-            InitializeMediaPlayer();
+            // Inicjalizacja mediaplayera 
+            mediaPlayer.Open(new Uri("C:\\Users\\Developer\\source\\FitnessStudio\\Audio\\earth_liborio_conti.mp3", UriKind.Relative));
+
+            // Domyślna głośność
+            mediaPlayer.Volume = 0.5;
 
             // Utworzenie animacji oddechu
             CreateBreathingAnimation();
-        }
-
-        // Inicjalizacja odtwarzacza muzyki
-        private void InitializeMediaPlayer()
-        {
-            musicPlayer = new MediaPlayer();
-
-            // Zakładamy, że mamy plik muzyki w Resources
-            // W prawdziwej aplikacji należy dostosować ścieżkę lub dodać obsługę błędów
-            try
-            {
-                musicPlayer.Open(new Uri("pack://application:,,,/Resources/relaxation_music.mp3", UriKind.Absolute));
-                musicPlayer.Volume = 0.5; // Początkowa głośność 50%
-                musicPlayer.MediaEnded += (s, e) =>
-                {
-                    musicPlayer.Position = TimeSpan.Zero; // Powtarzanie muzyki
-                    musicPlayer.Play();
-                };
-            }
-            catch (Exception)
-            {
-                // Prosta obsługa błędu - w produkcyjnej aplikacji należy ją rozszerzyć
-                MessageBox.Show("Nie można załadować pliku muzyki. Upewnij się, że plik istnieje w zasobach aplikacji.");
-            }
         }
 
         // Metoda tworząca animację oddechu
@@ -205,12 +182,8 @@ namespace FitnessStudio.MVVM.View.HomeContents
         {
             // Zatrzymanie animacji i muzyki przed zamknięciem
             breathingAnimation.Stop();
-            if (isMusicPlaying)
-            {
-                musicPlayer.Pause();
-                isMusicPlaying = false;
-                PlayPauseButton.Content = "▶ Odtwórz";
-            }
+            mediaPlayer.Stop();
+            isPlaying = false;
 
             QuickRelaxPopup.IsOpen = false;
         }
@@ -218,45 +191,52 @@ namespace FitnessStudio.MVVM.View.HomeContents
         // Odtwarzanie/Zatrzymywanie muzyki
         private void PlayPauseMusic_Click(object sender, RoutedEventArgs e)
         {
-            if (isMusicPlaying)
+            if (isPlaying)
             {
-                musicPlayer.Pause();
-                isMusicPlaying = false;
+                // Pauza
+                mediaPlayer.Pause();
+                isPlaying = false;
                 PlayPauseButton.Content = "▶ Odtwórz";
             }
             else
             {
-                musicPlayer.Play();
-                isMusicPlaying = true;
+                // Start/Wznowienie
+                mediaPlayer.Play();
+                isPlaying = true;
                 PlayPauseButton.Content = "⏸ Pauza";
             }
         }
 
-        // Wyciszanie/Wyłączanie wyciszenia muzyki
-        private void MuteMusic_Click(object sender, RoutedEventArgs e)
+        // Wyciszanie/Włączanie dźwięku
+        private void MuteButton_Click(object sender, RoutedEventArgs e)
         {
+            isMuted = !isMuted;
+            mediaPlayer.IsMuted = isMuted;
+
             if (isMuted)
             {
-                musicPlayer.Volume = VolumeSlider.Value / 100;
-                isMuted = false;
-                MuteButton.Content = "🔊 Wycisz";
+                MuteButtonIcon.Text = "🔇";
+                MuteButtonText.Text = "Włącz dźwięk";
             }
             else
             {
-                musicPlayer.Volume = 0;
-                isMuted = true;
-                MuteButton.Content = "🔇 Włącz dźwięk";
+                MuteButtonIcon.Text = "🔊";
+                MuteButtonText.Text = "Wycisz";
             }
         }
 
         // Zmiana głośności muzyki
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (VolumeValue != null && musicPlayer != null && !isMuted)
+            if (mediaPlayer != null && !isMuted)
             {
-                double volume = VolumeSlider.Value;
-                VolumeValue.Text = $"{Math.Round(volume)}%";
-                musicPlayer.Volume = volume / 100;
+                mediaPlayer.Volume = VolumeSlider.Value;
+            }
+
+            // Aktualizuj wyświetlanie wartości głośności
+            if (VolumeValue != null)
+            {
+                VolumeValue.Text = $"{(int)(VolumeSlider.Value * 100)}%";
             }
         }
     }

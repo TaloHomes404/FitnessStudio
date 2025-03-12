@@ -43,7 +43,6 @@
         </Grid.RowDefinitions>
         <!-- Header Section z gradietnowym tłem -->
         <Border Grid.Row="0" CornerRadius="0,0,30,30">
-         
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="16,15,0,20">
                 <Ellipse Width="64" Height="64" Margin="0,0,15,0">
                     <Ellipse.Fill>
@@ -54,9 +53,8 @@
                     <TextBlock Text="Words to inspire,&#10;   wisdom to live by." 
                            FontSize="32" 
                            FontWeight="Bold" 
-                           Foreground="White"
+                           Foreground="Black"
                            VerticalAlignment="Center"/>
-                   
                 </StackPanel>
             </StackPanel>
         </Border>
@@ -134,7 +132,7 @@
                            Foreground="White" 
                            FontWeight="SemiBold" 
                            Height="40" 
-                           Margin="20,5,20,15"
+                           Margin="20,5,20,20"
                            Click="StartMeditation_Click"
                            Tag="Szybka Medytacja|2|Krótka, intensywna sesja dla zapracowanych. Szybko zresetuj umysł.">
                         <Button.Resources>
@@ -143,6 +141,7 @@
                             </Style>
                         </Button.Resources>
                     </Button>
+                    <Image Grid.Row="0" Source="/Resources/quick_icon.png" Width="48" Height="48" VerticalAlignment="Top" Margin="0,115,0,0" HorizontalAlignment="Center" Grid.RowSpan="2"/>
                 </Grid>
             </Border>
             <!-- Card 2 - Deep Focus -->
@@ -212,7 +211,7 @@
                            Foreground="White" 
                            FontWeight="SemiBold" 
                            Height="40" 
-                           Margin="20,5,20,15"
+                           Margin="20,5,20,20"
                            Click="StartMeditation_Click"
                            Tag="Deep Focus|5|Skup się lepiej na zadaniu, wyostrz zmysły i popraw koncentrację.">
                         <Button.Resources>
@@ -253,7 +252,7 @@
                         <Grid>
                             <Path Fill="#20FFFFFF" Data="M0,20 C100,60 200,40 300,70 L300,140 L0,140 Z"/>
                             <Ellipse Width="80" Height="80" Fill="#30FFFFFF" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0"/>
-                            <TextBlock Text="for deep relax" 
+                            <TextBlock Text="dla głębokiego relaksu" 
                                       FontSize="14" 
                                       Foreground="#EEFFFFFF" 
                                       Margin="20,15,0,0" 
@@ -290,7 +289,7 @@
                            Foreground="White" 
                            FontWeight="SemiBold" 
                            Height="40" 
-                           Margin="20,5,20,15"
+                           Margin="20,5,20,20"
                            Click="StartMeditation_Click"
                            Tag="Full Relaxation Session|10|Głęboki relaks całego ciała i umysłu. Pełne odprężenie i regeneracja.">
                         <Button.Resources>
@@ -304,9 +303,9 @@
         </Grid>
         <!-- Popup for meditation timer -->
         <Popup x:Name="MeditationPopup" IsOpen="False" Placement="Center" AllowsTransparency="True" StaysOpen="False">
-            <Border Width="400" Height="500" CornerRadius="30" Background="#2D3142" BorderBrush="#444444" BorderThickness="1">
+            <Border Width="450" Height="700" CornerRadius="30" Background="#E0E0E0" BorderBrush="Black" BorderThickness="3">
                 <Border.Effect>
-                    <DropShadowEffect BlurRadius="20" ShadowDepth="5" Direction="315" Color="#333333" Opacity="0.6"/>
+                    <DropShadowEffect BlurRadius="20" ShadowDepth="5" Direction="315" Color="Black" Opacity="0.6"/>
                 </Border.Effect>
                 <Grid Margin="20">
                     <Grid.RowDefinitions>
@@ -315,111 +314,165 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!-- Popup Title -->
                     <TextBlock x:Name="PopupTitle" 
-                               Grid.Row="0" 
-                               Text="Meditation Session" 
-                               FontSize="24" 
-                               FontWeight="Bold" 
-                               Foreground="White" 
-                               HorizontalAlignment="Center" 
-                               Margin="0,10,0,10"/>
+                       Grid.Row="0" 
+                       Text="Meditation Session" 
+                       FontSize="24" 
+                       FontWeight="Bold" 
+                       Foreground="Black" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,10,0,10"/>
                     <!-- Timer Display -->
-                    <Grid Grid.Row="1" HorizontalAlignment="Center" Margin="0,20,0,10">
+                    <!-- Timer Display -->
+                    <Grid Grid.Row="1" HorizontalAlignment="Center" Margin="0,10,0,10">
                         <Ellipse Width="200" Height="200" Fill="#30FFFFFF"/>
                         <ProgressBar x:Name="TimerProgress" 
-                                     Width="200" 
-                                     Height="200" 
-                                     Value="75" 
-                                     Maximum="100" 
-                                     Style="{StaticResource CircularProgressBarStyle}"/>
+                             Width="200" 
+                             Height="200" 
+                             Value="75" 
+                             Maximum="100" 
+                             Style="{StaticResource CircularProgressBarStyle}"/>
                         <TextBlock x:Name="TimerDisplay" 
-                                   Text="05:00" 
-                                   FontSize="36" 
-                                   FontWeight="Bold" 
-                                   Foreground="White" 
-                                   HorizontalAlignment="Center" 
-                                   VerticalAlignment="Center"/>
+                           Text="05:00" 
+                           FontSize="36" 
+                           FontWeight="Bold" 
+                           Foreground="White" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"/>
                     </Grid>
                     <!-- Meditation Instructions -->
-                    <StackPanel Grid.Row="2" Margin="0,20,0,20">
-                        <TextBlock Text="Wskazówki:" 
-                                   FontSize="18" 
-                                   FontWeight="SemiBold" 
-                                   Foreground="#4AD1B8" 
-                                   Margin="0,0,0,10"/>
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                            <Ellipse Width="8" Height="8" Fill="#4AD1B8" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Usiądź wygodnie w cichym miejscu" 
-                                       FontSize="16" 
-                                       Foreground="White" 
-                                       TextWrapping="Wrap"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                            <Ellipse Width="8" Height="8" Fill="#4AD1B8" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Zamknij oczy" 
-                                       FontSize="16" 
-                                       Foreground="White" 
-                                       TextWrapping="Wrap"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                            <Ellipse Width="8" Height="8" Fill="#4AD1B8" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Skup się na oddechu i niczym innym" 
-                                       FontSize="16" 
-                                       Foreground="White" 
-                                       TextWrapping="Wrap"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                            <Ellipse Width="8" Height="8" Fill="#4AD1B8" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                            <TextBlock x:Name="MeditationDescription" 
+                    <ScrollViewer Grid.Row="2" Height="160" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Wskazówki:" 
+                               FontSize="18" 
+                               FontWeight="SemiBold" 
+                               Foreground="Black" 
+                               Margin="0,0,0,10"/>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                    <Ellipse Width="8" Height="8" Fill="Black" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Usiądź wygodnie w cichym miejscu" FontSize="16" Foreground="Black" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                    <Ellipse Width="8" Height="8" Fill="Black" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Zamknij oczy" FontSize="16" Foreground="Black" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                    <Ellipse Width="8" Height="8" Fill="Black" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Skup się na oddechu i niczym innym" FontSize="16" Foreground="Black" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                    <Ellipse Width="8" Height="8" Fill="Black" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="MeditationDescription" 
                                        Text="Pełny opis medytacji pojawi się tutaj" 
                                        FontSize="16" 
-                                       Foreground="White" 
+                                       Foreground="Black" 
                                        TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <!-- Audio Controls -->
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10">
+                        <!-- Mute Button as Border with Image -->
+                        <Border x:Name="MuteButton">
+                            <Image x:Name="MuteIcon" Source="/Resources/music_muted_icon.png" Width="48" Height="48" />
+                        </Border>
+                        <!-- Volume Slider -->
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <!-- Ikona niskiej głośności (lewa strona) -->
+                            <Image Source="/Resources/volume_low_icon.png" Width="24" Height="24" Margin="0,0,10,0"/>
+                            <!-- Slider głośności -->
+                            <Slider x:Name="VolumeSlider" 
+            Minimum="0" 
+            Maximum="1" 
+            Value="0.5" 
+            Width="200" 
+            Height="25" 
+            ValueChanged="VolumeSlider_ValueChanged">
+                                <Slider.Resources>
+                                    <!-- Style dla paska slidera -->
+                                    <Style TargetType="{x:Type Slider}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Slider}">
+                                                    <Grid>
+                                                        <Border x:Name="TrackBackground" 
+                                        Height="4" 
+                                        Background="#E0E0E0" 
+                                        CornerRadius="2"
+                                        VerticalAlignment="Center"/>
+                                                        <Track x:Name="PART_Track">
+                                                            <Track.DecreaseRepeatButton>
+                                                                <RepeatButton Command="Slider.DecreaseLarge" Background="#8B00FF">
+                                                                    <RepeatButton.Template>
+                                                                        <ControlTemplate TargetType="{x:Type RepeatButton}">
+                                                                            <Border Height="4" 
+                                                            Background="#8B00FF" 
+                                                            CornerRadius="2"/>
+                                                                        </ControlTemplate>
+                                                                    </RepeatButton.Template>
+                                                                </RepeatButton>
+                                                            </Track.DecreaseRepeatButton>
+                                                            <Track.IncreaseRepeatButton>
+                                                                <RepeatButton Command="Slider.IncreaseLarge">
+                                                                    <RepeatButton.Template>
+                                                                        <ControlTemplate TargetType="{x:Type RepeatButton}">
+                                                                            <Border Height="4" 
+                                                            Background="Transparent" 
+                                                            CornerRadius="2"/>
+                                                                        </ControlTemplate>
+                                                                    </RepeatButton.Template>
+                                                                </RepeatButton>
+                                                            </Track.IncreaseRepeatButton>
+                                                            <Track.Thumb>
+                                                                <Thumb>
+                                                                    <Thumb.Template>
+                                                                        <ControlTemplate TargetType="{x:Type Thumb}">
+                                                                            <Ellipse Width="20" 
+                                                             Height="20" 
+                                                             Fill="DarkGreen"/>
+                                                                        </ControlTemplate>
+                                                                    </Thumb.Template>
+                                                                </Thumb>
+                                                            </Track.Thumb>
+                                                        </Track>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Slider.Resources>
+                            </Slider>
+                            <!-- Ikona wysokiej głośności (prawa strona) -->
+                            <Image Source="/Resources/volume_high_icon.png" Width="24" Height="24" Margin="10,0,0,0"/>
                         </StackPanel>
                     </StackPanel>
                     <!-- Control Buttons -->
-                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10">
                         <Button x:Name="StartPauseButton" 
-                                Content="Start" 
-                                Width="120" 
-                                Height="45" 
-                                Background="#4AD1B8" 
-                                Foreground="White" 
-                                FontWeight="SemiBold" 
-                                Margin="0,0,10,0"
-                                Click="StartPauseButton_Click">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="22.5"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
+                        Content="Start" 
+                        Width="120" 
+                        Height="45" 
+                        Background="White" 
+                        Foreground="Black" 
+                        FontWeight="SemiBold" 
+                        Click="StartPauseButton_Click"/>
                         <Button x:Name="CancelButton" 
-                                Content="Zakończ" 
-                                Width="120" 
-                                Height="45" 
-                                Background="#FF5252" 
-                                Foreground="White" 
-                                FontWeight="SemiBold"
-                                Click="CancelButton_Click">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="22.5"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
+                        Content="Zakończ" 
+                        Width="120" 
+                        Height="45" 
+                        Background="White" 
+                        Foreground="Black" 
+                        FontWeight="SemiBold" 
+                        Click="CancelButton_Click"/>
                     </StackPanel>
                     <!-- Close Button -->
-                    <Button Grid.Row="4" 
-                            Content="Zamknij" 
-                            Background="Transparent" 
-                            Foreground="#AAAAAA" 
-                            BorderThickness="0" 
-                            HorizontalAlignment="Center" 
-                            Margin="0,15,0,0"
-                            Click="ClosePopup_Click"/>
+                    <Button Grid.Row="5" Content="Zamknij" Background="Transparent" Foreground="Black" 
+                    BorderThickness="0" HorizontalAlignment="Center" Click="ClosePopup_Click"/>
                 </Grid>
             </Border>
         </Popup>

@@ -13,5 +13,6 @@ namespace FitnessStudio.MVVM.View.HomeContents
             InitializeComponent();
             DataContext = new BMICalculatorContentViewModel();
         }
+
     }
 }

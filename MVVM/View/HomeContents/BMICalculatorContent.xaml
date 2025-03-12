@@ -93,22 +93,22 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="Age" Foreground="Black" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,5" Grid.Row="0"/>
-                                <Border Grid.Row="1" Background="White" CornerRadius="8" BorderBrush="#DDDDDD" BorderThickness="1">
-                                    <TextBox BorderThickness="0" Padding="10,8" FontSize="14"/>
+                                <Border Grid.Row="1" Background="White" CornerRadius="8" BorderBrush="{Binding AgeValidationBrush}" BorderThickness="1">
+                                    <TextBox BorderThickness="0" Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}" Padding="10,8" FontSize="14"/>
                                 </Border>
                             </Grid>
                             <!-- Gender Selection -->
                             <StackPanel Margin="0,0,0,15">
                                 <TextBlock Text="Gender" FontSize="16" Foreground="Black" FontWeight="SemiBold" Margin="0,0,0,10"/>
                                 <StackPanel Orientation="Horizontal">
-                                    <RadioButton Content="Male" Foreground="Black" Style="{StaticResource CustomRadioButtonStyle}" GroupName="GenderGroup" IsChecked="True" Margin="0,0,20,0">
+                                    <RadioButton Content="Male" Foreground="Black" Style="{StaticResource CustomRadioButtonStyle}" GroupName="GenderGroup" IsChecked="{Binding IsMale}" Margin="0,0,20,0">
                                         <RadioButton.Resources>
                                             <Style TargetType="Ellipse">
                                                 <Setter Property="Fill" Value="#2196F3" />
                                             </Style>
                                         </RadioButton.Resources>
                                     </RadioButton>
-                                    <RadioButton Content="Female" Foreground="Black" Style="{StaticResource CustomRadioButtonStyle}" GroupName="GenderGroup">
+                                    <RadioButton Content="Female" Foreground="Black" Style="{StaticResource CustomRadioButtonStyle}" IsChecked="{Binding IsFemale}" GroupName="GenderGroup">
                                         <RadioButton.Resources>
                                             <Style TargetType="Ellipse">
                                                 <Setter Property="Fill" Value="#2196F3" />
@@ -128,14 +128,14 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="Weight" Foreground="Black" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,5" Grid.Row="0" Grid.Column="0"/>
-                                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="White" CornerRadius="8" BorderBrush="#DDDDDD" BorderThickness="1">
+                                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="White" CornerRadius="8" BorderBrush="{Binding WeightValidationBrush}" BorderThickness="1">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBox Grid.Column="0" BorderThickness="0" Padding="10,8" FontSize="14"/>
-                                        <ComboBox Grid.Column="1" ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}" Width="60" SelectedIndex="0" BorderThickness="0" Background="Transparent">
+                                        <TextBox Text="{Binding Weight, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" BorderThickness="0" Padding="10,8" FontSize="14"/>
+                                        <ComboBox Grid.Column="1" ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}" Width="60" SelectedIndex="0" SelectedItem="{Binding SelectedWeightUnit}" BorderThickness="0" Background="Transparent">
                                             <ComboBoxItem Content="kg" Foreground="#2196F3"/>
                                             <ComboBoxItem Content="lb"/>
                                         </ComboBox>
@@ -153,14 +153,14 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="Height" Foreground="Black" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,5" Grid.Row="0" Grid.Column="0"/>
-                                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="White" CornerRadius="8" BorderBrush="#DDDDDD" BorderThickness="1">
+                                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="White" CornerRadius="8" BorderBrush="{Binding HeightValidationBrush}" BorderThickness="1">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBox Grid.Column="0" BorderThickness="0" Padding="10,8" FontSize="14"/>
-                                        <ComboBox Grid.Column="1" ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}" Width="60" SelectedIndex="0" BorderThickness="0" Background="Transparent">
+                                        <TextBox Text="{Binding Height, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" BorderThickness="0" Padding="10,8" FontSize="14"/>
+                                        <ComboBox Grid.Column="1" ItemContainerStyle="{StaticResource CustomComboBoxItemStyle}" Width="60" SelectedIndex="0" SelectedItem="{Binding SelectedHeightUnit}" BorderThickness="0" Background="Transparent">
                                             <ComboBoxItem Content="cm" Foreground="#2196F3"/>
                                             <ComboBoxItem Content="in"/>
                                         </ComboBox>
@@ -168,7 +168,7 @@
                                 </Border>
                             </Grid>
                             <!-- Calculate Button -->
-                            <Button Height="45" Background="#2196F3" Foreground="White" BorderThickness="0" Margin="0,10,0,0">
+                            <Button Height="45" Command="{Binding CalculateBMICommand}" Background="#2196F3" Foreground="White" BorderThickness="0" Margin="0,10,0,0">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="8"/>
@@ -195,37 +195,41 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="Your BMI" Foreground="Black" FontSize="18" FontWeight="SemiBold" Grid.Column="0"/>
-                                    <TextBlock Text="22.5" Foreground="#2196F3" FontSize="28" FontWeight="Bold" Grid.Column="1"/>
+                                    <TextBlock Text="{Binding BMIResult}" Foreground="#2196F3" FontSize="28" FontWeight="Bold" Grid.Column="1"/>
                                 </Grid>
-                                <!-- Zastąp sekcję "BMI Meter/Gauge Image" tym kodem -->
                                 <Grid Grid.Row="1" Margin="0,10,0,20">
                                     <!-- Skala BMI -->
                                     <StackPanel>
                                         <!-- Kolorowe prostokąty kategorii BMI -->
                                         <Grid Height="40" Margin="0,0,0,10">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition Height="3*"/>
+                                            </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="37*"/>
+                                                <ColumnDefinition Width="3*"/>
+                                                <ColumnDefinition Width="40*"/>
+                                                <ColumnDefinition Width="40*"/>
+                                                <ColumnDefinition Width="40*"/>
                                             </Grid.ColumnDefinitions>
                                             <!-- Niedowaga -->
-                                            <Border Grid.Column="0" Background="#90CAF9" CornerRadius="4,0,0,4" Margin="0,0,1,0">
+                                            <Border Grid.Column="0" Background="#90CAF9" CornerRadius="4,0,0,4" Margin="0,0,1,0" Grid.ColumnSpan="2" Grid.RowSpan="2">
                                                 <TextBlock Text="Niedowaga" FontSize="12" Foreground="Black" FontWeight="SemiBold" 
                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             </Border>
                                             <!-- Normalna -->
-                                            <Border Grid.Column="1" Background="#4CAF50" Margin="1,0,1,0">
+                                            <Border Grid.Column="2" Background="#4CAF50" Margin="1,0,2,0" Grid.RowSpan="2">
                                                 <TextBlock Text="Normalna" FontSize="12" Foreground="White" FontWeight="SemiBold" 
                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             </Border>
                                             <!-- Nadwaga -->
-                                            <Border Grid.Column="2" Background="#FFC107" Margin="1,0,1,0">
+                                            <Border Grid.Column="3" Background="#FFC107" Margin="0,0,1,0" Grid.RowSpan="2">
                                                 <TextBlock Text="Nadwaga" FontSize="12" Foreground="Black" FontWeight="SemiBold" 
                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             </Border>
                                             <!-- Otyłość -->
-                                            <Border Grid.Column="3" Background="#FF5722" CornerRadius="0,4,4,0" Margin="1,0,0,0">
+                                            <Border Grid.Column="4" Background="#FF5722" CornerRadius="0,4,4,0" Margin="1,0,0,0" Grid.RowSpan="2">
                                                 <TextBlock Text="Otyłość" FontSize="12" Foreground="White" FontWeight="SemiBold" 
                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             </Border>
@@ -240,26 +244,25 @@
                                             </Grid.ColumnDefinitions>
                                             <!-- Linie i wartości -->
                                             <Border Grid.Column="0" Width="1" Height="8" Background="Black" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                            <TextBlock Grid.Column="0" Text="0" FontSize="10" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,0,0,0"/>
+                                            <TextBlock Grid.Column="0" Text="0" Foreground="Black" FontSize="10" HorizontalAlignment="Left" Margin="3,0,0,7"/>
                                             <Border Grid.Column="1" Width="1" Height="8" Background="Black" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                            <TextBlock Grid.Column="0" Text="18.5" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,3,0"/>
+                                            <TextBlock Grid.Column="0" Text="18.5" Foreground="Black" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,3,0"/>
                                             <Border Grid.Column="2" Width="1" Height="8" Background="Black" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                            <TextBlock Grid.Column="1" Text="25.0" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,3,0"/>
+                                            <TextBlock Grid.Column="1" Text="25.0" Foreground="Black" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,3,0"/>
                                             <Border Grid.Column="3" Width="1" Height="8" Background="Black" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                            <TextBlock Grid.Column="2" Text="30.0" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,3,0"/>
+                                            <TextBlock Grid.Column="2" Text="30.0" Foreground="Black" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,3,0"/>
                                             <Border Grid.Column="3" Width="1" Height="8" Background="Black" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                                            <TextBlock Grid.Column="3" Text="40+" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,3,0"/>
+                                            <TextBlock Grid.Column="3" Text="40+" Foreground="Black" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,3,0"/>
                                         </Grid>
                                         <!-- Wskaźnik BMI (trójkąt) -->
                                         <Grid Height="30" Margin="0,5,0,0">
-                                            <!-- Dla przykładu, wskaźnik ustawiony na BMI 22.5 (w kategorii normalnej) -->
                                             <Polygon Fill="Black" Points="0,0 10,20 -10,20" Stretch="None">
                                                 <Polygon.RenderTransform>
-                                                    <TranslateTransform X="180" Y="0"/>
+                                                    <TranslateTransform X="{Binding BMIIndicatorPosition}" Y="0"/>
                                                 </Polygon.RenderTransform>
                                             </Polygon>
                                             <!-- Wartość BMI -->
-                                            <TextBlock Text="22.5" FontWeight="Bold" FontSize="14" Foreground="#2196F3">
+                                            <TextBlock Text="{Binding BMIResult}" FontWeight="Bold" FontSize="14" Foreground="#2196F3">
                                                 <TextBlock.RenderTransform>
                                                     <TranslateTransform X="175" Y="20"/>
                                                 </TextBlock.RenderTransform></TextBlock>
@@ -286,25 +289,41 @@
                                         <TextBlock Text="BMI Classification" FontWeight="Bold" Foreground="White" Padding="10,8" FontSize="14" HorizontalAlignment="Center"/>
                                     </Border>
                                     <!-- Underweight -->
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Underweight" Padding="10,8" Background="#90CAF9" FontWeight="SemiBold"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="BMI &lt; 18.5" Padding="10,8" Background="#90CAF9" HorizontalAlignment="Right"/>
+                                    <Border Grid.Row="1" Grid.Column="0" Background="#90CAF9" Margin="0">
+                                        <TextBlock Text="Underweight" Foreground="Black" Padding="10,8" FontWeight="SemiBold"/>
+                                    </Border>
+                                    <Border Grid.Row="1" Grid.Column="1" Background="#90CAF9" Margin="0">
+                                        <TextBlock Text="BMI &lt; 18.5" Foreground="Black" Padding="10,8" HorizontalAlignment="Right"/>
+                                    </Border>
                                     <!-- Normal -->
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Normal" Padding="10,8" Background="#4CAF50" Foreground="White" FontWeight="SemiBold"/>
-                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="BMI 18.5 - 24.9" Padding="10,8" Background="#4CAF50" Foreground="White" HorizontalAlignment="Right"/>
+                                    <Border Grid.Row="2" Grid.Column="0" Background="#4CAF50" Margin="0">
+                                        <TextBlock Text="Normal"  Padding="10,8" Foreground="White" FontWeight="SemiBold"/>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="1" Background="#4CAF50" Margin="0">
+                                        <TextBlock Text="BMI 18.5 - 24.9"  Padding="10,8" Foreground="White" HorizontalAlignment="Right"/>
+                                    </Border>
                                     <!-- Overweight -->
-                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Overweight" Padding="10,8" Background="#FFC107" FontWeight="SemiBold"/>
-                                    <TextBlock Grid.Row="3" Grid.Column="1" Text="BMI 25.0 - 29.9" Padding="10,8" Background="#FFC107" HorizontalAlignment="Right"/>
+                                    <Border Grid.Row="3" Grid.Column="0" Background="#FFC107" Margin="0">
+                                        <TextBlock Text="Overweight" Foreground="Black" Padding="10,8" FontWeight="SemiBold"/>
+                                    </Border>
+                                    <Border Grid.Row="3" Grid.Column="1" Background="#FFC107" Margin="0">
+                                        <TextBlock Text="BMI 25.0 - 29.9"  Foreground="Black" Padding="10,8" HorizontalAlignment="Right"/>
+                                    </Border>
                                     <!-- Obese -->
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Obese" Padding="10,8" Background="#FF5722" Foreground="White" FontWeight="SemiBold"/>
-                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="BMI ≥ 30.0" Padding="10,8" Background="#FF5722" Foreground="White" HorizontalAlignment="Right"/>
+                                    <Border Grid.Row="4" Grid.Column="0" Background="#FF5722" Margin="0" CornerRadius="0,0,0,8">
+                                        <TextBlock Text="Obese"  Padding="10,8" Foreground="White" FontWeight="SemiBold"/>
+                                    </Border>
+                                    <Border Grid.Row="4" Grid.Column="1" Background="#FF5722" Margin="0" CornerRadius="0,0,8,0">
+                                        <TextBlock Text="BMI ≥ 30.0" Padding="10,8" Foreground="White" HorizontalAlignment="Right"/>
+                                    </Border>
                                 </Grid>
                             </Border>
                             <!-- Health Status -->
-                            <Border Margin="0,15,0,0" Background="#4CAF50" CornerRadius="8" Padding="15,10">
+                            <Border Margin="0,15,0,0" Background="{Binding HealthStatusBrush}" CornerRadius="8" Padding="15,10">
                                 <StackPanel>
-                                    <TextBlock Text="Health Status" FontSize="16" FontWeight="Bold" Foreground="White"/>
+                                    <TextBlock Text="{Binding HealthStatus}" FontSize="16" FontWeight="Bold" Foreground="White"/>
                                     <TextBlock Text="Normal weight" FontSize="14" Foreground="White" Margin="0,5,0,0"/>
-                                    <TextBlock Text="Your BMI indicates you are at a healthy weight for your height. Maintain a healthy lifestyle with balanced nutrition and regular exercise." 
+                                    <TextBlock Text="{Binding HealthDescription}"
                                              TextWrapping="Wrap" FontSize="12" Foreground="White" Margin="0,5,0,0"/>
                                 </StackPanel>
                             </Border>

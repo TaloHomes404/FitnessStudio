@@ -13,6 +13,28 @@
                       Color="#CCCCCC" 
                       Opacity="0.5" 
                       BlurRadius="10"/>
+        <!-- Style for RadioButtons to show selection circle -->
+        <Style x:Key="CustomRadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Ellipse x:Name="OuterEllipse" Width="16" Height="16" Fill="Transparent" Stroke="#2196F3" StrokeThickness="1.5"/>
+                                <Ellipse x:Name="InnerEllipse" Width="8" Height="8" Fill="#2196F3" Opacity="0"/>
+                            </Grid>
+                            <ContentPresenter Margin="8,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="InnerEllipse" Property="Opacity" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -50,14 +72,24 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <TextBlock Text="Weight" Foreground="Black" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
-                            <Border Grid.Column="0" Grid.ColumnSpan="2" Background="White" CornerRadius="8" BorderBrush="#DDDDDD" BorderThickness="1" Margin="0,26,0,0" Grid.RowSpan="2">
+                            <Border Grid.Column="0" Grid.ColumnSpan="2" Background="White" CornerRadius="8" BorderBrush="{Binding WeightHasError}" BorderThickness="1" Margin="0,26,0,0" Grid.RowSpan="2">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBox Grid.Column="0" BorderThickness="0" Padding="10,8" FontSize="14"/>
+                                    <TextBox Text="{Binding Weight, UpdateSourceTrigger=PropertyChanged}"  Grid.Column="0" BorderThickness="0" Padding="10,8" FontSize="14"/>
                                     <ComboBox Grid.Column="1" Width="60" SelectedIndex="0" BorderThickness="0" Background="Transparent">
+                                        <ComboBox.Resources>
+                                            <Style TargetType="ComboBoxItem">
+                                                <Setter Property="Background" Value="#F0F0F0"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter Property="Background" Value="#E0E0E0"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Resources>
                                         <ComboBoxItem Content="kg" Foreground="Purple"/>
                                         <ComboBoxItem Content="lb"/>
                                     </ComboBox>
@@ -75,14 +107,24 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <TextBlock Text="Height" Foreground="Black" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,5" Grid.Row="0" Grid.Column="0"/>
-                            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="White" CornerRadius="8" BorderBrush="#DDDDDD" BorderThickness="1">
+                            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="White" CornerRadius="8" BorderBrush="{Binding HeightHasError}" BorderThickness="1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBox Grid.Column="0" BorderThickness="0" Padding="10,8" FontSize="14"/>
+                                    <TextBox Text="{Binding Height, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" BorderThickness="0" Padding="10,8" FontSize="14"/>
                                     <ComboBox Grid.Column="1" Width="60" SelectedIndex="0" BorderThickness="0" Background="Transparent">
+                                        <ComboBox.Resources>
+                                            <Style TargetType="ComboBoxItem">
+                                                <Setter Property="Background" Value="#F0F0F0"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter Property="Background" Value="#E0E0E0"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.Resources>
                                         <ComboBoxItem Content="cm" Foreground="Purple"/>
                                         <ComboBoxItem Content="in"/>
                                     </ComboBox>
@@ -100,29 +142,31 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <TextBlock Text="Number of steps" Foreground="Black" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,5" Grid.Row="0" Grid.Column="0"/>
-                            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="White" CornerRadius="8" BorderBrush="#DDDDDD" BorderThickness="1">
-                                <TextBox BorderThickness="0" Padding="10,8" FontSize="14"/>
+                            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="White" CornerRadius="8" BorderBrush="{Binding StepsHasError}" BorderThickness="1">
+                                <TextBox Text="{Binding Steps, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Padding="10,8" FontSize="14"/>
                             </Border>
                         </Grid>
                         <!-- Speed RadioGroup -->
                         <StackPanel Margin="0,0,0,15">
                             <TextBlock Text="Speed" FontSize="16" Foreground="Black" FontWeight="SemiBold" Margin="0,0,0,10"/>
-                            <RadioButton Content="Slow walk" Foreground="Black" GroupName="SpeedGroup" Margin="0,0,0,8"/>
-                            <RadioButton Content="Average walk" Foreground="Black" GroupName="SpeedGroup" IsChecked="True" Margin="0,0,0,8">
-                                <RadioButton.Resources>
-                                    <Style TargetType="Ellipse">
-                                        <Setter Property="Fill" Value="#6200EE" />
-                                    </Style>
-                                </RadioButton.Resources>
-                            </RadioButton>
-                            <RadioButton Content="Fast walk" Foreground="Black" GroupName="SpeedGroup" Margin="0,0,0,8"/>
-                            <StackPanel Orientation="Horizontal" Margin="25,5,0,0">
-                                <Image Source="/Resources/walking_icon.png" Width="20" Height="20" Margin="0,0,8,0"/>
-                                <TextBlock Text="3 miles/hour (4.8 km/h)" VerticalAlignment="Center" FontSize="14"/>
-                            </StackPanel>
+                            <RadioButton Content="Slow walk"
+                                         IsChecked="{Binding IsSlowSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource CustomRadioButtonStyle}"
+                                         GroupName="SpeedGroup"
+                                         Margin="0,0,0,8"/>
+                            <RadioButton Content="Average walk"
+                                         IsChecked="{Binding IsAverageSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource CustomRadioButtonStyle}"
+                                         GroupName="SpeedGroup"
+                                         Margin="0,0,0,8"/>
+                            <RadioButton Content="Fast walk"
+                                         IsChecked="{Binding IsFastSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource CustomRadioButtonStyle}"
+                                         GroupName="SpeedGroup"
+                                         Margin="0,0,0,8"/>
                         </StackPanel>
                         <!-- Calculate Button -->
-                        <Button Height="45" Background="#2196F3" Foreground="White" BorderThickness="0" Margin="0,10,0,0">
+                        <Button Height="45" Command="{Binding CalculateCommand}" Background="#2196F3" Foreground="White" BorderThickness="0" Margin="0,10,0,0">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="8"/>
@@ -153,8 +197,8 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBox Grid.Column="0" BorderThickness="0" Padding="10,12" FontSize="20" FontWeight="Bold" IsReadOnly="True" Background="Transparent" Text="0"/>
-                                    <TextBlock Grid.Column="1" Text="kcal" VerticalAlignment="Center" Margin="0,0,15,0" FontSize="16"/>
+                                    <TextBox Text="{Binding CaloriesBurned}" Grid.Column="0" BorderThickness="0" Padding="10,12" FontSize="20" FontWeight="Bold" IsReadOnly="True" Background="Transparent" />
+                                    <TextBlock  Grid.Column="1" Text="kcal" VerticalAlignment="Center" Margin="0,0,15,0" FontSize="16"/>
                                 </Grid>
                             </Border>
                         </Grid>
@@ -175,7 +219,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBox Grid.Column="0" BorderThickness="0" Padding="10,12" FontSize="20" FontWeight="Bold" IsReadOnly="True" Background="Transparent" Text="0"/>
+                                    <TextBox Grid.Column="0" BorderThickness="0" Padding="10,12" FontSize="20" FontWeight="Bold" IsReadOnly="True" Background="Transparent" Text="{Binding CaloriesPerStep}"/>
                                     <TextBlock Grid.Column="1" Text="kcal" VerticalAlignment="Center" Margin="0,0,15,0" FontSize="16"/>
                                 </Grid>
                             </Border>
