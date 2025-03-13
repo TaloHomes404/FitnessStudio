@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Audio\blossom_liborio_conti.mp3" />
+    <None Remove="Audio\earth_liborio_conti.mp3" />
+    <None Remove="Audio\tuning_liborio_conti.mp3" />
+    <None Remove="Resources\alarm_icon.png" />
+    <None Remove="Resources\alarm_on_icon.png" />
     <None Remove="Resources\big_water_bottle_icon.png" />
     <None Remove="Resources\blue_light_icon.png" />
     <None Remove="Resources\bmi_calculator_icon.png" />
@@ -20,15 +25,18 @@
     <None Remove="Resources\dashboard_icon.png" />
     <None Remove="Resources\google_icon.png" />
     <None Remove="Resources\hiking_icon.png" />
+    <None Remove="Resources\holiday_icon.png" />
     <None Remove="Resources\home_icon.png" />
     <None Remove="Resources\logo.png" />
     <None Remove="Resources\meditate_icon.png" />
     <None Remove="Resources\mental_health_icon.png" />
     <None Remove="Resources\minus_icon.png" />
+    <None Remove="Resources\more_icon.png" />
     <None Remove="Resources\motivation_icon.png" />
     <None Remove="Resources\mug_icon.png" />
     <None Remove="Resources\music_muted_icon.png" />
     <None Remove="Resources\music_on_icon.png" />
+    <None Remove="Resources\notification_icon.png" />
     <None Remove="Resources\nutrition_icon.png" />
     <None Remove="Resources\physical_health_icon.png" />
     <None Remove="Resources\plus_button_icon.png" />
@@ -44,6 +52,7 @@
     <None Remove="Resources\sleep_schedule_icon.png" />
     <None Remove="Resources\step_counter_icon.png" />
     <None Remove="Resources\stressed_icon.png" />
+    <None Remove="Resources\stress_journal_icon.png" />
     <None Remove="Resources\suplements_icon.png" />
     <None Remove="Resources\tools_icon.png" />
     <None Remove="Resources\water_bottle_icon.png" />
@@ -53,8 +62,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Audio\blossom_liborio_conti.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Audio\earth_liborio_conti.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Audio\tuning_liborio_conti.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\alarm_icon.png" />
+    <Resource Include="Resources\alarm_on_icon.png" />
+    <Resource Include="Resources\holiday_icon.png" />
+    <Resource Include="Resources\more_icon.png" />
     <Resource Include="Resources\music_muted_icon.png" />
     <Resource Include="Resources\music_on_icon.png" />
+    <Resource Include="Resources\notification_icon.png" />
     <Resource Include="Resources\quote_icon.png" />
   </ItemGroup>
 
@@ -105,6 +131,7 @@
     <Resource Include="Resources\sleep_schedule_icon.png" />
     <Resource Include="Resources\step_counter_icon.png" />
     <Resource Include="Resources\stressed_icon.png" />
+    <Resource Include="Resources\stress_journal_icon.png" />
     <Resource Include="Resources\suplements_icon.png" />
     <Resource Include="Resources\tools_icon.png" />
     <Resource Include="Resources\water_bottle_icon.png" />

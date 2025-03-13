@@ -29,11 +29,21 @@ namespace FitnessStudio.MVVM.ViewModel
         public ICommand NavigateToBMICalculatorCommand { get; private set; }
         public ICommand NavigateToCalorieCalculatorCommand { get; private set; }
         public ICommand NavigateToCorrectPostureCommand { get; private set; }
+        public ICommand NavigateToStressCommand { get; private set; }
+        public ICommand NavigateToSleepScheduleCommand { get; private set; }
 
 
 
         // Kolekcja dla kategorii w sidebarze
         public ObservableCollection<SidebarCategory> SidebarCategories { get; set; }
+
+        // Nowa kolekcja dla prawego sidebara
+        private ObservableCollection<RightSidebarItem> _currentRightSidebarContent;
+        public ObservableCollection<RightSidebarItem> CurrentRightSidebarContent
+        {
+            get => _currentRightSidebarContent;
+            set => SetProperty(ref _currentRightSidebarContent, value);
+        }
 
         public HomeViewModel()
         {
@@ -53,6 +63,8 @@ namespace FitnessStudio.MVVM.ViewModel
             NavigateToCalorieCalculatorCommand = new RelayCommand(NavigateToCalorieCalculator);
             NavigateToBMICalculatorCommand = new RelayCommand(NavigateToBMICalculator);
             NavigateToCorrectPostureCommand = new RelayCommand(NavigateToCorrectPosture);
+            NavigateToStressCommand = new RelayCommand(NavigateToStress);
+            NavigateToSleepScheduleCommand = new RelayCommand(NavigateToSleepSchedule);
 
             // Categories sections declaration and buttons asign
             SidebarCategories = new ObservableCollection<SidebarCategory>
@@ -95,11 +107,6 @@ namespace FitnessStudio.MVVM.ViewModel
                             Command = NavigateToWorkoutLogCommand
                         },
                         new SidePanelItem {
-                            IconPath = new Uri("/FitnessStudio;component/Resources/progressive_overload_icon.png", UriKind.Relative),
-                            Text = "Progressive Overload",
-                            Command = NavigateToHomeCommand
-                        },
-                        new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/step_counter_icon.png", UriKind.Relative),
                             Text = "Steps Counter",
                             Command = NavigateToStepsCounterCommand
@@ -132,7 +139,7 @@ namespace FitnessStudio.MVVM.ViewModel
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/stressed_icon.png", UriKind.Relative),
                             Text = "Stress",
-                            Command = NavigateToWaterIntakeCommand
+                            Command = NavigateToStressCommand
                         },
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/motivation_icon.png", UriKind.Relative),
@@ -181,12 +188,7 @@ namespace FitnessStudio.MVVM.ViewModel
                         new SidePanelItem {
                             IconPath = new Uri("/FitnessStudio;component/Resources/sleep_schedule_icon.png", UriKind.Relative),
                             Text = "Sleep Schedule",
-                            Command = NavigateToToolsCommand
-                        },
-                        new SidePanelItem {
-                            IconPath = new Uri("/FitnessStudio;component/Resources/blue_light_icon.png", UriKind.Relative),
-                            Text = "Blue Light Reduction",
-                            Command = NavigateToToolsCommand
+                            Command = NavigateToSleepScheduleCommand
                         },
                     }
                 }
@@ -202,17 +204,30 @@ namespace FitnessStudio.MVVM.ViewModel
         //Navigation to main sections (change main section)
         private void NavigateToHome()
         {
-            CurrentMainContent = new HomeMainContentViewModel();
+            var vm = new HomeMainContentViewModel();
+            CurrentMainContent = vm;
         }
 
         private void NavigateToSuplements()
         {
-            CurrentMainContent = new SuplementsContentViewModel();
+            var vm = new SuplementsContentViewModel();
+            CurrentMainContent = vm;
+            CurrentRightSidebarContent = vm.RightSidebarItems;
         }
 
         private void NavigateToWorkoutLog()
         {
             CurrentMainContent = new WorkoutLogContentViewModel();
+        }
+
+        public void NavigateToSleepSchedule()
+        {
+            CurrentMainContent = new SleepSchedulerContentViewModel();
+        }
+
+        public void NavigateToStress()
+        {
+            CurrentMainContent = new StressContentViewModel();
         }
 
         private void NavigateToStepsCounter()
@@ -252,7 +267,9 @@ namespace FitnessStudio.MVVM.ViewModel
 
         private void NavigateToWaterIntake()
         {
-            CurrentMainContent = new WaterIntakeContentViewModel();
+            var vm = new WaterIntakeContentViewModel();
+            CurrentMainContent = vm;
+            CurrentRightSidebarContent = vm.RightSidebarItems;
         }
 
         private void NavigateToTools()
@@ -274,6 +291,14 @@ namespace FitnessStudio.MVVM.ViewModel
             public string? CategoryName { get; set; }
             public Uri? CategoryIcon { get; set; }
             public ObservableCollection<SidePanelItem> Items { get; set; } = new ObservableCollection<SidePanelItem>();
+        }
+
+        //Klasa dla elementu panelu bocznego (po prawej)
+        public class RightSidebarItem
+        {
+            public string Title { get; set; }
+            public string Description { get; set; }
+            public Uri ImagePath { get; set; }
         }
     }
 }

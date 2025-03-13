@@ -16,15 +16,17 @@
         <BlurEffect x:Key="BackgroundBlur" Radius="3"/>
         <!-- Animation for hover effect -->
         <Style x:Key="PostureCircleStyle" TargetType="Border">
-            <Setter Property="Background" Value="#303040"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="Height" Value="120"/>
-            <Setter Property="CornerRadius" Value="60"/>
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="150"/>
+            <Setter Property="CornerRadius" Value="75"/>
+            <Setter Property="BorderBrush" Value="#000000"/>
+            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Effect" Value="{StaticResource BackgroundBlur}"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#4AD1B8"/>
+                    <Setter Property="Background" Value="#F0F0F0"/>
                     <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
                     <Setter Property="RenderTransform">
                         <Setter.Value>
@@ -35,7 +37,7 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -43,27 +45,27 @@
         <!-- Header Section -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="16,15,0,20">
             <Image Source="/Resources/correct_posture_icon.png" Width="64" Height="64" Margin="0,0,15,0"/>
-            <TextBlock Text="Fix Your Posture, Improve Your Life" 
+            <TextBlock Text="Fix Your Posture,&#10;  Improve Your Life" 
                        FontSize="32" 
                        FontWeight="Bold" 
-                       Foreground="#E74C3C"
+                       Foreground="Black"
                        VerticalAlignment="Center"/>
         </StackPanel>
         <!-- Main Content -->
         <Grid Grid.Row="1" Margin="20,0,20,20">
             <!-- Center Icon -->
-            <Border Width="180" Height="180" 
-                    Background="#E5F9F3" 
-                    CornerRadius="90"
+            <Border Width="220" Height="220" 
+                    Background="#F0F0F0" 
+                    CornerRadius="110"
                     HorizontalAlignment="Center" 
                     VerticalAlignment="Center"
                     Effect="{StaticResource CardShadow}">
                 <Grid>
-                    <Ellipse Width="160" Height="160" Fill="#C1F4E8"/>
-                    <Ellipse Width="140" Height="140" Fill="#4AD1B8"/>
+                    <Ellipse Width="200" Height="200" Fill="#E0E0E0"/>
+                    <Ellipse Width="180" Height="180" Fill="#FFFFFF"/>
                     <TextBlock Text="Perfect Posture" 
-                              FontSize="18" 
-                              Foreground="White" 
+                              FontSize="22" 
+                              Foreground="Black" 
                               HorizontalAlignment="Center" 
                               VerticalAlignment="Center"
                               TextWrapping="Wrap"
@@ -73,118 +75,119 @@
             <!-- Posture Exercise Circles -->
             <!-- Back -->
             <Border Style="{StaticResource PostureCircleStyle}"
-                    Margin="250,0,0,150"
+                    Margin="300,0,0,180"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     MouseLeftButtonDown="PostureCircle_Click"
                     Tag="Back">
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="Back" 
-                              FontSize="16" 
-                              Foreground="White" 
+                              FontSize="20" 
+                              Foreground="Black" 
                               HorizontalAlignment="Center"/>
                     <TextBlock Text="4 exercises" 
-                              FontSize="12" 
-                              Foreground="#BBBBBB" 
+                              FontSize="14" 
+                              Foreground="Gray" 
                               HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>
             <!-- Eyes -->
             <Border Style="{StaticResource PostureCircleStyle}"
-                    Margin="250,150,0,0"
+                    Margin="300,180,0,0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     MouseLeftButtonDown="PostureCircle_Click"
                     Tag="Eyes">
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="Eyes" 
-                              FontSize="16" 
-                              Foreground="White" 
+                              FontSize="20" 
+                              Foreground="Black" 
                               HorizontalAlignment="Center"/>
                     <TextBlock Text="3 exercises" 
-                              FontSize="12" 
-                              Foreground="#BBBBBB" 
+                              FontSize="14" 
+                              Foreground="Gray" 
                               HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>
             <!-- Neck -->
             <Border Style="{StaticResource PostureCircleStyle}"
-                    Margin="0,0,250,150"
+                    Margin="0,0,300,180"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     MouseLeftButtonDown="PostureCircle_Click"
                     Tag="Neck">
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="Neck" 
-                              FontSize="16" 
-                              Foreground="White" 
+                              FontSize="20" 
+                              Foreground="Black" 
                               HorizontalAlignment="Center"/>
                     <TextBlock Text="4 exercises" 
-                              FontSize="12" 
-                              Foreground="#BBBBBB" 
+                              FontSize="14" 
+                              Foreground="Gray" 
                               HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>
             <!-- Full Body -->
             <Border Style="{StaticResource PostureCircleStyle}"
-                    Margin="0,150,250,0"
+                    Margin="0,180,300,0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     MouseLeftButtonDown="PostureCircle_Click"
                     Tag="FullBody">
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="Full Body" 
-                              FontSize="16" 
-                              Foreground="White" 
+                              FontSize="20" 
+                              Foreground="Black" 
                               HorizontalAlignment="Center"/>
                     <TextBlock Text="5 exercises" 
-                              FontSize="12" 
-                              Foreground="#BBBBBB" 
+                              FontSize="14" 
+                              Foreground="Gray" 
                               HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>
             <!-- Wrists -->
             <Border Style="{StaticResource PostureCircleStyle}"
-                    Margin="0,230,0,0"
+                    Margin="0,270,0,0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     MouseLeftButtonDown="PostureCircle_Click"
                     Tag="Wrists">
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="Wrists" 
-                              FontSize="16" 
-                              Foreground="White" 
+                              FontSize="20" 
+                              Foreground="Black" 
                               HorizontalAlignment="Center"/>
                     <TextBlock Text="3 exercises" 
-                              FontSize="12" 
-                              Foreground="#BBBBBB" 
+                              FontSize="14" 
+                              Foreground="Gray" 
                               HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>
             <!-- Legs -->
             <Border Style="{StaticResource PostureCircleStyle}"
-                    Margin="0,0,0,230"
+                    Margin="0,0,0,270"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     MouseLeftButtonDown="PostureCircle_Click"
                     Tag="Legs">
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="Legs" 
-                              FontSize="16" 
-                              Foreground="White" 
+                              FontSize="20" 
+                              Foreground="Black" 
                               HorizontalAlignment="Center"/>
                     <TextBlock Text="4 exercises" 
-                              FontSize="12" 
-                              Foreground="#BBBBBB" 
+                              FontSize="14" 
+                              Foreground="Gray" 
                               HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>
             <!-- Popup for exercises -->
             <Border x:Name="ExercisePopup" 
                     Visibility="Collapsed"
-                    Background="#303040" 
+                    Background="White" 
                     CornerRadius="20"
-                    BorderThickness="0"
+                    BorderBrush="Black"
+                    BorderThickness="1"
                     Effect="{StaticResource CardShadow}"
                     Width="500" 
                     Height="350"
@@ -203,13 +206,13 @@
                                   Text="Back Exercises" 
                                   FontSize="24" 
                                   FontWeight="Bold"
-                                  Foreground="#E5F9F3" 
+                                  Foreground="Black" 
                                   Margin="20,20,0,10"
                                   HorizontalAlignment="Left"/>
                         <Button Content="✕" 
                                 Background="Transparent"
                                 BorderThickness="0"
-                                Foreground="White"
+                                Foreground="Black"
                                 FontSize="18"
                                 Margin="0,10,10,0"
                                 HorizontalAlignment="Right"
@@ -222,22 +225,6 @@
                             <!-- This will be filled programmatically -->
                         </StackPanel>
                     </ScrollViewer>
-                    <!-- Footer with button -->
-                    <Grid Grid.Row="2" Margin="20">
-                        <Button Content="Start Exercises" 
-                                Background="#4AD1B8"
-                                Foreground="White"
-                                FontSize="16"
-                                FontWeight="SemiBold"
-                                Height="45"
-                                Width="200">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="22.5"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
-                    </Grid>
                 </Grid>
             </Border>
             <!-- Semi-transparent overlay when popup is visible -->

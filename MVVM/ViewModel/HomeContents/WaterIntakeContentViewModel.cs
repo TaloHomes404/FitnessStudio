@@ -14,24 +14,46 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
         [ObservableProperty]
         private WaterAmount _selectedWaterAmount;
 
+        public ObservableCollection<HomeViewModel.RightSidebarItem> RightSidebarItems { get; }
+        = new ObservableCollection<HomeViewModel.RightSidebarItem>();
+
+        [ObservableProperty]
+        private double _hydrationProgress;
+
         public string CurrentIntakeDisplay => $"{CurrentIntake} / {MaxDailyIntake}ml";
 
         public ObservableCollection<WaterAmount> WaterAmounts { get; }
 
-        // Nowa lista nawodnień
+        // Historia nawodnień
         public ObservableCollection<HydrationEntry> HydrationHistory { get; } = new();
 
         public WaterIntakeContentViewModel()
         {
             WaterAmounts = new ObservableCollection<WaterAmount>
             {
-                new WaterAmount(120, "/Resources/cup_icon.png", "Kubek - 120ml"),
-                new WaterAmount(250, "/Resources/mug_icon.png", "Filiżanka - 250ml"),
-                new WaterAmount(500, "/Resources/water_bottle_icon.png", "Butelka - 500ml"),
-                new WaterAmount(1500, "/Resources/big_water_bottle_icon.png", "Duża butelka - 1500ml")
+                new WaterAmount(120, "/Resources/cup_icon.png", "Cup - 120ml"),
+                new WaterAmount(250, "/Resources/mug_icon.png", "Mug - 250ml"),
+                new WaterAmount(500, "/Resources/water_bottle_icon.png", "Bottle - 500ml"),
+                new WaterAmount(1500, "/Resources/big_water_bottle_icon.png", "Large bottle - 1500ml")
             };
 
+            // Inicjalizacja zawartości sidebara
+            RightSidebarItems.Add(new HomeViewModel.RightSidebarItem
+            {
+                Title = "water water",
+                Description = "Spróbuj metody 4-7-8: Wdychaj 4 sekundy, wstrzymaj 7, wydychaj 8",
+                ImagePath = new Uri("/FitnessStudio;component/Resources/supplements_border_img.jpg", UriKind.Relative)
+            });
+
+            RightSidebarItems.Add(new HomeViewModel.RightSidebarItem
+            {
+                Title = "water water",
+                Description = "Słuchaj dźwięków natury przez minimum 15 minut dziennie",
+                ImagePath = new Uri("/FitnessStudio;component/Resources/supplements_border_img.jpg", UriKind.Relative)
+            });
+
             SelectedWaterAmount = WaterAmounts[1];
+            UpdateHydrationProgress();
         }
 
         [RelayCommand]
@@ -40,14 +62,18 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
             int amountToAdd = SelectedWaterAmount.Amount;
             CurrentIntake = Math.Min(MaxDailyIntake, CurrentIntake + amountToAdd);
 
-            // Dodaj wpis do historii nawodnień
-            HydrationHistory.Insert(0, new HydrationEntry
+            // Dodaj wpis do historii nawodnień z unikalnym ID
+            var entry = new HydrationEntry
             {
+                Id = Guid.NewGuid().ToString(),
                 Amount = amountToAdd,
                 Timestamp = DateTime.Now,
                 IconPath = SelectedWaterAmount.IconPath
-            });
+            };
 
+            HydrationHistory.Insert(0, entry);
+
+            UpdateHydrationProgress();
             OnPropertyChanged(nameof(CurrentIntakeDisplay));
         }
 
@@ -56,17 +82,42 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
         {
             int amountToSubtract = SelectedWaterAmount.Amount;
             CurrentIntake = Math.Max(0, CurrentIntake - amountToSubtract);
+            UpdateHydrationProgress();
             OnPropertyChanged(nameof(CurrentIntakeDisplay));
+        }
+
+        [RelayCommand]
+        private void RemoveHydrationEntry(string id)
+        {
+            var entryToRemove = HydrationHistory.FirstOrDefault(e => e.Id == id);
+            if (entryToRemove != null)
+            {
+                // Odejmij wartość z CurrentIntake
+                CurrentIntake = Math.Max(0, CurrentIntake - entryToRemove.Amount);
+
+                // Usuń wpis z historii
+                HydrationHistory.Remove(entryToRemove);
+
+                UpdateHydrationProgress();
+                OnPropertyChanged(nameof(CurrentIntakeDisplay));
+            }
+        }
+
+        private void UpdateHydrationProgress()
+        {
+            HydrationProgress = (double)CurrentIntake / MaxDailyIntake;
         }
     }
 
     // Klasa reprezentująca wpis nawodnienia
     public class HydrationEntry
     {
+        public string Id { get; set; } = string.Empty;
         public int Amount { get; set; }
         public DateTime Timestamp { get; set; }
-
         public required string IconPath { get; set; }
+        public string FormattedTime => Timestamp.ToString("HH:mm");
+        public string FormattedDate => Timestamp.ToString("dd.MM.yyyy");
     }
 
     public class WaterAmount
@@ -85,5 +136,4 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
             Description = description;
         }
     }
-
 }

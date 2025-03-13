@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using FitnessStudio.MVVM.ViewModel.HomeContents;
 
@@ -18,6 +19,9 @@ namespace FitnessStudio.MVVM.View.HomeContents
         private int totalSeconds;
         private bool isRunning = false;
 
+        private MediaPlayer mediaPlayer = new MediaPlayer();
+        private bool isMuted = false;
+
         public MeditationContent()
         {
             InitializeComponent();
@@ -28,6 +32,9 @@ namespace FitnessStudio.MVVM.View.HomeContents
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
+
+            //Inicjalizacja mediaplayera 
+            mediaPlayer.Open(new Uri("C:\\Users\\Developer\\source\\FitnessStudio\\Audio\\earth_liborio_conti.mp3", UriKind.Relative));
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -110,6 +117,7 @@ namespace FitnessStudio.MVVM.View.HomeContents
             {
                 // Pauza
                 timer.Stop();
+                mediaPlayer.Pause();
                 isRunning = false;
                 StartPauseButton.Content = "Wznów";
             }
@@ -117,6 +125,7 @@ namespace FitnessStudio.MVVM.View.HomeContents
             {
                 // Start/Wznowienie
                 timer.Start();
+                mediaPlayer.Play();
                 isRunning = true;
                 StartPauseButton.Content = "Pauza";
             }
@@ -124,8 +133,9 @@ namespace FitnessStudio.MVVM.View.HomeContents
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            // Zatrzymanie timera
+            // Zatrzymanie timera i muzyki
             timer.Stop();
+            mediaPlayer.Stop();
             isRunning = false;
 
             // Reset wartości
@@ -136,10 +146,34 @@ namespace FitnessStudio.MVVM.View.HomeContents
 
         private void ClosePopup_Click(object sender, RoutedEventArgs e)
         {
-            // Zatrzymanie timera i zamknięcie popupu
+            // Zatrzymanie timera, muzyki i zamknięcie popupu
             timer.Stop();
+            mediaPlayer.Stop();
             isRunning = false;
             MeditationPopup.IsOpen = false;
         }
+
+        private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) => mediaPlayer.Volume = VolumeSlider.Value;
+
+        private void MuteButton_Click(object sender, MouseButtonEventArgs e)
+        {
+            isMuted = !isMuted;
+            mediaPlayer.IsMuted = isMuted;
+
+            // Pobranie obrazu z Border
+            var image = MuteButton.Child as Image;
+            if (image != null)
+            {
+                if (isMuted)
+                {
+                    image.Source = new BitmapImage(new Uri("/Resources/music_muted_icon.png", UriKind.Relative));
+                }
+                else
+                {
+                    image.Source = new BitmapImage(new Uri("/Resources/music_on_icon.png", UriKind.Relative));
+                }
+            }
+        }
+
     }
 }

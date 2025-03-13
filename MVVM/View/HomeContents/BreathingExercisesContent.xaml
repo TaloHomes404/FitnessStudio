@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FitnessStudio.MVVM.View.HomeContents"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Loaded="OnLoaded">
     <UserControl.Resources>
         <DropShadowEffect x:Key="CardShadow" 
                           ShadowDepth="4" 
@@ -30,7 +31,7 @@
                        VerticalAlignment="Center"/>
         </StackPanel>
         <!-- Cards Container - Moved to the left with adjusted dimensions -->
-        <Grid Grid.Row="1" HorizontalAlignment="Left" Margin="20,0,0,0">
+        <Grid Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="230"/>
                 <ColumnDefinition Width="230"/>
@@ -41,7 +42,7 @@
                     Grid.Column="0" 
                     Height="300"
                     Margin="0,0,10,0" 
-                    Background="#303040" 
+                    Background="#E5F9F3"  
                     CornerRadius="20" 
                     BorderBrush="Transparent" 
                     BorderThickness="1" 
@@ -60,39 +61,41 @@
                     <TextBlock Grid.Row="0" 
                               Text="Stay calm and alerted" 
                               FontSize="14" 
-                              Foreground="#AAAAAA" 
+                              Foreground="#777777" 
                               Margin="15,15,0,10" 
                               HorizontalAlignment="Left"/>
                     <!-- Main circular image -->
                     <Grid Grid.Row="1" Margin="0,5,0,5">
-                        <Ellipse Width="100" Height="100" Fill="#252535"/>
-                        <Ellipse Width="80" Height="80" Fill="#2E2E40"/>
-                        <TextBlock Text="Inhale" 
-                                  FontSize="16" 
-                                  Foreground="#4B7BEC" 
-                                  HorizontalAlignment="Center" 
-                                  VerticalAlignment="Center"/>
+                        
+                        <Ellipse Width="80" Height="80" Fill="#4AD1B8"/>
+                        <TextBlock Text="Start" 
+                            FontSize="16" 
+                            Foreground="White" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"/>
                     </Grid>
                     <!-- Content Title -->
-                    <TextBlock Grid.Row="2" 
+                    <TextBlock Grid.Row="2"
                               Text="Box Breathing" 
                               FontSize="18" 
-                              Foreground="White" 
+                              Foreground="Black" 
                               FontWeight="SemiBold" 
-                              HorizontalAlignment="Left" 
-                              Margin="15,5,0,0"/>
+                              HorizontalAlignment="Center" 
+                              Margin="0,5,0,0"/>
                     <!-- Description -->
                     <TextBlock Grid.Row="3" 
                               Text="Exercise • 4 min" 
                               FontSize="14" 
-                              Foreground="#BBBBBB" 
-                              HorizontalAlignment="Left" 
-                              Margin="15,5,0,15"/>
+                              Foreground="Black" 
+                              HorizontalAlignment="Center" 
+                              Margin="0,5,0,15"/>
                     <!-- Button -->
                     <Button Grid.Row="4" 
+                            x:Name="BoxBreathingButton"
+                            Command="{Binding OpenBoxBreathingCommand}"
                            Content="Start Now" 
-                           Background="#EEEEEE" 
-                           Foreground="#333333" 
+                           Background="#2D3142"
+                           Foreground="White" 
                            FontWeight="SemiBold" 
                            Height="40" 
                            Margin="15,5,15,15">
@@ -133,7 +136,7 @@
                               HorizontalAlignment="Left"/>
                     <!-- Main circular image -->
                     <Grid Grid.Row="1" Margin="0,5,0,5">
-                        <Ellipse Width="120" Height="120" Fill="#C1F4E8"/>
+                        
                         <Ellipse Width="80" Height="80" Fill="#4AD1B8"/>
                         <TextBlock Text="Start" 
                                   FontSize="16" 
@@ -153,12 +156,14 @@
                     <TextBlock Grid.Row="3" 
                               Text="Exercise • 3 min" 
                               FontSize="14" 
-                              Foreground="#555555" 
+                              Foreground="Black" 
                               HorizontalAlignment="Center" 
                               Margin="0,5,0,15"/>
                     <!-- Button -->
                     <Button Grid.Row="4" 
                            Content="Start Now" 
+                            x:Name="CalmingBreathingButton"
+                            Command="{Binding Open478BreathingCommand}"
                            Background="#2D3142" 
                            Foreground="White" 
                            FontWeight="SemiBold" 
@@ -200,8 +205,7 @@
                               Margin="15,15,0,10" 
                               HorizontalAlignment="Left"/>
                     <!-- Main image (Indicator) -->
-                    <Grid Grid.Row="1" Margin="0,5,0,5">
-                        <Ellipse Width="120" Height="120" Fill="#C1F4E8"/>
+                    <Grid Grid.Row="1" Margin="0,5,0,5">         
                         <Ellipse Width="80" Height="80" Fill="#4AD1B8"/>
                         <TextBlock Text="Start" 
                                   FontSize="16" 
@@ -213,21 +217,23 @@
                     <TextBlock Grid.Row="2" 
                               Text="Pursed-Lip Breathing" 
                               FontSize="18" 
-                              Foreground="#333333" 
+                              Foreground="Black" 
                               FontWeight="SemiBold" 
-                              HorizontalAlignment="Left" 
-                              Margin="15,5,0,0"/>
+                              HorizontalAlignment="Center" 
+                              Margin="0,5,0,0"/>
                     <!-- Description -->
                     <TextBlock Grid.Row="3" 
                               Text="Exercise • 5 min" 
                               FontSize="14" 
-                              Foreground="#555555" 
-                              HorizontalAlignment="Left" 
-                              Margin="15,5,0,15"/>
+                              Foreground="Black" 
+                              HorizontalAlignment="Center" 
+                              Margin="0,5,0,15"/>
                     <!-- Button -->
                     <Button Grid.Row="4" 
                            Content="Start Now" 
                            Background="#2D3142" 
+                            Command="{Binding OpenPursedLipBreathingCommand}"
+                            x:Name="PursedLipBreathingButton"
                            Foreground="White" 
                            FontWeight="SemiBold" 
                            Height="40" 

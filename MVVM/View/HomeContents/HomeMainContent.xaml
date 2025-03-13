@@ -6,8 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <!-- Zawartość -->
-        <TextBlock Text="Główna zawartość Main Content" Foreground="Black" 
-                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <!-- Zawartość dynamiczna operowana przez viewmodel-->
+        
     </Grid>
 </UserControl>

@@ -1,0 +1,68 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Style for water intake screen progressbar (circle) -->
+    <Style x:Key="CircularProgressBar" TargetType="{x:Type ProgressBar}">
+        <Setter Property="Foreground" Value="#2196F3"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ProgressBar}">
+                    <Grid x:Name="TemplateRoot" ClipToBounds="true">
+                        <Path x:Name="TrackPath"
+                          Stroke="{TemplateBinding Background}"
+                          StrokeThickness="6"
+                          Fill="Transparent">
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathGeometry.Figures>
+                                        <PathFigureCollection>
+                                            <PathFigure StartPoint="110,6">
+                                                <PathFigure.Segments>
+                                                    <PathSegmentCollection>
+                                                        <ArcSegment Point="110,214" Size="104,104" IsLargeArc="True"/>
+                                                    </PathSegmentCollection>
+                                                </PathFigure.Segments>
+                                            </PathFigure>
+                                        </PathFigureCollection>
+                                    </PathGeometry.Figures>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+                        <Path x:Name="ValuePath"
+                          Stroke="{TemplateBinding Foreground}"
+                          StrokeThickness="6"
+                          StrokeStartLineCap="Round"
+                          StrokeEndLineCap="Round"
+                          Fill="Transparent">
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathGeometry.Figures>
+                                        <PathFigureCollection>
+                                            <PathFigure StartPoint="110,6">
+                                                <PathFigure.Segments>
+                                                    <PathSegmentCollection>
+                                                        <ArcSegment x:Name="ValueArc" 
+                                                                Point="110,6" 
+                                                                Size="104,104" 
+                                                                SweepDirection="Clockwise"/>
+                                                    </PathSegmentCollection>
+                                                </PathFigure.Segments>
+                                            </PathFigure>
+                                        </PathFigureCollection>
+                                    </PathGeometry.Figures>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Value" Value="0">
+                            <Setter TargetName="ValuePath" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

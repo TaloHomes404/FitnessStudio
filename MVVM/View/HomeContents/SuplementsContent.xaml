@@ -14,7 +14,6 @@
                       Opacity="0.5" 
                       BlurRadius="10"/>
     </UserControl.Resources>
-    
     <Grid>
         <StackPanel Orientation="Vertical">
             <!-- Header Section -->
@@ -27,40 +26,43 @@
                       VerticalAlignment="Center"/>
             </StackPanel>
             <!-- Days TabControl -->
-            <Border Background="#F5F5F5" Width="Auto" BorderBrush="#DDDDDD" BorderThickness="0,1,0,1" Padding="10,5">
+            <Border Background="#F0F0F0" Width="Auto" BorderBrush="#333333" BorderThickness="0,1,0,1" Padding="10,5">
                 <StackPanel>
-                    <TextBlock Text="March 2025" FontWeight="Bold" Margin="10,0,0,5" FontSize="14"/>
-                    <TabControl x:Name="DaysTabControl" Background="Transparent" BorderThickness="0" Margin="0,5,0,0">
+                    <TextBlock Text="March 2025" FontWeight="Bold" Margin="10,0,0,5" FontSize="16" Foreground="#222222"/>
+                    <TabControl x:Name="DaysTabControl" SelectedIndex="{Binding SelectedDay, Mode=TwoWay}" Background="Transparent" BorderThickness="0" Margin="0,5,0,0">
                         <TabControl.Resources>
                             <Style TargetType="TabItem">
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="TabItem">
-                                            <Border x:Name="Border" BorderThickness="0" 
-                                                    CornerRadius="5" Margin="2,0" 
-                                                    Padding="15,10" 
-                                                    Width="75" Height="60">
+                                            <Border x:Name="Border" BorderThickness="1" 
+                                        BorderBrush="#DDDDDD"
+                                        CornerRadius="8" Margin="3,0" 
+                                        Padding="15,10" 
+                                        Width="75" Height="65"
+                                        Background="#FFFFFF">
                                                 <StackPanel>
                                                     <TextBlock x:Name="DayLabel" 
-                                                              Text="{TemplateBinding Header}" 
-                                                              FontSize="16" 
-                                                              FontWeight="Medium"
-                                                              HorizontalAlignment="Center" 
-                                                              VerticalAlignment="Center"
-                                                              Foreground="#666666"/>
+                                                  Text="{TemplateBinding Header}" 
+                                                  FontSize="16" 
+                                                  FontWeight="Medium"
+                                                  HorizontalAlignment="Center" 
+                                                  VerticalAlignment="Center"
+                                                  Foreground="#555555"/>
                                                     <Ellipse x:Name="Indicator" 
-                                                            Width="8" Height="8" 
-                                                            Fill="#2196F3" 
-                                                            Margin="0,5,0,0"/>
+                                                Width="6" Height="6" 
+                                                Fill="#555555" 
+                                                Margin="0,8,0,0"/>
                                                 </StackPanel>
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsSelected" Value="True">
-                                                    <Setter TargetName="Border" Property="Background" Value="#E3F2FD"/>
-                                                    <Setter TargetName="Border" Property="BorderBrush" Value="#2196F3"/>
-                                                    <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
-                                                    <Setter TargetName="DayLabel" Property="Foreground" Value="#1976D2"/>
+                                                    <Setter TargetName="Border" Property="Background" Value="#333333"/>
+                                                    <Setter TargetName="Border" Property="BorderBrush" Value="#000000"/>
+                                                    <Setter TargetName="Border" Property="BorderThickness" Value="1"/>
+                                                    <Setter TargetName="DayLabel" Property="Foreground" Value="#FFFFFF"/>
                                                     <Setter TargetName="DayLabel" Property="FontWeight" Value="Bold"/>
+                                                    <Setter TargetName="Indicator" Property="Fill" Value="#FFFFFF"/>
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -91,7 +93,7 @@
                 <Button Grid.Column="1" 
                         Height="40" 
                         Padding="15,0" 
-                        Background="#2196F3" 
+                        Background="#333333"
                         Foreground="White"
                         BorderThickness="0"
                         VerticalAlignment="Center"
@@ -107,44 +109,74 @@
                     </StackPanel>
                 </Button>
             </Grid>
-            <!-- Supplements Grid  -->
-            <WrapPanel Margin="20,0,20,20">
-                <!-- Vitamin D Item -->
-                <Border Width="150" Height="150" Background="#FBFBFB" Margin="0,0,15,15" CornerRadius="8">
-                    <StackPanel VerticalAlignment="Center">
-                        <Image Source="/Resources/suplements_icon.png" Width="65" Height="65" Margin="0,0,0,8">
-                            <Image.Effect>
-                                <DropShadowEffect Color="#CCCCCC" Direction="315" ShadowDepth="2" BlurRadius="5" Opacity="0.5"/>
-                            </Image.Effect>
-                        </Image>
-                        <TextBlock Text="Vitamin D" 
-                                   FontWeight="SemiBold" 
-                                   FontSize="16" 
-                                   HorizontalAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   TextAlignment="Center"/>
-                        <TextBlock Text="Once a day" 
-                                   FontSize="12" 
-                                   Foreground="#444444" 
-                                   HorizontalAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   TextAlignment="Center"/>
-                    </StackPanel>
-                </Border>
-            </WrapPanel>
+            <!-- Supplements Grid -->
+            <ItemsControl ItemsSource="{Binding UserSupplements}" Margin="20,0,20,20">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Width="150" Height="150" Background="#FBFBFB" Margin="0,0,15,15" CornerRadius="8">
+                            <StackPanel VerticalAlignment="Center">
+                                <Border Width="65" Height="65" Background="#2196F3" CornerRadius="32.5" Margin="0,0,0,8">
+                                    <TextBlock Text="{Binding LetterCode}" 
+                                           FontWeight="Bold" 
+                                           FontSize="24" 
+                                           Foreground="White"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="#CCCCCC" Direction="315" ShadowDepth="2" BlurRadius="5" Opacity="0.5"/>
+                                    </Border.Effect>
+                                </Border>
+                                <TextBlock Text="{Binding Name}" 
+                                       FontWeight="SemiBold" 
+                                       FontSize="16" 
+                                       HorizontalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       TextAlignment="Center"/>
+                                <TextBlock Text="{Binding Dosage}" 
+                                       FontSize="12" 
+                                       Foreground="#444444" 
+                                       HorizontalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       TextAlignment="Center"/>
+                                <!-- More Button -->
+                                <Button x:Name="MoreButton" 
+                                        Width="24" 
+                                        Height="24" 
+                                        Background="Transparent" 
+                                        BorderThickness="0" 
+                                        Padding="0" 
+                                        HorizontalAlignment="Right" 
+                                        VerticalAlignment="Top" 
+                                        Margin="0,5,5,0"
+                                        Click="MoreButton_Click">
+                                    <Button.Content>
+                                        <Image Source="/Resources/more_icon.png" Width="18" Height="18"/>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <!-- Popup for Adding Supplement -->
             <Popup x:Name="AddSupplementPopup" 
-       StaysOpen="False" 
-       Placement="Center"
-       Width="400" 
-       Height="450" 
-       AllowsTransparency="True"
-       IsOpen="False">
+                   StaysOpen="False" 
+                   Placement="Center"
+                   Width="400" 
+                   Height="450" 
+                   AllowsTransparency="True"
+                   IsOpen="False">
                 <Border Background="White" 
-            CornerRadius="12" 
-            BorderBrush="Black" 
-            BorderThickness="3"
-            Padding="20"
-            Effect="{StaticResource DropShadowBorder}">
+                      CornerRadius="12" 
+                      BorderBrush="Black" 
+                      BorderThickness="3"
+                      Padding="20"
+                      Effect="{StaticResource DropShadowBorder}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -153,96 +185,287 @@
                         </Grid.RowDefinitions>
                         <!-- Header -->
                         <TextBlock Text="Search Supplement" 
-                       Grid.Row="0"
-                       FontSize="20" 
-                       FontWeight="SemiBold" 
-                       Margin="0,0,0,15"
-                       Foreground="#333333"/>
+                                 Grid.Row="0"
+                                 FontSize="20" 
+                                 FontWeight="SemiBold" 
+                                 Margin="0,0,0,15"
+                                 Foreground="#333333"/>
                         <!-- Search Bar -->
                         <Border Grid.Row="1" 
-                    Background="#F5F5F5" 
-                    CornerRadius="8" 
-                    BorderBrush="Black" 
-                    BorderThickness="3"
-                    Margin="0,0,0,15">
+                              Background="#F5F5F5" 
+                              CornerRadius="8" 
+                              BorderBrush="Black" 
+                              BorderThickness="3"
+                              Margin="0,0,0,15">
                             <Grid Margin="10,8">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Image Source="/Resources/suplements_icon.png" 
-                           Width="28" 
-                           Height="28" 
-                           Grid.Column="0"
-                           Margin="0,0,10,0"/>
+                                     Width="28" 
+                                     Height="28" 
+                                     Grid.Column="0"
+                                     Margin="0,0,10,0"/>
                                 <TextBox Grid.Column="1" 
-                             Background="Transparent" 
-                             BorderThickness="0"
-                             VerticalAlignment="Center"
-                             FontSize="14"
-                             Padding="0,5,0,5"
-                             x:Name="SearchSupplementTextBox"/>
+                                       Background="Transparent" 
+                                       BorderThickness="0"
+                                       VerticalAlignment="Center"
+                                       FontSize="14"
+                                       Padding="0,5,0,5"
+                                       x:Name="SearchSupplementTextBox"
+                                       Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
                             </Grid>
                         </Border>
                         <!-- Scrollable List Area -->
                         <Border Grid.Row="2" 
-                    Background="#FAFAFA" 
-                    CornerRadius="8" 
-                    BorderBrush="#E0E0E0" 
-                    BorderThickness="3">
+                              Background="#FAFAFA" 
+                              CornerRadius="8" 
+                              BorderBrush="#E0E0E0" 
+                              BorderThickness="3">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <StackPanel x:Name="SupplementSearchResults" Margin="10">
-                                    <!-- Results will be populated here -->
-                                    <!-- Example item (You can remove these in final implementation) -->
-                                    <Border Background="White" 
-                                CornerRadius="8" 
-                                BorderBrush="#EEEEEE" 
-                                BorderThickness="1" 
-                                VerticalAlignment="Center"
-                                Padding="15,10" 
-                                Margin="0,0,0,8">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Image Source="/Resources/suplements_icon.png" 
-                                       Width="40" 
-                                       Height="40" 
-                                       Grid.Column="0"
-                                       Margin="0,0,15,0"/>
-                                            <StackPanel Grid.Column="1">
-                                                <TextBlock Text="Vitamin D3" 
-                                               FontWeight="SemiBold" 
-                                               FontSize="14"/>
-                                                <TextBlock Text="Supports immune system" 
-                                               FontSize="12" 
-                                               Foreground="#777777"/>
-                                            </StackPanel>
-                                            <Button Grid.Column="2" 
-                                        Width="30" 
-                                        Height="30" 
-                                        Background="#2196F3" 
-                                        Foreground="White"
-                                        BorderThickness="0"
-                                        Padding="0">
-                                                <Button.Resources>
-                                                    <Style TargetType="Border">
-                                                        <Setter Property="CornerRadius" Value="15"/>
-                                                    </Style>
-                                                </Button.Resources>
-                                                <TextBlock Text="+" 
-                                               FontSize="18" 
-                                               FontWeight="Bold" 
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"/>
-                                            </Button>
-                                        </Grid>
-                                    </Border>
-                                </StackPanel>
+                                <ItemsControl x:Name="SupplementSearchResults" 
+                                          ItemsSource="{Binding SearchResults}"
+                                          Margin="10">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="White" 
+                                                  CornerRadius="8" 
+                                                  BorderBrush="#EEEEEE" 
+                                                  BorderThickness="1" 
+                                                  VerticalAlignment="Center"
+                                                  Padding="15,10" 
+                                                  Margin="0,0,0,8">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Border Width="40" Height="40" 
+                                                          Background="#2196F3" 
+                                                          CornerRadius="20" 
+                                                          Grid.Column="0"
+                                                          Margin="0,0,15,0">
+                                                        <TextBlock Text="{Binding LetterCode}" 
+                                                                 FontWeight="Bold" 
+                                                                 FontSize="18" 
+                                                                 Foreground="White"
+                                                                 HorizontalAlignment="Center"
+                                                                 VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <StackPanel Grid.Column="1">
+                                                        <TextBlock Text="{Binding Name}" 
+                                                                 FontWeight="SemiBold" 
+                                                                 Foreground="Black"
+                                                                 FontSize="14"/>
+                                                        <TextBlock Text="{Binding Description}" 
+                                                                 FontSize="12" 
+                                                                 Foreground="#777777"/>
+                                                    </StackPanel>
+                                                    <Button Grid.Column="2" 
+                                                          Width="30" 
+                                                          Height="30" 
+                                                          Background="#2196F3" 
+                                                          Foreground="White"
+                                                          BorderThickness="0"
+                                                          Padding="0"
+                                                          Click="AddSupplementToUser_Click">
+                                                        <Button.Resources>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="CornerRadius" Value="15"/>
+                                                            </Style>
+                                                        </Button.Resources>
+                                                        <TextBlock Text="+" 
+                                                               FontSize="18" 
+                                                               FontWeight="Bold" 
+                                                               HorizontalAlignment="Center" 
+                                                               VerticalAlignment="Center"/>
+                                                    </Button>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                             </ScrollViewer>
                         </Border>
+                    </Grid>
+                </Border>
+            </Popup>
+            <!-- Popup for Editing Supplement -->
+            <Popup x:Name="EditSupplementPopup" 
+                   StaysOpen="False" 
+                   Placement="Center"
+                   Width="400" 
+                   Height="450" 
+                   AllowsTransparency="True"
+                   IsOpen="False">
+                <Border Background="White" 
+                      CornerRadius="12" 
+                      BorderBrush="Black" 
+                      BorderThickness="3"
+                      Padding="20"
+                      Effect="{StaticResource DropShadowBorder}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!-- Header -->
+                        <TextBlock Text="Edit Supplement" 
+                                 Grid.Row="0"
+                                 FontSize="20" 
+                                 FontWeight="SemiBold" 
+                                 Margin="0,0,0,15"
+                                 Foreground="#333333"/>
+                        <!-- Dosage Input -->
+                        <TextBox Grid.Row="1" 
+                                 x:Name="DosageTextBox" 
+                                 Text="{Binding SelectedSupplement.Dosage, UpdateSourceTrigger=PropertyChanged}" 
+                                 FontSize="14" 
+                                 Padding="10" 
+                                 Margin="0,0,0,15" 
+                                 Background="#F5F5F5" 
+                                 BorderBrush="#CCCCCC" 
+                                 BorderThickness="1" />
+                        <!-- Days Selection -->
+                        <StackPanel Grid.Row="2" Margin="0,0,0,15">
+                            <!-- Checkbox "Codziennie" -->
+                            <CheckBox Content="Codziennie" 
+          IsChecked="{Binding SelectedSupplement.IsEveryday}" 
+          Margin="0,0,0,10"
+          x:Name="EverydayCheckBox"
+          Checked="EverydayCheckBox_Checked" 
+          Unchecked="EverydayCheckBox_Unchecked">
+                                <CheckBox.Resources>
+                                    <Style TargetType="CheckBox">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="CheckBox">
+                                                    <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Rectangle x:Name="CheckBoxRectangle"
+                                           Width="16"
+                                           Height="16"
+                                           Fill="Black"
+                                           Stroke="Black"
+                                           StrokeThickness="1"
+                                           Margin="2"
+                                           VerticalAlignment="Center"/>
+                                                            <ContentPresenter Grid.Column="1"
+                                                  Margin="5,0,0,0"
+                                                  VerticalAlignment="Center"/>
+                                                        </Grid>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </CheckBox.Resources>
+                            </CheckBox>
+                            <!-- ToggleButtons dla dni tygodnia -->
+                            <WrapPanel Margin="0,5">
+                                <!-- Style dla ToggleButton -->
+                                <WrapPanel.Resources>
+                                    <Style TargetType="ToggleButton">
+                                        <!-- Domyślny styl -->
+                                        <Setter Property="Background" Value="White"/>
+                                        <Setter Property="BorderBrush" Value="#DDDDDD"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ToggleButton">
+                                                    <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4">
+                                                        <ContentPresenter HorizontalAlignment="Center" 
+                                                  VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <!-- Efekty wizualne -->
+                                        <Style.Triggers>
+                                            <!-- Efekt zaznaczenia (IsChecked) -->
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter Property="Background" Value="#2196F3"/>
+                                                <Setter Property="BorderBrush" Value="#2196F3"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                            <!-- Efekt najechania myszą (IsMouseOver) -->
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#F0F0F0"/>
+                                                <Setter Property="Foreground" Value="Black"/>
+                                                <Setter Property="BorderBrush" Value="#2196F3"/>
+                                            </Trigger>
+                                            <!-- Efekt naciśnięcia (IsPressed) -->
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter Property="Background" Value="#CCCCCC"/>
+                                                <Setter Property="BorderBrush" Value="#2196F3"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </WrapPanel.Resources>
+                                <!-- ToggleButtons dla poszczególnych dni -->
+                                <ToggleButton Content="Mon" IsChecked="{Binding SelectedSupplement.IsMonday}" 
+                      Width="45" Height="45" Margin="3"/>
+                                <ToggleButton Content="Tue" IsChecked="{Binding SelectedSupplement.IsTuesday}" 
+                      Width="45" Height="45" Margin="3"/>
+                                <ToggleButton Content="Wed" IsChecked="{Binding SelectedSupplement.IsWednesday}" 
+                      Width="45" Height="45" Margin="3"/>
+                                <ToggleButton Content="Thu" IsChecked="{Binding SelectedSupplement.IsThursday}" 
+                      Width="45" Height="45" Margin="3"/>
+                                <ToggleButton Content="Fri" IsChecked="{Binding SelectedSupplement.IsFriday}" 
+                      Width="45" Height="45" Margin="3"/>
+                                <ToggleButton Content="Sat" IsChecked="{Binding SelectedSupplement.IsSaturday}" 
+                      Width="45" Height="45" Margin="3"/>
+                                <ToggleButton Content="Sun" IsChecked="{Binding SelectedSupplement.IsSunday}" 
+                      Width="45" Height="45" Margin="3"/>
+                            </WrapPanel>
+                        </StackPanel>
+                        <!-- Save and Cancel Buttons -->
+                        <StackPanel Grid.Row="3" 
+                                    Orientation="Horizontal" 
+                                    HorizontalAlignment="Right" 
+                                    Margin="0,15,0,0">
+                             <Button Content="Delete" 
+                                 Width="100" 
+                                Height="40" 
+                                Background="#FF5252" 
+                                Foreground="White" 
+                                 BorderThickness="0" 
+                                Margin="0,0,10,0"
+                                Click="DeleteSupplement_Click"/>
+                            <Button Content="Save" 
+                                    Width="100" 
+                                    Height="40" 
+                                    Background="#2196F3" 
+                                    Foreground="White" 
+                                    BorderThickness="0" 
+                                    Margin="0,0,10,0"
+                                    Click="SaveSupplement_Click"/>
+                            <Button Content="Cancel" 
+                                    Width="100" 
+                                    Height="40" 
+                                    Background="#CCCCCC" 
+                                    Foreground="Black" 
+                                    BorderThickness="0" 
+                                    Click="CancelEdit_Click"/>
+                        </StackPanel>
                     </Grid>
                 </Border>
             </Popup>
