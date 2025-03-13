@@ -50,29 +50,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!-- Header Section z gradietnowym tłem -->
-        <Border Grid.Row="0" CornerRadius="0,0,30,30">
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#7E57C2" Offset="0"/>
-                    <GradientStop Color="#5E35B1" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.Background>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="16,15,0,20">
-                <Ellipse Width="64" Height="64" Margin="0,0,15,0">
-                    <Ellipse.Fill>
-                        <SolidColorBrush Color="#FFFFFF"/>
-                        <!-- Zastąpione ImageBrush, bo może powodować błędy, jeśli plik nie istnieje -->
-                    </Ellipse.Fill>
-                </Ellipse>
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="Zarządzaj stresem,&#10;   odzyskaj spokój." 
-                           FontSize="32" 
-                           FontWeight="Bold" 
-                           Foreground="White"
-                           VerticalAlignment="Center"/>
-                </StackPanel>
-            </StackPanel>
-        </Border>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="16,15,0,20">
+            <Image Source="/Resources/stressed_icon.png" Width="64" Height="64" Margin="0,0,15,0"/>
+            <TextBlock Text="Manage your stress &#10;      own your peace." 
+               FontSize="32" 
+               FontWeight="Bold" 
+               Foreground="#FF6B6B"
+               VerticalAlignment="Center"/>
+        </StackPanel>
         <!-- Cards Container -->
         <Grid Grid.Row="1" Margin="20,30,20,20">
             <Grid.ColumnDefinitions>
@@ -109,7 +94,7 @@
                         <Grid>
                             <Path Fill="#20FFFFFF" Data="M0,60 C100,100 200,0 300,40 L300,140 L0,140 Z"/>
                             <Ellipse Width="80" Height="80" Fill="#30FFFFFF" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0"/>
-                            <TextBlock Text="monitoruj swój stres" 
+                            <TextBlock Text="monitoruj stresujące sytuacje!" 
                                       FontSize="14" 
                                       Foreground="#EEFFFFFF" 
                                       Margin="20,15,0,0" 
@@ -123,8 +108,7 @@
                             <DropShadowEffect BlurRadius="10" ShadowDepth="2" Direction="270" Color="#20000000"/>
                         </Ellipse.Effect>
                     </Ellipse>
-                    <!-- Usunięto obraz, który mógł powodować problemy jeśli nie istniał -->
-                    <TextBlock Grid.Row="0" Text="📝" FontSize="30" VerticalAlignment="Bottom" Margin="0,0,0,-20" HorizontalAlignment="Center"/>
+                    <Image Source="/Resources/stress_journal_icon.png" Grid.Row="0" Height="48" Width="48"  VerticalAlignment="Bottom" Margin="0,0,0,-25" HorizontalAlignment="Center"/>
                     <!-- Content Title -->
                     <TextBlock Grid.Row="1" 
                               Text="Dziennik Stresu" 
@@ -189,7 +173,7 @@
                         <Grid>
                             <Path Fill="#20FFFFFF" Data="M0,40 C100,0 200,100 300,60 L300,140 L0,140 Z"/>
                             <Ellipse Width="80" Height="80" Fill="#30FFFFFF" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0"/>
-                            <TextBlock Text="szybka ulga" 
+                            <TextBlock Text="opanuj stres, szybka ulga" 
                                       FontSize="14" 
                                       Foreground="#EEFFFFFF" 
                                       Margin="20,15,0,0" 
@@ -203,8 +187,7 @@
                             <DropShadowEffect BlurRadius="10" ShadowDepth="2" Direction="270" Color="#20000000"/>
                         </Ellipse.Effect>
                     </Ellipse>
-                    <!-- Usunięto obraz, który mógł powodować problemy jeśli nie istniał -->
-                    <TextBlock Grid.Row="0" Text="🧘" FontSize="30" VerticalAlignment="Bottom" Margin="0,0,0,-20" HorizontalAlignment="Center"/>
+                    <Image Source="/Resources/relax_icon.png" Grid.Row="0" Height="48" Width="48"  VerticalAlignment="Bottom" Margin="0,0,0,-25" HorizontalAlignment="Center"/>
                     <!-- Content Title -->
                     <TextBlock Grid.Row="1" 
                               Text="Szybkie Odstresowanie" 
@@ -242,7 +225,7 @@
         </Grid>
         <!-- Popup Dziennika Stresu -->
         <Popup x:Name="StressJournalPopup" IsOpen="False" Placement="Center" AllowsTransparency="True" StaysOpen="False">
-            <Border Width="450" Height="580" CornerRadius="30" Background="#2D3142" BorderBrush="#444444" BorderThickness="1">
+            <Border Width="450" Height="580" CornerRadius="30" Background="#F5F5F5" BorderBrush="#000000" BorderThickness="1">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="20" ShadowDepth="5" Direction="315" Color="#333333" Opacity="0.6"/>
                 </Border.Effect>
@@ -259,102 +242,140 @@
                     </Grid.RowDefinitions>
                     <!-- Popup Title -->
                     <TextBlock Grid.Row="0" 
-                               Text="Dziennik Stresu" 
-                               FontSize="24" 
-                               FontWeight="Bold" 
-                               Foreground="White" 
-                               HorizontalAlignment="Center" 
-                               Margin="0,10,0,20"/>
+                       Text="Dziennik Stresu" 
+                       FontSize="24" 
+                       FontWeight="Bold" 
+                       Foreground="#000000" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,10,0,20"/>
                     <!-- Data i czas -->
                     <TextBlock Grid.Row="1" 
-                               Text="Data i czas" 
-                               FontSize="16" 
-                               FontWeight="SemiBold" 
-                               Foreground="#4AD1B8" 
-                               Margin="0,0,0,5"/>
+                       Text="Data i czas" 
+                       FontSize="16" 
+                       FontWeight="SemiBold" 
+                       Foreground="#333333" 
+                       Margin="0,0,0,5"/>
                     <DatePicker Grid.Row="2" 
-                                x:Name="StressDate" 
-                                Background="#30FFFFFF" 
-                                Foreground="White" 
-                                BorderBrush="#444444" 
-                                Margin="0,0,0,15"/>
+                        x:Name="StressDate" 
+                        Background="#E0E0E0" 
+                        Foreground="#000000" 
+                        BorderBrush="#000000" 
+                        Margin="0,0,0,15">
+                        <DatePicker.Resources>
+                            <Style TargetType="DatePickerTextBox">
+                                <Setter Property="Background" Value="#E0E0E0"/>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
                     <!-- Sytuacja stresująca -->
                     <TextBlock Grid.Row="3" 
-                               Text="Opisz sytuację stresującą" 
-                               FontSize="16" 
-                               FontWeight="SemiBold" 
-                               Foreground="#4AD1B8" 
-                               Margin="0,0,0,5"/>
+                       Text="Opisz sytuację stresującą" 
+                       FontSize="16" 
+                       FontWeight="SemiBold" 
+                       Foreground="#333333" 
+                       Margin="0,0,0,5"/>
                     <TextBox Grid.Row="4" 
-                             x:Name="StressSituation" 
-                             Height="100" 
-                             Background="#30FFFFFF" 
-                             Foreground="White" 
-                             BorderBrush="#444444" 
-                             TextWrapping="Wrap" 
-                             AcceptsReturn="True" 
-                             Margin="0,0,0,15"
-                             Padding="5"/>
+                     x:Name="StressSituation" 
+                     Height="100" 
+                     Background="#E0E0E0" 
+                     Foreground="#000000" 
+                     BorderBrush="#000000" 
+                     TextWrapping="Wrap" 
+                     AcceptsReturn="True" 
+                     Margin="0,0,0,15"
+                     Padding="5"/>
                     <!-- Poziom stresu -->
                     <StackPanel Grid.Row="5" Margin="0,0,0,15">
                         <TextBlock Text="Poziom stresu (0-10)" 
-                                   FontSize="16" 
-                                   FontWeight="SemiBold" 
-                                   Foreground="#4AD1B8" 
-                                   Margin="0,0,0,5"/>
+                           FontSize="16" 
+                           FontWeight="SemiBold" 
+                           Foreground="#333333" 
+                           Margin="0,0,0,5"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Slider x:Name="StressLevel" 
-                                    Grid.Column="0"
-                                    Minimum="0" 
-                                    Maximum="10" 
-                                    Value="5" 
-                                    IsSnapToTickEnabled="True" 
-                                    TickFrequency="1" 
-                                    Background="#30FFFFFF" 
-                                    Foreground="White"
-                                    ValueChanged="StressLevel_ValueChanged"/>
+                            Grid.Column="0"
+                            Minimum="0" 
+                            Maximum="10" 
+                            Value="5" 
+                            IsSnapToTickEnabled="True" 
+                            TickFrequency="1" 
+                            ValueChanged="StressLevel_ValueChanged">
+                                <Slider.Resources>
+                                    <Style TargetType="Slider">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Slider">
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto"/>
+                                                            <RowDefinition Height="Auto"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Track x:Name="PART_Track" Grid.Row="1">
+                                                            <Track.DecreaseRepeatButton>
+                                                                <RepeatButton Command="Slider.DecreaseLarge" Background="#333333" Height="4"/>
+                                                            </Track.DecreaseRepeatButton>
+                                                            <Track.IncreaseRepeatButton>
+                                                                <RepeatButton Command="Slider.IncreaseLarge" Background="#CCCCCC" Height="4"/>
+                                                            </Track.IncreaseRepeatButton>
+                                                            <Track.Thumb>
+                                                                <Thumb Width="16" Height="16">
+                                                                    <Thumb.Template>
+                                                                        <ControlTemplate TargetType="Thumb">
+                                                                            <Ellipse Fill="#FFFFFF" Stroke="#000000" StrokeThickness="1"/>
+                                                                        </ControlTemplate>
+                                                                    </Thumb.Template>
+                                                                </Thumb>
+                                                            </Track.Thumb>
+                                                        </Track>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Slider.Resources>
+                            </Slider>
                             <TextBlock x:Name="StressLevelValue" 
-                                       Grid.Column="1"
-                                       Text="5" 
-                                       FontSize="18" 
-                                       FontWeight="Bold" 
-                                       Foreground="White" 
-                                       VerticalAlignment="Center" 
-                                       Margin="10,0,0,0"/>
+                               Grid.Column="1"
+                               Text="5" 
+                               FontSize="18" 
+                               FontWeight="Bold" 
+                               Foreground="#000000" 
+                               VerticalAlignment="Center" 
+                               Margin="10,0,0,0"/>
                         </Grid>
                     </StackPanel>
                     <!-- Co zrobiono aby zmniejszyć stres -->
                     <TextBlock Grid.Row="6" 
-                               Text="Co zrobiłeś/aś aby zmniejszyć ten stres?" 
-                               FontSize="16" 
-                               FontWeight="SemiBold" 
-                               Foreground="#4AD1B8" 
-                               Margin="0,0,0,5"/>
+                       Text="Co zrobiłeś/aś aby zmniejszyć ten stres?" 
+                       FontSize="16" 
+                       FontWeight="SemiBold" 
+                       Foreground="#333333" 
+                       Margin="0,0,0,5"/>
                     <TextBox Grid.Row="6" 
-                             x:Name="StressReduction" 
-                             Height="100" 
-                             Background="#30FFFFFF" 
-                             Foreground="White" 
-                             BorderBrush="#444444" 
-                             TextWrapping="Wrap" 
-                             AcceptsReturn="True" 
-                             Margin="0,30,0,15"
-                             VerticalAlignment="Top"
-                             Padding="5"/>
+                     x:Name="StressReduction" 
+                     Height="100" 
+                     Background="#E0E0E0" 
+                     Foreground="#000000" 
+                     BorderBrush="#000000" 
+                     TextWrapping="Wrap" 
+                     AcceptsReturn="True" 
+                     Margin="0,30,0,15"
+                     VerticalAlignment="Top"
+                     Padding="5"/>
                     <!-- Buttons -->
                     <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
                         <Button Content="Zapisz" 
-                                Width="120" 
-                                Height="45" 
-                                Background="#7E57C2" 
-                                Foreground="White" 
-                                FontWeight="SemiBold" 
-                                Margin="0,0,10,0"
-                                Click="SaveStressJournal_Click">
+                        Width="120" 
+                        Height="45" 
+                        Background="#333333" 
+                        Foreground="White" 
+                        FontWeight="SemiBold" 
+                        Margin="0,0,10,0"
+                        Click="SaveStressJournal_Click">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="22.5"/>
@@ -362,12 +383,12 @@
                             </Button.Resources>
                         </Button>
                         <Button Content="Anuluj" 
-                                Width="120" 
-                                Height="45" 
-                                Background="#FF5252" 
-                                Foreground="White" 
-                                FontWeight="SemiBold"
-                                Click="CloseStressJournalPopup_Click">
+                        Width="120" 
+                        Height="45" 
+                        Background="#666666" 
+                        Foreground="White" 
+                        FontWeight="SemiBold"
+                        Click="CloseStressJournalPopup_Click">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="22.5"/>
@@ -380,7 +401,7 @@
         </Popup>
         <!-- Popup Szybkiego Odstresowania -->
         <Popup x:Name="QuickRelaxPopup" IsOpen="False" Placement="Center" AllowsTransparency="True" StaysOpen="False">
-            <Border Width="450" Height="650" CornerRadius="30" Background="#2D3142" BorderBrush="#444444" BorderThickness="1">
+            <Border Width="450" Height="725" CornerRadius="30" Background="#F5F5F5" BorderBrush="#000000" BorderThickness="1">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="20" ShadowDepth="5" Direction="315" Color="#333333" Opacity="0.6"/>
                 </Border.Effect>
@@ -391,90 +412,101 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!-- Popup Title -->
                     <TextBlock Grid.Row="0" 
-                               Text="Szybkie Odstresowanie" 
-                               FontSize="24" 
-                               FontWeight="Bold" 
-                               Foreground="White" 
-                               HorizontalAlignment="Center" 
-                               Margin="0,10,0,20"/>
+                       Text="Szybkie Odstresowanie" 
+                       FontSize="24" 
+                       FontWeight="Bold" 
+                       Foreground="#000000" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,10,0,20"/>
                     <!-- Instrukcje oddychania -->
                     <TextBlock Grid.Row="1" 
-                               Text="Technika oddychania 4-7-8" 
-                               FontSize="18" 
-                               FontWeight="SemiBold" 
-                               Foreground="#29B6F6" 
-                               Margin="0,0,0,10"/>
+                       Text="Technika oddychania 4-7-8" 
+                       FontSize="18" 
+                       FontWeight="SemiBold" 
+                       Foreground="#333333" 
+                       Margin="0,0,0,10"/>
                     <StackPanel Grid.Row="2" Margin="0,0,0,20">
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                            <Ellipse Width="8" Height="8" Fill="#29B6F6" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <Ellipse Width="8" Height="8" Fill="#333333" Margin="0,0,10,0" VerticalAlignment="Center"/>
                             <TextBlock Text="Wdech przez nos licząc do 4" 
-                                       FontSize="16" 
-                                       Foreground="White" 
-                                       TextWrapping="Wrap"/>
+                               FontSize="16" 
+                               Foreground="#000000" 
+                               TextWrapping="Wrap"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                            <Ellipse Width="8" Height="8" Fill="#29B6F6" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <Ellipse Width="8" Height="8" Fill="#333333" Margin="0,0,10,0" VerticalAlignment="Center"/>
                             <TextBlock Text="Zatrzymaj oddech licząc do 7" 
-                                       FontSize="16" 
-                                       Foreground="White" 
-                                       TextWrapping="Wrap"/>
+                               FontSize="16" 
+                               Foreground="#000000" 
+                               TextWrapping="Wrap"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                            <Ellipse Width="8" Height="8" Fill="#29B6F6" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <Ellipse Width="8" Height="8" Fill="#333333" Margin="0,0,10,0" VerticalAlignment="Center"/>
                             <TextBlock Text="Wydech ustami licząc do 8" 
-                                       FontSize="16" 
-                                       Foreground="White" 
-                                       TextWrapping="Wrap"/>
+                               FontSize="16" 
+                               Foreground="#000000" 
+                               TextWrapping="Wrap"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                            <Ellipse Width="8" Height="8" Fill="#29B6F6" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <Ellipse Width="8" Height="8" Fill="#333333" Margin="0,0,10,0" VerticalAlignment="Center"/>
                             <TextBlock Text="Powtórz cykl 4 razy" 
-                                       FontSize="16" 
-                                       Foreground="White" 
-                                       TextWrapping="Wrap"/>
+                               FontSize="16" 
+                               Foreground="#000000" 
+                               TextWrapping="Wrap"/>
                         </StackPanel>
                     </StackPanel>
-                    <!-- Animacja oddychania -->
+                    <!-- Animacja oddychania - prawidłowa struktura -->
                     <Border Grid.Row="3" 
-                            Width="150" 
-                            Height="150" 
-                            CornerRadius="75" 
-                            Background="#3029B6F6" 
-                            HorizontalAlignment="Center" 
-                            Margin="0,0,0,20">
-                        <Border x:Name="BreathingCircle" 
-                                Width="100" 
-                                Height="100" 
-                                CornerRadius="50" 
-                                Background="#29B6F6" 
-                                HorizontalAlignment="Center" 
-                                VerticalAlignment="Center">
-                            <!-- Animacja oddechu -->
-                        </Border>
+                    Width="150" 
+                    Height="150" 
+                    Background="Transparent" 
+                    HorizontalAlignment="Center" 
+                    Margin="0,0,0,20">
+                        <Grid>
+                            <Ellipse Width="150" 
+                             Height="150" 
+                             Fill="#E0E0E0">
+                                <Ellipse.Effect>
+                                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="#AAAAAA" Opacity="0.5"/>
+                                </Ellipse.Effect>
+                            </Ellipse>
+                            <Ellipse x:Name="BreathingCircle" 
+                             Width="100" 
+                             Height="100" 
+                             Fill="#333333" 
+                             HorizontalAlignment="Center" 
+                             VerticalAlignment="Center">
+                                <Ellipse.Effect>
+                                    <DropShadowEffect BlurRadius="5" ShadowDepth="0" Color="#000000" Opacity="0.3"/>
+                                </Ellipse.Effect>
+                            </Ellipse>
+                        </Grid>
                     </Border>
                     <!-- Kontrola muzyki -->
                     <TextBlock Grid.Row="4" 
-           Text="Muzyka relaksacyjna" 
-           FontSize="18" 
-           FontWeight="SemiBold" 
-           Foreground="#29B6F6" 
-           Margin="0,0,0,10"/>
-                    <StackPanel Grid.Row="5">
+                       Text="Muzyka relaksacyjna" 
+                       FontSize="18" 
+                       FontWeight="SemiBold" 
+                       Foreground="#333333" 
+                       Margin="0,0,0,10"/>
+                    <!-- Kontrola muzyki - przeniesiona poza ScrollViewer -->
+                    <StackPanel Grid.Row="5" Margin="0,0,0,10">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                             <Button x:Name="PlayPauseButton" 
-                Content="▶ Odtwórz" 
-                Width="120" 
-                Height="40" 
-                Background="#29B6F6" 
-                Foreground="White" 
-                FontWeight="SemiBold" 
-                Margin="0,0,10,0"
-                Click="PlayPauseMusic_Click">
+                            Content="▶ Odtwórz" 
+                            Width="120" 
+                            Height="40" 
+                            Background="#333333" 
+                            Foreground="White" 
+                            FontWeight="SemiBold" 
+                            Margin="0,0,10,0"
+                            Click="PlayPauseMusic_Click">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="20"/>
@@ -482,12 +514,12 @@
                                 </Button.Resources>
                             </Button>
                             <Button x:Name="MuteButton" 
-                Width="120" 
-                Height="40" 
-                Background="#30FFFFFF" 
-                Foreground="White" 
-                FontWeight="SemiBold"
-                Click="MuteButton_Click">
+                            Width="120" 
+                            Height="40" 
+                            Background="#E0E0E0" 
+                            Foreground="#000000" 
+                            FontWeight="SemiBold"
+                            Click="MuteButton_Click">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="20"/>
@@ -499,65 +531,153 @@
                                 </StackPanel>
                             </Button>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                             <TextBlock Text="Głośność:" 
-                   FontSize="16" 
-                   Foreground="White" 
-                   VerticalAlignment="Center" 
-                   Margin="0,0,10,0"/>
+                               FontSize="16" 
+                               Foreground="#000000" 
+                               VerticalAlignment="Center" 
+                               Margin="0,0,10,0"/>
                             <Slider x:Name="VolumeSlider" 
-                Width="250" 
-                Minimum="0" 
-                Maximum="1" 
-                Value="0.5" 
-                Style="{StaticResource CustomSliderStyle}"
-                ValueChanged="VolumeSlider_ValueChanged"/>
+                            Width="230" 
+                            Minimum="0" 
+                            Maximum="1" 
+                            Value="1" 
+                            ValueChanged="VolumeSlider_ValueChanged">
+                                <Slider.Resources>
+                                    <Style TargetType="Slider">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Slider">
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto"/>
+                                                            <RowDefinition Height="Auto"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Track x:Name="PART_Track" Grid.Row="1">
+                                                            <Track.DecreaseRepeatButton>
+                                                                <RepeatButton Command="Slider.DecreaseLarge" Background="#333333" Height="4"/>
+                                                            </Track.DecreaseRepeatButton>
+                                                            <Track.IncreaseRepeatButton>
+                                                                <RepeatButton Command="Slider.IncreaseLarge" Background="#CCCCCC" Height="4"/>
+                                                            </Track.IncreaseRepeatButton>
+                                                            <Track.Thumb>
+                                                                <Thumb Width="16" Height="16">
+                                                                    <Thumb.Template>
+                                                                        <ControlTemplate TargetType="Thumb">
+                                                                            <Ellipse Fill="#FFFFFF" Stroke="#000000" StrokeThickness="1"/>
+                                                                        </ControlTemplate>
+                                                                    </Thumb.Template>
+                                                                </Thumb>
+                                                            </Track.Thumb>
+                                                        </Track>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Slider.Resources>
+                            </Slider>
                             <TextBlock x:Name="VolumeValue" 
-                   Text="50%" 
-                   FontSize="16" 
-                   Foreground="White" 
-                   VerticalAlignment="Center" 
-                   Margin="10,0,0,0"/>
-                        </StackPanel>
-                        <!-- Praktyczne porady -->
-                        <TextBlock Text="Dodatkowe wskazówki:" 
-                                   FontSize="16" 
-                                   FontWeight="SemiBold" 
-                                   Foreground="#29B6F6" 
-                                   Margin="0,20,0,10"/>
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                            <Ellipse Width="8" Height="8" Fill="#29B6F6" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Oddech to najpotężniejsze narzędzie do wprowadzenia ciała w stan relaksu" 
-                                       FontSize="14" 
-                                       Foreground="White" 
-                                       TextWrapping="Wrap"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                            <Ellipse Width="8" Height="8" Fill="#29B6F6" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Skoncentruj się na muzyce i zamknij oczy" 
-                                       FontSize="14" 
-                                       Foreground="White" 
-                                       TextWrapping="Wrap"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                            <Ellipse Width="8" Height="8" Fill="#29B6F6" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Napnij i rozluźnij kolejno różne partie mięśni" 
-                                       FontSize="14" 
-                                       Foreground="White" 
-                                       TextWrapping="Wrap"/>
+                               Text="100%" 
+                               FontSize="16" 
+                               Foreground="#000000" 
+                               VerticalAlignment="Center" 
+                               Margin="10,0,0,0"/>
                         </StackPanel>
                     </StackPanel>
+                    <!-- Tylko wskazówki do medytacji w ScrollViewer -->
+                    <ScrollViewer Grid.Row="6" 
+                          VerticalScrollBarVisibility="Auto" 
+                          Margin="0" 
+                          Padding="0"
+                          MaxHeight="180">
+                        <ScrollViewer.Resources>
+                            <Style TargetType="ScrollBar">
+                                <Setter Property="Background" Value="#E0E0E0"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Style.Triggers>
+                                    <Trigger Property="Orientation" Value="Vertical">
+                                        <Setter Property="Width" Value="8"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ScrollBar">
+                                                    <Grid Background="Transparent">
+                                                        <Track Name="PART_Track" IsDirectionReversed="true">
+                                                            <Track.Thumb>
+                                                                <Thumb>
+                                                                    <Thumb.Template>
+                                                                        <ControlTemplate TargetType="Thumb">
+                                                                            <Rectangle Fill="#333333" 
+                                                                               RadiusX="4" 
+                                                                               RadiusY="4"/>
+                                                                        </ControlTemplate>
+                                                                    </Thumb.Template>
+                                                                </Thumb>
+                                                            </Track.Thumb>
+                                                        </Track>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ScrollViewer.Resources>
+                        <StackPanel>
+                            <!-- Praktyczne porady -->
+                            <TextBlock Text="Dodatkowe wskazówki:" 
+                               FontSize="16" 
+                               FontWeight="SemiBold" 
+                               Foreground="#333333" 
+                               Margin="0,0,0,10"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                <Ellipse Width="8" Height="8" Fill="#333333" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Oddech to najpotężniejsze narzędzie do wprowadzenia ciała w stan relaksu" 
+                                   FontSize="14" 
+                                   Foreground="#000000" 
+                                   TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                <Ellipse Width="8" Height="8" Fill="#333333" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Skoncentruj się na muzyce i zamknij oczy" 
+                                   FontSize="14" 
+                                   Foreground="#000000" 
+                                   TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                <Ellipse Width="8" Height="8" Fill="#333333" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Napnij i rozluźnij kolejno różne partie mięśni" 
+                                   FontSize="14" 
+                                   Foreground="#000000" 
+                                   TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                <Ellipse Width="8" Height="8" Fill="#333333" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Skup się na tu i teraz, pozwól myślom przepływać bez oceniania" 
+                                   FontSize="14" 
+                                   Foreground="#000000" 
+                                   TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                <Ellipse Width="8" Height="8" Fill="#333333" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Regularne ćwiczenia oddechowe obniżają poziom stresu na co dzień" 
+                                   FontSize="14" 
+                                   Foreground="#000000" 
+                                   TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
                     <!-- Close Button -->
-                    <Button Grid.Row="6" 
-                            Content="Zamknij" 
-                            Width="120" 
-                            Height="45" 
-                            Background="#FF5252" 
-                            Foreground="White" 
-                            FontWeight="SemiBold" 
-                            HorizontalAlignment="Center" 
-                            Margin="0,15,0,0"
-                            Click="CloseQuickRelaxPopup_Click">
+                    <Button Grid.Row="7" 
+                    Content="ZAMKNIJ" 
+                    Width="120" 
+                    Height="45" 
+                    Background="#666666" 
+                    Foreground="White" 
+                    FontWeight="SemiBold" 
+                    HorizontalAlignment="Center" 
+                    Margin="0,15,0,0"
+                    Click="CloseQuickRelaxPopup_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="22.5"/>

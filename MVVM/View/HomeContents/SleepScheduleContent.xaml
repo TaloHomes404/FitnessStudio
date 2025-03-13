@@ -8,31 +8,40 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <DropShadowEffect x:Key="CardShadow" 
-                          ShadowDepth="4" 
+                          ShadowDepth="2" 
                           Direction="315" 
-                          Color="#CCCCCC" 
-                          Opacity="0.5" 
-                          BlurRadius="10"/>
+                          Color="#333333" 
+                          Opacity="0.3" 
+                          BlurRadius="5"/>
         <BlurEffect x:Key="BackgroundBlur" Radius="3"/>
         <Style x:Key="DayCircleInactive" TargetType="Border">
             <Setter Property="Width" Value="32"/>
             <Setter Property="Height" Value="32"/>
             <Setter Property="CornerRadius" Value="16"/>
-            <Setter Property="Background" Value="#303040"/>
+            <Setter Property="Background" Value="#E0E0E0"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Margin" Value="4,0"/>
         </Style>
         <Style x:Key="DayCircleActive" TargetType="Border">
             <Setter Property="Width" Value="32"/>
             <Setter Property="Height" Value="32"/>
             <Setter Property="CornerRadius" Value="16"/>
-            <Setter Property="Background" Value="#4AD1B8"/>
+            <Setter Property="Background" Value="#404040"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Margin" Value="4,0"/>
         </Style>
         <Style x:Key="DayTextStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="DayTextStyleActive" TargetType="TextBlock" BasedOn="{StaticResource DayTextStyle}">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style x:Key="DayTextStyleInactive" TargetType="TextBlock" BasedOn="{StaticResource DayTextStyle}">
+            <Setter Property="Foreground" Value="Black"/>
         </Style>
         <Style x:Key="TimeButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
@@ -43,6 +52,143 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CircleButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="64"/>
+            <Setter Property="Height" Value="64"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse Fill="White" Stroke="Black" StrokeThickness="1"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SmallCircleButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse Fill="White" Stroke="Black" StrokeThickness="1"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ModernComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="#E0E0E0"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5,3"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#D0D0D0"/>
+                    <Setter Property="Foreground" Value="#808080"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ModernToggleButtonStyle" TargetType="ToggleButton">
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="Border" 
+                                CornerRadius="11" 
+                                Background="#E0E0E0" 
+                                BorderThickness="1"
+                                BorderBrush="#404040">
+                            <Grid>
+                                <Ellipse x:Name="Dot"
+                                         Width="16"
+                                         Height="16"
+                                         Fill="#404040"
+                                         HorizontalAlignment="Left"
+                                         Margin="3,0,0,0"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#404040"/>
+                                <Setter TargetName="Dot" Property="Fill" Value="White"/>
+                                <Setter TargetName="Dot" Property="HorizontalAlignment" Value="Right"/>
+                                <Setter TargetName="Dot" Property="Margin" Value="0,0,3,0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ModernButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F0F0F0"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#D0D0D0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ModernRadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="Margin" Value="0,0,0,8"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Ellipse x:Name="OuterEllipse" 
+                                     Width="16" 
+                                     Height="16" 
+                                     Fill="White" 
+                                     Stroke="Black" 
+                                     StrokeThickness="1"/>
+                            <Ellipse x:Name="InnerEllipse" 
+                                     Width="8" 
+                                     Height="8" 
+                                     Fill="Black" 
+                                     Visibility="Collapsed"/>
+                            <ContentPresenter Grid.Column="1" 
+                                              Margin="5,0,0,0" 
+                                              VerticalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="InnerEllipse" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -60,11 +206,19 @@
             <TextBlock Text="Sleep Better, Live Better" 
                        FontSize="32" 
                        FontWeight="Bold" 
-                       Foreground="#2196F3"
+                       Foreground="Black"
                        VerticalAlignment="Center"/>
         </StackPanel>
-        <!-- Days Active Section -->
-        <Border Grid.Row="1" Width="500" Background="#1E1E30" HorizontalAlignment="Left" CornerRadius="10" Margin="20,0,20,20">
+        <!-- Days Active Section - Correctly positioned above bedtime and wakeup -->
+        <Border Grid.Row="1" 
+                Width="500" 
+                Background="#F0F0F0" 
+                BorderBrush="Black" 
+                BorderThickness="1" 
+                HorizontalAlignment="Center" 
+                CornerRadius="10" 
+                Margin="0,0,0,50" 
+                Effect="{StaticResource CardShadow}">
             <Grid Margin="15" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -73,110 +227,401 @@
                 <TextBlock Text="Days Active" 
                            FontSize="16" 
                            FontWeight="SemiBold" 
-                           Foreground="White" 
+                           Foreground="Black" 
+                           HorizontalAlignment="Center"
                            Margin="0,0,0,10"/>
-                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                     <!-- Monday -->
                     <Border Style="{StaticResource DayCircleActive}">
-                        <TextBlock Text="M" Style="{StaticResource DayTextStyle}"/>
+                        <TextBlock Text="M" Style="{StaticResource DayTextStyleActive}"/>
                     </Border>
                     <!-- Tuesday -->
                     <Border Style="{StaticResource DayCircleActive}">
-                        <TextBlock Text="T" Style="{StaticResource DayTextStyle}"/>
+                        <TextBlock Text="T" Style="{StaticResource DayTextStyleActive}"/>
                     </Border>
                     <!-- Wednesday -->
                     <Border Style="{StaticResource DayCircleActive}">
-                        <TextBlock Text="W" Style="{StaticResource DayTextStyle}"/>
+                        <TextBlock Text="W" Style="{StaticResource DayTextStyleActive}"/>
                     </Border>
                     <!-- Thursday -->
                     <Border Style="{StaticResource DayCircleActive}">
-                        <TextBlock Text="T" Style="{StaticResource DayTextStyle}"/>
+                        <TextBlock Text="T" Style="{StaticResource DayTextStyleActive}"/>
                     </Border>
                     <!-- Friday -->
                     <Border Style="{StaticResource DayCircleActive}">
-                        <TextBlock Text="F" Style="{StaticResource DayTextStyle}"/>
+                        <TextBlock Text="F" Style="{StaticResource DayTextStyleActive}"/>
                     </Border>
                     <!-- Saturday -->
                     <Border Style="{StaticResource DayCircleInactive}">
-                        <TextBlock Text="S" Style="{StaticResource DayTextStyle}"/>
+                        <TextBlock Text="S" Style="{StaticResource DayTextStyleInactive}"/>
                     </Border>
                     <!-- Sunday -->
                     <Border Style="{StaticResource DayCircleInactive}">
-                        <TextBlock Text="S" Style="{StaticResource DayTextStyle}"/>
+                        <TextBlock Text="S" Style="{StaticResource DayTextStyleInactive}"/>
                     </Border>
                 </StackPanel>
             </Grid>
         </Border>
-        <!-- Sleep Schedule Section -->
-        <Grid Grid.Row="2" Margin="20,0,20,10" HorizontalAlignment="Left">
+        <!-- Sleep Schedule Section with Correctly Positioned Bubble Menu -->
+        <Grid Grid.Row="2" Margin="0,0,0,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <!-- Bedtime Card -->
-            <Border Grid.Column="0"  Width="300"
-                    Background="#1E1E30" 
-                    CornerRadius="20" 
-                    Margin="0,0,12,0">
+            <Border Grid.Column="0" 
+                    Width="300" 
+                    Height="150"
+                    Background="#F0F0F0" 
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    CornerRadius="10" 
+                    Margin="0,0,0,0"
+                    Effect="{StaticResource CardShadow}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top">
                 <Grid Margin="20">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Bedtime" 
                                FontSize="18" 
                                FontWeight="SemiBold" 
-                               Foreground="White" 
+                               Foreground="Black" 
                                HorizontalAlignment="Center" 
                                Margin="0,0,0,10"/>
                     <Button Grid.Row="1" 
                             Style="{StaticResource TimeButtonStyle}" 
-                            HorizontalAlignment="Center">
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
                         <TextBlock Text="23:35" 
                                    FontSize="26" 
                                    FontWeight="Bold" 
-                                   Foreground="#4AD1B8"/>
+                                   Foreground="Black"/>
                     </Button>
-                   
                 </Grid>
             </Border>
             <!-- Wake Up Card -->
-            <Border Grid.Column="1" Width="300"
-                    Background="#1E1E30" 
-                    CornerRadius="20" 
-                    Margin="12,0,0,0">
+            <Border Grid.Column="2" 
+                    Width="300" 
+                    Height="150"
+                    Background="#F0F0F0" 
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Margin="0,0,0,0"
+                    Effect="{StaticResource CardShadow}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
                 <Grid Margin="20">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Wake Up Time" 
                                FontSize="18" 
                                FontWeight="SemiBold" 
-                               Foreground="White" 
+                               Foreground="Black" 
                                HorizontalAlignment="Center" 
                                Margin="0,0,0,10"/>
                     <Button Grid.Row="1" 
                             Style="{StaticResource TimeButtonStyle}" 
-                            HorizontalAlignment="Center">
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
                         <TextBlock Text="06:58" 
                                    FontSize="26" 
                                    FontWeight="Bold" 
-                                   Foreground="#FFB74D"/>
+                                   Foreground="Black"/>
                     </Button>
-                    
                 </Grid>
             </Border>
+            <!-- Center Column with Bubble Menu -->
+            <Grid Grid.Column="1" Width="130" VerticalAlignment="Top">
+                <!-- Main Center Button - positioned to overlap the cards -->
+                <Button Style="{StaticResource CircleButtonStyle}" 
+                        VerticalAlignment="Top" 
+                        HorizontalAlignment="Center" 
+                        Margin="0,75,0,0" 
+                        Panel.ZIndex="2">
+                    <Image Source="/Resources/alarm_on_icon.png" Width="48" Height="48"/>
+                </Button>
+                <!-- Small Bubble Buttons - positioned above the main button -->
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Top" 
+                            Margin="0,25,0,0" 
+                            Panel.ZIndex="1">
+                    <Button Style="{StaticResource SmallCircleButtonStyle}" 
+                            Command="{Binding ShowNotificationPopupCommand}" 
+                            Margin="0,0,5,0">
+                        <Image Source="/Resources/notification_icon.png" Width="24" Height="24"/>
+                    </Button>
+                    <Button Style="{StaticResource SmallCircleButtonStyle}" 
+                            Command="{Binding ShowHolidayPopupCommand}" 
+                            Margin="0,0,5,0">
+                        <Image Source="/Resources/holiday_icon.png" Width="24" Height="24"/>
+                    </Button>
+                    <Button Style="{StaticResource SmallCircleButtonStyle}" 
+                            Command="{Binding ShowAlarmPopupCommand}">
+                        <Image Source="/Resources/alarm_icon.png" Width="24" Height="24"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
         </Grid>
-        <!-- Sleep Duration Text -->
-        <TextBlock Grid.Row="2" 
-                   Text="6 hr 55 min" 
-                   FontSize="14" 
-                   Foreground="White" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Bottom"
-                   Margin="0,0,0,30"/>
+        <!-- Notification Popup -->
+        <Popup x:Name="NotificationPopup"
+               StaysOpen="False" 
+               IsOpen="{Binding IsNotificationPopupOpen}"
+               Width="280" 
+               Height="180"
+               Placement="Center"
+               AllowsTransparency="True">
+            <Border Background="#F0F0F0" 
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    CornerRadius="10" 
+                    Effect="{StaticResource CardShadow}">
+                <Grid Margin="15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!-- Header -->
+                    <TextBlock Grid.Row="0" 
+                               Text="Notification Settings" 
+                               FontSize="16" 
+                               FontWeight="SemiBold" 
+                               Foreground="Black"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,15"/>
+                    <!-- Email Notifications -->
+                    <Grid Grid.Row="1" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Email Notifications" 
+                                   VerticalAlignment="Center"
+                                   Foreground="Black"
+                                   FontSize="14"/>
+                        <ToggleButton Grid.Column="1" 
+                                      Style="{StaticResource ModernToggleButtonStyle}"/>
+                    </Grid>
+                    <!-- Windows Notifications -->
+                    <Grid Grid.Row="2" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Windows Notifications" 
+                                   VerticalAlignment="Center"
+                                   Foreground="Black"
+                                   FontSize="14"/>
+                        <ToggleButton Grid.Column="1" 
+                                      Style="{StaticResource ModernToggleButtonStyle}"
+                                      IsChecked="True"/>
+                    </Grid>
+                    <!-- Save Button -->
+                    <Button Grid.Row="3" 
+                            Content="Save" 
+                            Width="80" 
+                            Height="30"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            Style="{StaticResource ModernButtonStyle}"
+                            Margin="0,5,0,0"/>
+                </Grid>
+            </Border>
+        </Popup>
+        <!-- Holiday Popup - Improved size and layout -->
+        <Popup x:Name="HolidayPopup"
+               StaysOpen="False" 
+               IsOpen="{Binding IsHolidayPopupOpen}"        
+               Width="340" 
+               Height="340"
+               Placement="Center"        
+               AllowsTransparency="True">
+            <Border Background="#F0F0F0" 
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    CornerRadius="10" 
+                    Effect="{StaticResource CardShadow}">
+                <Grid Margin="15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!-- Header -->
+                    <TextBlock Grid.Row="0" 
+                               Text="Holiday Settings" 
+                               FontSize="16" 
+                               FontWeight="SemiBold" 
+                               Foreground="Black"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,15"/>
+                    <!-- Consider Holidays -->
+                    <Grid Grid.Row="1" Margin="0,0,0,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Consider holidays in schedule" 
+                                   VerticalAlignment="Center"
+                                   Foreground="Black"
+                                   FontSize="14"/>
+                        <ToggleButton Grid.Column="1" 
+                                      Style="{StaticResource ModernToggleButtonStyle}"
+                                      IsChecked="True"/>
+                    </Grid>
+                    <!-- Holiday Options -->
+                    <GroupBox Grid.Row="2" 
+                              Header="On holidays:"
+                              BorderBrush="#404040"
+                              Foreground="Black"
+                              Margin="0,0,0,15">
+                        <StackPanel Margin="10,5">
+                            <RadioButton Content="Disable sleep scheduler" 
+                                         IsChecked="True"
+                                         Style="{StaticResource ModernRadioButtonStyle}"/>
+                            <RadioButton Content="Use custom sleep schedule" 
+                                         Style="{StaticResource ModernRadioButtonStyle}"/>
+                            <Grid Margin="20,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Bedtime:" 
+                                           Grid.Row="0" 
+                                           Grid.Column="0"
+                                           Foreground="Black"
+                                           Margin="0,0,10,5"
+                                           VerticalAlignment="Center"/>
+                                <ComboBox Grid.Row="0" 
+                                          Grid.Column="1"
+                                          Width="80"
+                                          IsEnabled="False"
+                                          SelectedIndex="0"
+                                          Style="{StaticResource ModernComboBoxStyle}">
+                                    <ComboBoxItem Content="00:30"/>
+                                </ComboBox>
+                                <TextBlock Text="Wake up:" 
+                                           Grid.Row="1" 
+                                           Grid.Column="0"
+                                           Foreground="Black"
+                                           Margin="0,0,10,0"
+                                           VerticalAlignment="Center"/>
+                                <ComboBox Grid.Row="1" 
+                                          Grid.Column="1"
+                                          Width="80"
+                                          IsEnabled="False"
+                                          SelectedIndex="0"
+                                          Style="{StaticResource ModernComboBoxStyle}">
+                                    <ComboBoxItem Content="09:00"/>
+                                </ComboBox>
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+                    <!-- Custom Days Off -->
+                    <Button Grid.Row="3"
+                            Content="Add custom days off"
+                            HorizontalAlignment="Left"
+                            Style="{StaticResource ModernButtonStyle}"
+                            Margin="0,0,0,15"/>
+                    <!-- Save Button -->
+                    <Button Grid.Row="4" 
+                            Content="Save" 
+                            Width="80" 
+                            Height="30"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            Style="{StaticResource ModernButtonStyle}"/>
+                </Grid>
+            </Border>
+        </Popup>
+        <!-- Alarm Popup -->
+        <Popup x:Name="AlarmPopup"
+               StaysOpen="False" 
+               IsOpen="{Binding IsAlarmPopupOpen}"        
+               Width="300" 
+               Height="240"
+               Placement="Center"        
+               AllowsTransparency="True">
+            <Border Background="#F0F0F0" 
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    CornerRadius="10" 
+                    Effect="{StaticResource CardShadow}">
+                <Grid Margin="15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!-- Header -->
+                    <TextBlock Grid.Row="0" 
+                               Text="Alarm Settings" 
+                               FontSize="16" 
+                               FontWeight="SemiBold" 
+                               Foreground="Black"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,15"/>
+                    <!-- Notification Options -->
+                    <GroupBox Grid.Row="1" 
+                              Header="Scheduler action:"
+                              Foreground="Black"
+                              BorderBrush="#404040"
+                              Margin="0,0,0,15">
+                        <StackPanel Margin="10,5">
+                            <RadioButton Content="Notifications only" 
+                                         IsChecked="True"
+                                         Style="{StaticResource ModernRadioButtonStyle}"/>
+                            <RadioButton Content="Notifications + alarm sound" 
+                                         Style="{StaticResource ModernRadioButtonStyle}"/>
+                            <Grid Margin="20,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Sound:" 
+                                           Grid.Column="0"
+                                           Foreground="Black"
+                                           Margin="0,0,10,0"
+                                           VerticalAlignment="Center"/>
+                                <ComboBox Grid.Column="1"
+                                          IsEnabled="False"
+                                          SelectedIndex="0"
+                                          Style="{StaticResource ModernComboBoxStyle}">
+                                    <ComboBoxItem Content="Default"/>
+                                    <ComboBoxItem Content="Gentle"/>
+                                    <ComboBoxItem Content="Energetic"/>
+                                </ComboBox>
+                            </Grid>
+                            <RadioButton Content="Silent (no notifications)" 
+                                         Style="{StaticResource ModernRadioButtonStyle}"
+                                         Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <!-- Save Button -->
+                    <Button Grid.Row="2" 
+                            Content="Save" 
+                            Width="80" 
+                            Height="30"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            Style="{StaticResource ModernButtonStyle}"/>
+                </Grid>
+            </Border>
+        </Popup>
     </Grid>
 </UserControl>
