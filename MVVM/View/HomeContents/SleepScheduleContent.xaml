@@ -209,7 +209,7 @@
                        Foreground="Black"
                        VerticalAlignment="Center"/>
         </StackPanel>
-        <!-- Days Active Section - Correctly positioned above bedtime and wakeup -->
+        <!-- Days Active Section -->
         <Border Grid.Row="1" 
                 Width="500" 
                 Background="#F0F0F0" 
@@ -345,7 +345,7 @@
                         HorizontalAlignment="Center" 
                         Margin="0,75,0,0" 
                         Panel.ZIndex="2">
-                    <Image Source="/Resources/alarm_on_icon.png" Width="48" Height="48"/>
+                    <Image Source="/Resources/alarm_on_icon.png" Width="48" Height="48" Margin="0,0,3,0"/>
                 </Button>
                 <!-- Small Bubble Buttons - positioned above the main button -->
                 <StackPanel Orientation="Horizontal" 

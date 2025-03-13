@@ -26,6 +26,7 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
             ShowNotificationPopupCommand = new RelayCommand(() => IsNotificationPopupOpen = !IsNotificationPopupOpen);
             ShowHolidayPopupCommand = new RelayCommand(() => IsHolidayPopupOpen = !IsHolidayPopupOpen);
             ShowAlarmPopupCommand = new RelayCommand(() => IsAlarmPopupOpen = !IsAlarmPopupOpen);
+
         }
 
     }

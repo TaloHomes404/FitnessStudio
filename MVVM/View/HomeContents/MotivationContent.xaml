@@ -14,32 +14,84 @@
                           Opacity="0.5" 
                           BlurRadius="10"/>
         <BlurEffect x:Key="BackgroundBlur" Radius="3"/>
+        <!-- Style for mood checkboxes -->
+        <Style x:Key="MoodCheckboxStyle" TargetType="CheckBox">
+            <Setter Property="Margin" Value="5,0,5,0"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="15" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="#333333"/>
+                                <Setter Property="BorderBrush" Value="#333333"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F0F0F0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!-- Header Section -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="16,15,0,20">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="16,15,0,10">
             <Image Source="/Resources/quote_icon.png" Width="64" Height="64" Margin="0,0,15,0"/>
             <TextBlock Text="Fuel your mind &#10;  with powerful words" 
                        FontSize="32" 
                        FontWeight="Bold" 
-                       Foreground="#FF6B6B"
+                       Foreground="#333333"
                        VerticalAlignment="Center"/>
         </StackPanel>
+        <!-- Mood Selection Section -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="16,16,0,20">
+            <TextBlock Text="Today I Feel" 
+                       FontSize="18" 
+                       Foreground="#333333" 
+                       VerticalAlignment="Center"
+                       Margin="0,0,10,0"/>
+            <WrapPanel x:Name="MoodPanel" Orientation="Horizontal">
+                <CheckBox x:Name="MoodAngry" Content="angry" Style="{StaticResource MoodCheckboxStyle}" Checked="Mood_Checked" Tag="angry"/>
+                <CheckBox x:Name="MoodTired" Content="tired" Style="{StaticResource MoodCheckboxStyle}" Checked="Mood_Checked" Tag="tired"/>
+                <CheckBox x:Name="MoodSad" Content="sad" Style="{StaticResource MoodCheckboxStyle}" Checked="Mood_Checked" Tag="sad"/>
+                <CheckBox x:Name="MoodDepressed" Content="depressed" Style="{StaticResource MoodCheckboxStyle}" Checked="Mood_Checked" Tag="depressed"/>
+                <CheckBox x:Name="MoodMotivated" Content="motivated" Style="{StaticResource MoodCheckboxStyle}" Checked="Mood_Checked" Tag="motivated"/>
+                <CheckBox x:Name="MoodHappy" Content="happy" Style="{StaticResource MoodCheckboxStyle}" Checked="Mood_Checked" Tag="happy"/>
+                <CheckBox x:Name="MoodAlone" Content="alone" Style="{StaticResource MoodCheckboxStyle}" Checked="Mood_Checked" Tag="alone"/>
+            </WrapPanel>
+        </StackPanel>
         <!-- Cards Carousel Container -->
-        <Grid Grid.Row="1" HorizontalAlignment="Center" Margin="0,20,0,0">
+        <Grid Grid.Row="2" HorizontalAlignment="Left" Margin="18,20,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="320"/>
-                <ColumnDefinition Width="350"/>
-                <ColumnDefinition Width="320"/>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="240"/>
             </Grid.ColumnDefinitions>
             <!-- Left Card (Blurred) -->
             <Border x:Name="Card1" 
                     Grid.Column="0" 
-                    Height="320"
+                    Height="240"
                     Margin="0,10,10,0" 
                     Background="#4A2BAF" 
                     CornerRadius="24" 
@@ -53,9 +105,10 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!-- Quote Text -->
-                    <TextBlock Grid.Row="0" 
+                    <TextBlock Grid.Row="0"
+                              x:Name="QuoteText1"
                               Text="The only person you should try to be better than is the person you were yesterday." 
-                              FontSize="22" 
+                              FontSize="16" 
                               Foreground="White" 
                               TextWrapping="Wrap"
                               FontWeight="Medium"
@@ -63,9 +116,10 @@
                               TextAlignment="Center"
                               Margin="10,0,10,0"/>
                     <!-- Author Name -->
-                    <TextBlock Grid.Row="1" 
+                    <TextBlock Grid.Row="1"
+                              x:Name="AuthorText1"
                               Text="— Anonymous" 
-                              FontSize="16" 
+                              FontSize="12" 
                               Foreground="#E0E0E0" 
                               HorizontalAlignment="Right" 
                               Margin="0,15,10,0"
@@ -75,7 +129,7 @@
             <!-- Middle Card (Active Focus) -->
             <Border x:Name="Card2" 
                     Grid.Column="1" 
-                    Height="350"
+                    Height="260"
                     Margin="0,0,0,0" 
                     Background="White" 
                     CornerRadius="30" 
@@ -92,24 +146,26 @@
                     <!-- Decorative Element -->
                     <Path Grid.Row="0"
                           Data="M0,0 L60,0"
-                          Stroke="#FF6B6B"
+                          Stroke="#333333"
                           StrokeThickness="4"
                           HorizontalAlignment="Left"
                           Margin="0,0,0,20"
                           StrokeEndLineCap="Round"/>
                     <!-- Quote Text -->
-                    <TextBlock Grid.Row="1" 
+                    <TextBlock Grid.Row="1"
+                              x:Name="QuoteText2"
                               Text="The future belongs to those who believe in the beauty of their dreams." 
-                              FontSize="28" 
+                              FontSize="20" 
                               Foreground="#2D3142" 
                               TextWrapping="Wrap"
                               FontWeight="SemiBold"
                               VerticalAlignment="Center"
-                              LineHeight="40"/>
+                              LineHeight="28"/>
                     <!-- Author Name -->
-                    <TextBlock Grid.Row="2" 
+                    <TextBlock Grid.Row="2"
+                              x:Name="AuthorText2"
                               Text="— Eleanor Roosevelt" 
-                              FontSize="18" 
+                              FontSize="14" 
                               Foreground="#666666" 
                               HorizontalAlignment="Right" 
                               Margin="0,15,0,0"
@@ -119,7 +175,7 @@
             <!-- Right Card (Blurred) -->
             <Border x:Name="Card3" 
                     Grid.Column="2" 
-                    Height="320"
+                    Height="240"
                     Margin="10,10,0,0" 
                     Background="#FF8C42" 
                     CornerRadius="24" 
@@ -133,9 +189,10 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!-- Quote Text -->
-                    <TextBlock Grid.Row="0" 
+                    <TextBlock Grid.Row="0"
+                              x:Name="QuoteText3"
                               Text="Strength doesn't come from what you can do. It comes from overcoming the things you once thought you couldn't." 
-                              FontSize="22" 
+                              FontSize="16" 
                               Foreground="White" 
                               TextWrapping="Wrap"
                               FontWeight="Medium"
@@ -143,9 +200,10 @@
                               TextAlignment="Center"
                               Margin="10,0,10,0"/>
                     <!-- Author Name -->
-                    <TextBlock Grid.Row="1" 
+                    <TextBlock Grid.Row="1"
+                              x:Name="AuthorText3"
                               Text="— Rikki Rogers" 
-                              FontSize="16" 
+                              FontSize="12" 
                               Foreground="#EEEEEE" 
                               HorizontalAlignment="Right" 
                               Margin="0,15,10,0"
@@ -155,7 +213,7 @@
             <!-- Card 4 (Hidden) -->
             <Border x:Name="Card4" 
                     Grid.Column="2" 
-                    Height="320"
+                    Height="240"
                     Visibility="Collapsed"
                     Margin="10,10,0,0" 
                     Background="#3498DB" 
@@ -170,9 +228,10 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!-- Quote Text -->
-                    <TextBlock Grid.Row="0" 
+                    <TextBlock Grid.Row="0"
+                              x:Name="QuoteText4"
                               Text="Success is not final, failure is not fatal: It is the courage to continue that counts." 
-                              FontSize="22" 
+                              FontSize="16" 
                               Foreground="White" 
                               TextWrapping="Wrap"
                               FontWeight="Medium"
@@ -180,9 +239,10 @@
                               TextAlignment="Center"
                               Margin="10,0,10,0"/>
                     <!-- Author Name -->
-                    <TextBlock Grid.Row="1" 
+                    <TextBlock Grid.Row="1"
+                              x:Name="AuthorText4"
                               Text="— Winston Churchill" 
-                              FontSize="16" 
+                              FontSize="12" 
                               Foreground="#EEEEEE" 
                               HorizontalAlignment="Right" 
                               Margin="0,15,10,0"
@@ -192,7 +252,7 @@
             <!-- Card 5 (Hidden) -->
             <Border x:Name="Card5" 
                     Grid.Column="2" 
-                    Height="320"
+                    Height="240"
                     Visibility="Collapsed"
                     Margin="10,10,0,0" 
                     Background="#27AE60" 
@@ -207,9 +267,10 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!-- Quote Text -->
-                    <TextBlock Grid.Row="0" 
+                    <TextBlock Grid.Row="0"
+                              x:Name="QuoteText5"
                               Text="The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle." 
-                              FontSize="22" 
+                              FontSize="16" 
                               Foreground="White" 
                               TextWrapping="Wrap"
                               FontWeight="Medium"
@@ -217,9 +278,10 @@
                               TextAlignment="Center"
                               Margin="10,0,10,0"/>
                     <!-- Author Name -->
-                    <TextBlock Grid.Row="1" 
+                    <TextBlock Grid.Row="1"
+                              x:Name="AuthorText5"
                               Text="— Steve Jobs" 
-                              FontSize="16" 
+                              FontSize="12" 
                               Foreground="#EEEEEE" 
                               HorizontalAlignment="Right" 
                               Margin="0,15,10,0"
@@ -265,19 +327,6 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <!-- Indicator Dots -->
-            <StackPanel x:Name="DotsPanel"
-                        Grid.Column="1" 
-                        Orientation="Horizontal" 
-                        HorizontalAlignment="Center" 
-                        VerticalAlignment="Bottom" 
-                        Margin="0,0,0,-30">
-                <Ellipse x:Name="Dot1" Width="10" Height="10" Fill="#DDDDDD" Margin="5"/>
-                <Ellipse x:Name="Dot2" Width="10" Height="10" Fill="#FF6B6B" Margin="5"/>
-                <Ellipse x:Name="Dot3" Width="10" Height="10" Fill="#DDDDDD" Margin="5"/>
-                <Ellipse x:Name="Dot4" Width="10" Height="10" Fill="#DDDDDD" Margin="5"/>
-                <Ellipse x:Name="Dot5" Width="10" Height="10" Fill="#DDDDDD" Margin="5"/>
-            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

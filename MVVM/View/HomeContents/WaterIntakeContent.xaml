@@ -8,10 +8,10 @@
     <UserControl.Resources>
         <!-- Modern ComboBox Style -->
         <Style x:Key="ModernComboBoxStyle" TargetType="{x:Type ComboBox}">
-            <Setter Property="Background" Value="#2196F3"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="12"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -36,7 +36,7 @@
                                                     <Path Grid.Column="1" 
                                                           Width="8" 
                                                           Height="6"
-                                                          Fill="White"
+                                                          Fill="Black"
                                                           Data="M 0 0 L 4 4 L 8 0 Z"
                                                           Margin="0,0,8,0"/>
                                                 </Grid>
@@ -54,7 +54,7 @@
                                        PopupAnimation="Slide"
                                        AllowsTransparency="True">
                                     <Border Background="White"
-                                            BorderBrush="#E0E0E0"
+                                            BorderBrush="Black"
                                             BorderThickness="1"
                                             CornerRadius="8"
                                             Margin="0,4,0,0">
@@ -72,7 +72,7 @@
         <!-- Modern ComboBoxItem Style -->
         <Style x:Key="ModernComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Padding" Value="10,8"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -86,10 +86,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#F0F7FF" TargetName="Border"/>
+                                <Setter Property="Background" Value="#F0F0F0" TargetName="Border"/>
                             </Trigger>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Background" Value="#E3F2FD" TargetName="Border"/>
+                                <Setter Property="Background" Value="#E0E0E0" TargetName="Border"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -98,8 +98,9 @@
         </Style>
         <!-- Modern Button Style -->
         <Style x:Key="CircleButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#E3F2FD"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Width" Value="60"/>
             <Setter Property="Height" Value="60"/>
             <Setter Property="Template">
@@ -113,10 +114,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#BBDEFB"/>
+                                <Setter Property="Background" Value="#F0F0F0"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#90CAF9"/>
+                                <Setter Property="Background" Value="#E0E0E0"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -137,17 +138,17 @@
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="12">
                             <TextBlock Text="✕" 
-                                       Foreground="#FF5252" 
+                                       Foreground="Black" 
                                        FontWeight="Bold" 
                                        HorizontalAlignment="Center" 
                                        VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FFEBEE"/>
+                                <Setter Property="Background" Value="#F0F0F0"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#FFCDD2"/>
+                                <Setter Property="Background" Value="#E0E0E0"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -158,6 +159,8 @@
     <!-- Main Content -->
     <Grid>
         <Border Background="White" 
+                BorderBrush="Black"
+                BorderThickness="1"
                 CornerRadius="20" 
                 Margin="20" 
                 Padding="24">
@@ -178,7 +181,7 @@
                     <TextBlock Text="Keep Up with Your Hydration Goals" 
                                FontSize="28" 
                                FontWeight="SemiBold" 
-                               Foreground="#2196F3"
+                               Foreground="Black"
                                VerticalAlignment="Center"/>
                 </StackPanel>
                 <!-- Main Content Area -->
@@ -191,7 +194,7 @@
                     <StackPanel Grid.Column="0" 
                                 Orientation="Vertical" 
                                 VerticalAlignment="Center" 
-                                HorizontalAlignment="Center">
+                                HorizontalAlignment="Left" Margin="16,0,0,0">
                         <!-- Water Intake Controls -->
                         <StackPanel Orientation="Horizontal" 
                                     HorizontalAlignment="Center" 
@@ -209,28 +212,28 @@
                                     Height="220" 
                                     CornerRadius="110"
                                     Background="Transparent"
-                                    BorderBrush="#2196F3" 
+                                    BorderBrush="Black" 
                                     BorderThickness="6">
                                 <Grid>
                                     <ProgressBar Value="{Binding HydrationProgress}" 
                                                  Maximum="1" 
                                                  Style="{DynamicResource CircularProgressBar}"
-                                                 Foreground="#2196F3" 
+                                                 Foreground="Black" 
                                                  Background="Transparent"
                                                  BorderThickness="0"/>
                                     <StackPanel VerticalAlignment="Center" 
                                                 HorizontalAlignment="Center">
                                         <TextBlock Text="{Binding CurrentIntake}" 
-                                                   Foreground="#2196F3" 
+                                                   Foreground="Black" 
                                                    FontSize="40"
                                                    FontWeight="Bold" 
                                                    HorizontalAlignment="Center"/>
                                         <TextBlock Text="ml" 
-                                                   Foreground="#2196F3" 
+                                                   Foreground="Black" 
                                                    FontSize="20"
                                                    HorizontalAlignment="Center"/>
                                         <TextBlock Text="{Binding MaxIntakeDisplay}" 
-                                                   Foreground="#78909C" 
+                                                   Foreground="#555555" 
                                                    FontSize="14"
                                                    Margin="0,8,0,0"
                                                    HorizontalAlignment="Center"/>
@@ -263,20 +266,21 @@
                                                Margin="0,0,12,0"/>
                                         <TextBlock Text="{Binding DisplayText}" 
                                                    FontSize="14" 
-                                                   Foreground="#333333" 
+                                                   Foreground="Black" 
                                                    VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
+                        
                     </StackPanel>
                     <!-- Right Side - Hydration History -->
                     <Border Grid.Column="1" 
-                            BorderBrush="#E0E0E0" 
-                            BorderThickness="1" 
-                            CornerRadius="12" 
-                            Background="#FAFAFA"
-                            Margin="20,0,0,0">
+        BorderBrush="Black" 
+        BorderThickness="1" 
+        CornerRadius="12" 
+        Background="White"
+        Margin="20,0,0,0">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -284,26 +288,26 @@
                             </Grid.RowDefinitions>
                             <!-- History Header -->
                             <Border Grid.Row="0" 
-                                    Background="#2196F3" 
-                                    CornerRadius="12,12,0,0">
+                Background="Black" 
+                CornerRadius="12,12,0,0">
                                 <TextBlock Text="Hydration History" 
-                                           FontSize="16" 
-                                           FontWeight="SemiBold" 
-                                           Foreground="White"
-                                           HorizontalAlignment="Center" 
-                                           Padding="16,12"/>
+                       FontSize="16" 
+                       FontWeight="SemiBold" 
+                       Foreground="White"
+                       HorizontalAlignment="Center" 
+                       Padding="16,12"/>
                             </Border>
                             <!-- History List -->
                             <ScrollViewer Grid.Row="1" 
-                                          VerticalScrollBarVisibility="Auto" 
-                                          Padding="8">
+                      VerticalScrollBarVisibility="Auto" 
+                      Padding="8">
                                 <ItemsControl ItemsSource="{Binding HydrationHistory}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <Border BorderBrush="#E0E0E0" 
-                                                    BorderThickness="0,0,0,1" 
-                                                    Margin="4,4,4,0"
-                                                    Padding="8,12">
+                                            <Border BorderBrush="#CCCCCC" 
+                                BorderThickness="0,0,0,1" 
+                                Margin="4,4,4,0"
+                                Padding="8,12">
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"/>
@@ -313,38 +317,40 @@
                                                     </Grid.ColumnDefinitions>
                                                     <!-- Icon -->
                                                     <Border Grid.Column="0" 
-                                                            Background="#E3F2FD" 
-                                                            CornerRadius="20" 
-                                                            Width="40" 
-                                                            Height="40">
+                                        Background="#F0F0F0" 
+                                        BorderBrush="Black"
+                                        BorderThickness="1"
+                                        CornerRadius="20" 
+                                        Width="40" 
+                                        Height="40">
                                                         <Image Source="{Binding IconPath}" 
-                                                               Width="24" 
-                                                               Height="24"/>
+                                           Width="24" 
+                                           Height="24"/>
                                                     </Border>
                                                     <!-- Timestamp -->
                                                     <StackPanel Grid.Column="1" 
-                                                                Margin="12,0,0,0">
+                                            Margin="12,0,0,0">
                                                         <TextBlock Text="{Binding FormattedTime}" 
-                                                                   FontWeight="SemiBold" 
-                                                                   Foreground="#333333"/>
+                                               FontWeight="SemiBold" 
+                                               Foreground="Black"/>
                                                         <TextBlock Text="{Binding FormattedDate}" 
-                                                                   Foreground="#757575" 
-                                                                   FontSize="11"/>
+                                               Foreground="#555555" 
+                                               FontSize="11"/>
                                                     </StackPanel>
                                                     <!-- Amount -->
                                                     <TextBlock Grid.Column="2" 
-                                                               Text="{Binding Amount, StringFormat={}{0} ml}" 
-                                                               FontWeight="SemiBold" 
-                                                               Foreground="#2196F3"
-                                                               VerticalAlignment="Center"
-                                                               Margin="0,0,8,0"/>
+                                           Text="{Binding Amount, StringFormat={}{0} ml}" 
+                                           FontWeight="SemiBold" 
+                                           Foreground="Black"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,8,0"/>
                                                     <!-- Delete Button -->
                                                     <Button Grid.Column="3" 
-                                                            Style="{StaticResource DeleteButtonStyle}"
-                                                            Command="{Binding DataContext.RemoveHydrationEntryCommand, 
-                                                                      RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                            CommandParameter="{Binding Id}"
-                                                            VerticalAlignment="Center"/>
+                                        Style="{StaticResource DeleteButtonStyle}"
+                                        Command="{Binding DataContext.RemoveHydrationEntryCommand, 
+                                                  RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding Id}"
+                                        VerticalAlignment="Center"/>
                                                 </Grid>
                                             </Border>
                                         </DataTemplate>
@@ -353,6 +359,7 @@
                             </ScrollViewer>
                         </Grid>
                     </Border>
+                    
                 </Grid>
             </Grid>
         </Border>

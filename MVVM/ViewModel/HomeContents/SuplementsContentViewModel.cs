@@ -11,6 +11,7 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
         private ObservableCollection<Supplement> _searchResults;
         private ObservableCollection<Supplement> _userSupplements;
         private string _searchText;
+        private Supplement _selectedSupplement;
 
         //Right Sidebar items declaration list for supplements screen
         public ObservableCollection<HomeViewModel.RightSidebarItem> RightSidebarItems { get; }
@@ -24,6 +25,22 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
         public bool IsFriday { get; set; } = false;
         public bool IsSaturday { get; set; } = false;
         public bool IsSunday { get; set; } = false;
+
+        // Dla tabitems w głównym ekranie
+        private string _selectedDay;
+        public string SelectedDay
+        {
+            get { return _selectedDay; }
+            set
+            {
+                if (_selectedDay != value)
+                {
+                    _selectedDay = value;
+                    OnPropertyChanged(nameof(SelectedDay));
+                    FilterSupplementsByDay();
+                }
+            }
+        }
 
         public string SearchText
         {
@@ -56,6 +73,16 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
             {
                 _userSupplements = value;
                 OnPropertyChanged(nameof(UserSupplements));
+            }
+        }
+
+        public Supplement SelectedSupplement
+        {
+            get { return _selectedSupplement; }
+            set
+            {
+                _selectedSupplement = value;
+                OnPropertyChanged(nameof(SelectedSupplement));
             }
         }
 
@@ -115,6 +142,29 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
             SearchResults = new ObservableCollection<Supplement>(filteredList);
         }
 
+        private void FilterSupplementsByDay()
+        {
+            if (string.IsNullOrEmpty(SelectedDay))
+            {
+                UserSupplements = new ObservableCollection<Supplement>(_allSupplements);
+                return;
+            }
+
+            var filteredList = _userSupplements
+                .Where(s => s.IsEveryday ||
+                           (SelectedDay == "Mon" && s.IsMonday) ||
+                           (SelectedDay == "Tue" && s.IsTuesday) ||
+                           (SelectedDay == "Wed" && s.IsWednesday) ||
+                           (SelectedDay == "Thu" && s.IsThursday) ||
+                           (SelectedDay == "Fri" && s.IsFriday) ||
+                           (SelectedDay == "Sat" && s.IsSaturday) ||
+                           (SelectedDay == "Sun" && s.IsSunday))
+                .ToList();
+
+            UserSupplements = new ObservableCollection<Supplement>(filteredList);
+        }
+
+
         public void AddSupplement(Supplement supplement)
         {
             // Sprawdzamy czy suplement jest już na liście użytkownika
@@ -125,6 +175,14 @@ namespace FitnessStudio.MVVM.ViewModel.HomeContents
             else
             {
                 MessageBox.Show("This supplement is already in your list!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        public void DeleteSupplement(Supplement supplement)
+        {
+            if (UserSupplements.Contains(supplement))
+            {
+                UserSupplements.Remove(supplement);
             }
         }
 
